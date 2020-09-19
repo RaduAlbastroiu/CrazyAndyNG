@@ -1,9 +1,9 @@
 // setup environment variables
 require('dotenv').config();
-//const connectDB = require('./db');
+const connectDB = require('./db');
 
 // load database
-//connectDB();
+connectDB();
 
 // spin up server
 const app = require('./app');
