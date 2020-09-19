@@ -6,7 +6,7 @@ require('dotenv').config();
 //connectDB();
 
 // spin up server
-//const app = require('./backend/app');
-//app.listen(process.env.PORT, () => {
-//  console.log(`listening on ${process.env.PORT}`);
-//});
+const app = require('./app');
+app.listen(process.env.PORT, () => {
+  console.log(`listening on ${process.env.PORT}`);
+});
