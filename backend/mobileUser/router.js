@@ -26,4 +26,25 @@ mobileUserRouter.post(
   }
 );
 
+mobileUserRouter.put(
+  '/mobile/:_id',
+  [check('name', 'Please provide name').not().isEmpty()],
+  validate,
+  async (req, res) => {
+    try {
+      const updated = await mobileUserController.update(
+        req.params._id,
+        req.body
+      );
+      return res.status(200).json({ success: 'Update succesfully', updated });
+    } catch (err) {
+      if (err === 'not found')
+        return res.status(404).send({ err: 'User not found' });
+
+      console.error(err);
+      return res.status(500).send('Internal Server Error');
+    }
+  }
+);
+
 module.exports = mobileUserRouter;
