@@ -19,6 +19,11 @@ userRouter.post(
   validate,
   async (req, res) => {
     try {
+      const token = await userController.login(req.body);
+      if (token) {
+        return res.status(200).json({ token });
+      }
+      throw 'passwordmismatch';
     } catch (err) {
       if (err === 'password mismatch' || err === 'not found') {
         return res
