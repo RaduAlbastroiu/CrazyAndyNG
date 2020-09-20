@@ -4,14 +4,14 @@ import React from 'react';
 const WelcomeScreen = () => {
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerImage}>
       <Image source={welcomeImage} style={styles.image} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  containerImage: {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

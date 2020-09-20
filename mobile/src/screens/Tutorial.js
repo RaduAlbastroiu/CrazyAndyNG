@@ -1,22 +1,23 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
-import AboutUs from './AboutUs';
-import FAQ from './FAQ';
-import PrivacyPolicy from './PrivacyPolicy';
-import TermsAndConditions from './TermsAndConditions';
+import {View, Text} from 'react-native';
 
 const Tutorial = () => {
-  return (
-    <View>
-      <Text> Go to Tutorial Screen</Text>
-
-
-      <AboutUs />
-       <FAQ />
-      <PrivacyPolicy />
-      <TermsAndConditions />  
-    </View>
-  );
-};
-
+  return(
+ <View>
+   <Text>Tutorial</Text>
+ </View>
+  )
+}
 export default Tutorial;
+ {/* <TouchableOpacity onPress={getData} style={styles.appButtonContainer}>
+      <Text style={styles.appButtonText}>Get Value</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={removeData} style={styles.appButtonContainer}>
+      <Text style={styles.appButtonText}>Remove Value</Text>
+    </TouchableOpacity> */}
+
+  //   const [value, setTutorial] =useState('')
+  // const setTutorials =() =>{
+  //   setTutorial: ({value:false})
+    
+    
