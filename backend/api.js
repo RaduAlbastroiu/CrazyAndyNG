@@ -9,4 +9,7 @@ mainRouter.use('/user', authRoutes);
 const mobileAuthRoutes = require('./mobileUser/router');
 mainRouter.use('/user', mobileAuthRoutes);
 
+const productRoutes = require('./product/router');
+mainRouter.use('/product', productRoutes);
+
 module.exports = mainRouter;
