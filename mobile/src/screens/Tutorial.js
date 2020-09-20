@@ -8,10 +8,13 @@ import TermsAndConditions from './TermsAndConditions';
 const Tutorial = () => {
   return (
     <View>
+      <Text> Go to Tutorial Screen</Text>
+
+
       <AboutUs />
-      <FAQ />
+       <FAQ />
       <PrivacyPolicy />
-      <TermsAndConditions />
+      <TermsAndConditions />  
     </View>
   );
 };

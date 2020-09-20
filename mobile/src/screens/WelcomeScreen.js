@@ -1,25 +1,25 @@
-import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 import welcomeImage from '../assets/welcome_logo.png';
-import Tutorial from './Tutorial';
-
-
+import React from 'react';
 const WelcomeScreen = () => {
-    return (
-      <View>
-        <Text>Welcome Screen</Text>
-        <Image source={welcomeImage} style={styles.image}/>
-      </View>
-    );
-  };
 
+  return (
+    <View style={styles.container}>
+      <Image source={welcomeImage} style={styles.image} />
+    </View>
+  );
+};
 
-  const styles = StyleSheet.create({
-    image: {
-      height: 200,
-      width: 300,
-      marginTop:100,
-      marginBottom:10
-    },
-  });
-  export default WelcomeScreen;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  image: {
+    width: 320,
+    height: 300,
+  },
+});
+export default WelcomeScreen;
