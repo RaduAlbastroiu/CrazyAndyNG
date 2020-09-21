@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Tutorial from './Tutorial';
 import WelcomeScreen from './WelcomeScreen';
 import AsyncStorage from '@react-native-community/async-storage';
-import { set } from 'react-native-reanimated';
 
 const Home = ({navigation}) => {
   const [loaded, setLoaded] = useState('');
-    const [showTutorial, setShowTutorial] = useState(true);
+  const [showTutorial, setShowTutorial] = useState(true);
   //give item
   const setData = async (value) => {
     try {
@@ -40,7 +38,7 @@ const Home = ({navigation}) => {
 
   const onPressTutorial = async () => {
     await setData();
-    setShowTutorial({showTutorial:false});
+    setShowTutorial({showTutorial: false});
     navigation.navigate('Tutorial');
   };
 
@@ -49,25 +47,24 @@ const Home = ({navigation}) => {
   };
 
   const renderTutorial = () => {
-      return (
-        <TouchableOpacity
-          onPress={onPressTutorial}
-          style={styles.appButtonContainer}>
-          <Text style={styles.appButtonText}>Start Tutorial</Text>
-        </TouchableOpacity>
-      );
+    return (
+      <TouchableOpacity
+        onPress={onPressTutorial}
+        style={styles.appButtonContainer}>
+        <Text style={styles.appButtonText}>Start Tutorial</Text>
+      </TouchableOpacity>
+    );
   };
 
   //set the loading screen
   useEffect(() => {
-     //removeData();
-     if(isFirstLoad()) {
-         console.log("da");
-        setShowTutorial(true);
-     }
-     else{
-        setShowTutorial(false);
-     }
+     removeData();
+    if (isFirstLoad()) {
+      console.log('da');
+      setShowTutorial(true);
+    } else {
+      setShowTutorial(false);
+    }
 
     const timer = setTimeout(() => {
       setLoaded({loaded: true});
@@ -78,12 +75,7 @@ const Home = ({navigation}) => {
   return (
     <View>
       {loaded ? <Text>Working on Home Screen</Text> : <WelcomeScreen />}
-
-      {showTutorial === true ? renderTutorial() :<Text>pla</Text> }
-
-      <TouchableOpacity onPress={removeData} style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Remove Value</Text>
-      </TouchableOpacity>
+      {showTutorial === true ? renderTutorial() : <Text>pla</Text>}
     </View>
   );
 };

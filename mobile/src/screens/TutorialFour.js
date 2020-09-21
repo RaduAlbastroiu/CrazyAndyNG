@@ -1,19 +1,21 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import TutorialFirst from '../assets/tutorialFirst.png';
-const Tutorial = ({navigation}) => {
+import TutorialFourth from '../assets/tutorialFourth.png';
+
+const TutorialFour = ({navigation}) => {
   return (
     <View>
-      <Image source={TutorialFirst} style={styles.image} />
+      <Image source={TutorialFourth} style={styles.image} />
+
       <TouchableOpacity
-        onPress={() => navigation.navigate('TutorialTwo')}
+        onPress={() => navigation.navigate('Home')}
         style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Next</Text>
+        <Text style={styles.appButtonText}>Finish</Text>
       </TouchableOpacity>
     </View>
   );
 };
-export default Tutorial;
+export default TutorialFour;
 
 const styles = StyleSheet.create({
   appButtonContainer: {
@@ -26,7 +28,6 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
   },
-
   image: {
     marginTop: 15,
     alignSelf: 'center',

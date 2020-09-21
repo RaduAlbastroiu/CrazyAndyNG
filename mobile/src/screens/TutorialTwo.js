@@ -1,19 +1,21 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import TutorialFirst from '../assets/tutorialFirst.png';
-const Tutorial = ({navigation}) => {
+import TutorialSecond from '../assets/tutorialSecond.png';
+
+const TutorialTwo = ({navigation}) => {
   return (
     <View>
-      <Image source={TutorialFirst} style={styles.image} />
+      <Image source={TutorialSecond} style={styles.image} />
+
       <TouchableOpacity
-        onPress={() => navigation.navigate('TutorialTwo')}
+        onPress={() => navigation.navigate('TutorialThree')}
         style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>Next</Text>
       </TouchableOpacity>
     </View>
   );
 };
-export default Tutorial;
+export default TutorialTwo;
 
 const styles = StyleSheet.create({
   appButtonContainer: {
