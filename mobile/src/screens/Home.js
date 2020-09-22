@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
   },
+
   appButtonText: {
     fontSize: 18,
     color: '#fff',

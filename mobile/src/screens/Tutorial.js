@@ -1,12 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import TutorialFirst from '../assets/tutorialFirst.png';
+import TutorialSecond from '../assets/tutorialSecond.png';
+import TutorialThird from '../assets/tutorialThird.png';
+import TutorialFourth from '../assets/tutorialFourth.png';
+const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
+
 const Tutorial = ({navigation}) => {
+  const [tutorialNo, setTutorialNo] = useState({index:0, img:arr[0]});
+
+  const onNext= () =>{
+    if(tutorialNo.index===3){console.log('finished tutorial');
+    
+    }else{
+      setTutorialNo({index:tutorialNo.index +1, img:arr[tutorialNo.index +1]})
+    }
+  }
+
+  useEffect(() => {
+    setTutorialNo({index:0, img:arr[0]})
+  }, []);
+
   return (
     <View>
-      <Image source={TutorialFirst} style={styles.image} />
+      <Image source={tutorialNo.img} style={styles.image} />
       <TouchableOpacity
-        onPress={() => navigation.navigate('TutorialTwo')}
+        onPress={onNext}
         style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>Next</Text>
       </TouchableOpacity>

@@ -2,7 +2,6 @@ import {View, Image, Text, StyleSheet} from 'react-native';
 import welcomeImage from '../assets/welcome_logo.png';
 import React from 'react';
 const WelcomeScreen = () => {
-
   return (
     <View style={styles.containerImage}>
       <Image source={welcomeImage} style={styles.image} />

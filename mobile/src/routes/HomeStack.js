@@ -1,37 +1,26 @@
 import Home from '../screens/Home';
 import {createStackNavigator} from 'react-navigation-stack';
 import Tutorial from '../screens/Tutorial';
-import TutorialTwo from '../screens/TutorialTwo';
-import TutorialThree from '../screens/TutorialThree';
-import TutorialFour from '../screens/TutorialFour';
+import Header from '../shared/Header';
+import React from 'react';
 
 const screens = {
   Home: {
     screen: Home,
+    navigationOptions: {headerTitle: () => <Header />},
   },
   Tutorial: {
     screen: Tutorial,
   },
-  TutorialTwo: {
-    screen: TutorialTwo,
-    navigationOptions: {
-      title: 'Tutorial',
-    },
-  },
-  TutorialThree: {
-    screen: TutorialThree,
-    navigationOptions: {
-      title: 'Tutorial',
-    },
-  },
-  TutorialFour: {
-    screen: TutorialFour,
-    navigationOptions: {
-      title: 'Tutorial',
-    },
-  },
+
+  
 };
 
-const HomeStack = createStackNavigator(screens);
+const HomeStack = createStackNavigator(screens, {
+  defaultNavigationOptions: {
+    headerTintColor: '#444',
+    headerStyle: {backgroundColor: '#eee', height: 60},
+  },
+});
 
 export default HomeStack;
