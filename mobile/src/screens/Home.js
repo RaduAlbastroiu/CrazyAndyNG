@@ -10,6 +10,7 @@ const Home = ({navigation}) => {
   //give item
   const setData = async (value) => {
     try {
+      setShowTutorial(false);
       await AsyncStorage.setItem('key', '27');
       console.log('data set');
     } catch (e) {}
@@ -19,14 +20,15 @@ const Home = ({navigation}) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('key');
+console.log('read value')
 
       if (value !== null) {
-        console.log(value);
-
-        return true;
+console.log('value found')
+setShowTutorial(false);
+        return;
         // value previously stored
       }
-      return false;
+      setShowTutorial(true);
     } catch (e) {}
   };
 
@@ -43,9 +45,6 @@ const Home = ({navigation}) => {
     navigation.navigate('Tutorial');
   };
 
-  const isFirstLoad = async () => {
-    return await getData();
-  };
 
   const renderTutorial = () => {
     return (
@@ -59,13 +58,8 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-    //  removeData();
-    if (isFirstLoad()) {
-      console.log('da');
-      setShowTutorial(true);
-    } else {
-      setShowTutorial(false);
-    }
+  //  removeData();
+    getData();
 
     const timer = setTimeout(() => {
       setLoaded({loaded: true});

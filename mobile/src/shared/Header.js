@@ -2,15 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import burger from '../assets/burger.jpg';
 
-export default function Header() {
-  const openMenu = () =>{
-//   navigation.openDrawer()
-
-  }
+export default function Header({navigation}) {
+  const openMenu = () => {
+    navigation.openDrawer();
+  };
 
   return (
     <View style={styles.header}>
-      <Image source={burger} style={styles.icon} onPress={openMenu}/>
+      <Image source={burger} style={styles.icon} onPress={openMenu} />
       <View>
         <Text style={styles.headerText}>Crazy2e</Text>
       </View>
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 100,
     position: 'absolute',
-    left:0
+    left: 0,
   },
   headerText: {
     fontWeight: 'bold',
