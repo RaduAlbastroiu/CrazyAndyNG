@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Home = ({navigation}) => {
   const [loaded, setLoaded] = useState('');
   const [showTutorial, setShowTutorial] = useState(true);
+
   //give item
   const setData = async (value) => {
     try {
@@ -58,7 +59,7 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-     removeData();
+    //  removeData();
     if (isFirstLoad()) {
       console.log('da');
       setShowTutorial(true);
