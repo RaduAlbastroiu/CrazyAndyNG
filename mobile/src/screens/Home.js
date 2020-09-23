@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import WelcomeScreen from './WelcomeScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = ({navigation}) => {
-  const [loaded, setLoaded] = useState('');
   const [showTutorial, setShowTutorial] = useState(true);
 
   //give item
@@ -60,15 +58,11 @@ const Home = ({navigation}) => {
     //  removeData();
     getData();
 
-    const timer = setTimeout(() => {
-      setLoaded({loaded: true});
-    }, 1500);
-    return () => clearTimeout(timer);
+  
   }, []);
 
   return (
     <View>
-      {loaded ? <Text>Working on Home Screen</Text> : <WelcomeScreen />}
       {showTutorial === true ? renderTutorial() : <Text>pla</Text>}
     </View>
   );
