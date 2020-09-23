@@ -20,11 +20,11 @@ const Home = ({navigation}) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('key');
-console.log('read value')
+      console.log('read value');
 
       if (value !== null) {
-console.log('value found')
-setShowTutorial(false);
+        console.log('value found');
+        setShowTutorial(false);
         return;
         // value previously stored
       }
@@ -45,7 +45,6 @@ setShowTutorial(false);
     navigation.navigate('Tutorial');
   };
 
-
   const renderTutorial = () => {
     return (
       <TouchableOpacity
@@ -58,7 +57,7 @@ setShowTutorial(false);
 
   //set the loading screen
   useEffect(() => {
-  //  removeData();
+    //  removeData();
     getData();
 
     const timer = setTimeout(() => {

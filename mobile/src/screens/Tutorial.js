@@ -30,13 +30,13 @@ const Tutorial = ({navigation}) => {
   renderNext = () => {
     if (tutorialNo.index < 3) {
       return (
-        <TouchableOpacity onPress={onNext} style={styles.appButtonContainer}>
+        <TouchableOpacity onPress={onNext} style={styles.buttons}>
           <Text style={styles.appButtonText}>Next</Text>
         </TouchableOpacity>
       );
     } else {
       return (
-        <TouchableOpacity onPress={onDone} style={styles.appButtonContainer}>
+        <TouchableOpacity onPress={onDone} style={styles.buttons}>
           <Text style={styles.appButtonText}>Done</Text>
         </TouchableOpacity>
       );
@@ -46,10 +46,8 @@ const Tutorial = ({navigation}) => {
   renderPrevious = () => {
     if (tutorialNo.index !== 0) {
       return (
-        <TouchableOpacity
-          onPress={onPrevious}
-          style={styles.appButtonContainer}>
-          <Text style={styles.appButtonText}>Previous</Text>
+        <TouchableOpacity onPress={onPrevious} style={styles.buttons}>
+          <Text style={styles.appButtonText}>Back</Text>
         </TouchableOpacity>
       );
     }
@@ -62,7 +60,7 @@ const Tutorial = ({navigation}) => {
   return (
     <View>
       <Image source={tutorialNo.img} style={styles.image} />
-      <View>
+      <View style={styles.buttonsContainer}>
         {renderNext()}
         {renderPrevious()}
       </View>
@@ -72,7 +70,11 @@ const Tutorial = ({navigation}) => {
 export default Tutorial;
 
 const styles = StyleSheet.create({
-  appButtonContainer: {
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginLeft: 30,
+  },
+  buttons: {
     elevation: 8,
     backgroundColor: '#009688',
     borderRadius: 10,
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignSelf: 'center',
     width: 300,
-    height: 200,
+    height: 450,
   },
   appButtonText: {
     fontSize: 18,
