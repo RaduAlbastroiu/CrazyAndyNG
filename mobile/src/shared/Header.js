@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import burger from '../assets/burger.jpg';
+
 
 export default function Header({navigation}) {
   const openMenu = () => {
@@ -9,7 +9,6 @@ export default function Header({navigation}) {
 
   return (
     <View style={styles.header}>
-      <Image source={burger} style={styles.icon} onPress={openMenu} />
       <View>
         <Text style={styles.headerText}>Crazy2e</Text>
       </View>

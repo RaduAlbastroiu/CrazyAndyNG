@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+
+
 
 const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(true);
@@ -55,20 +57,29 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-    //  removeData();
+    // removeData();
     getData();
-
-  
   }, []);
 
   return (
-    <View>
-      {showTutorial === true ? renderTutorial() : <Text>pla</Text>}
+    
+    <View style={styles.mainContainer}>
+      <View>{showTutorial === true ? renderTutorial() : <></>}</View>
+
+      <View style={styles.actionButton}>
+      </View>
     </View>
+   
   );
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+  },
   appButtonContainer: {
     elevation: 8,
     backgroundColor: '#009688',

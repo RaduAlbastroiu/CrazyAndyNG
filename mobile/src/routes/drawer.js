@@ -6,6 +6,7 @@ import FAQ from '../screens/FAQ';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import TermsAndConditions from '../screens/TermsAndConditions';
 
+
 const RootDrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeStack,
