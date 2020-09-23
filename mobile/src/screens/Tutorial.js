@@ -27,27 +27,26 @@ const Tutorial = ({navigation}) => {
     });
   };
 
+  renderPrevious = () => {
+    if (tutorialNo.index !== 0) {
+      return (
+        <TouchableOpacity onPress={onPrevious} style={styles.buttonBack}>
+          <Text style={styles.appButtonText}>Back</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
   renderNext = () => {
     if (tutorialNo.index < 3) {
       return (
-        <TouchableOpacity onPress={onNext} style={styles.buttons}>
+        <TouchableOpacity onPress={onNext} style={styles.buttonNext}>
           <Text style={styles.appButtonText}>Next</Text>
         </TouchableOpacity>
       );
     } else {
       return (
-        <TouchableOpacity onPress={onDone} style={styles.buttons}>
+        <TouchableOpacity onPress={onDone} style={styles.buttonNext}>
           <Text style={styles.appButtonText}>Done</Text>
-        </TouchableOpacity>
-      );
-    }
-  };
-
-  renderPrevious = () => {
-    if (tutorialNo.index !== 0) {
-      return (
-        <TouchableOpacity onPress={onPrevious} style={styles.buttons}>
-          <Text style={styles.appButtonText}>Back</Text>
         </TouchableOpacity>
       );
     }
@@ -61,8 +60,8 @@ const Tutorial = ({navigation}) => {
     <View>
       <Image source={tutorialNo.img} style={styles.image} />
       <View style={styles.buttonsContainer}>
-        {renderNext()}
         {renderPrevious()}
+        {renderNext()}
       </View>
     </View>
   );
@@ -72,24 +71,34 @@ export default Tutorial;
 const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
-    marginLeft: 30,
+    marginLeft:50
   },
-  buttons: {
+  buttonNext: {
     elevation: 8,
     backgroundColor: '#009688',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,
     marginTop: 25,
-    marginLeft: 50,
-    marginRight: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    width: 150,
+  },
+  buttonBack: {
+    elevation: 8,
+    backgroundColor: '#009688',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginTop: 25,
+    width: 150,
   },
 
   image: {
     marginTop: 15,
     alignSelf: 'center',
     width: 300,
-    height: 450,
+    height: 480,
   },
   appButtonText: {
     fontSize: 18,
