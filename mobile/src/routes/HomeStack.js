@@ -1,8 +1,13 @@
 import Home from '../screens/Home';
 import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
 import Tutorial from '../screens/Tutorial';
 import Header from '../shared/Header';
 import React from 'react';
+import More from '../screens/More';
+import FAQ from '../screens/FAQ';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
+import TermsAndConditions from '../screens/TermsAndConditions';
 
 const screens = {
   Home: {
@@ -15,6 +20,12 @@ const screens = {
   Tutorial: {
     screen: Tutorial,
   },
+  More: {
+    screen: More,
+    navigationOptions: {
+      title: 'More',
+    },
+  }
 };
 
 const HomeStack = createStackNavigator(screens, {
@@ -24,4 +35,4 @@ const HomeStack = createStackNavigator(screens, {
   },
 });
 
-export default HomeStack;
+export default createAppContainer(HomeStack)

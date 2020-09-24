@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigator from './src/routes/drawer.js';
+import Navigator from './src/routes/MainNavigation';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react'
 import {  YellowBox } from 'react-native';
