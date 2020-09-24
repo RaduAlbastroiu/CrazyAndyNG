@@ -15,21 +15,18 @@ import plus from '../assets/plus.png';
 
 const FloatingButton = (props) => {
 
-  animation = new Animated.Value(0);
+  let open = false;
+  const animation = new Animated.Value(0);
 
   const toggleMenu = () => {
-    const toValue = this.open ? 0 : 1;
+    const toValue = open ? 0 : 1;
     Animated.spring(animation, {
       toValue,
       friction: 6,
     }).start();
-     this.open = !this.open;
+     open = !open;
 
   };
-
-
-
-  // const {navigation} = props;
 
   const moreStyle = {
     transform: [
