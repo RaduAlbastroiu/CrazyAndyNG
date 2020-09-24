@@ -2,9 +2,9 @@ import React from 'react';
 import Navigator from './src/routes/drawer.js';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react'
-import { LogBox } from 'react-native';
+import {  YellowBox } from 'react-native';
 
-LogBox.ignoreWarnings([
+YellowBox.ignoreWarnings([
   'Animated: `useNativeDriver` was not specified.',
 ]);
 export default function App() {

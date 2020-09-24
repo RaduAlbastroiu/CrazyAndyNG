@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-
-
+import FloatingButton from '../shared/FloatingButton';
 
 const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(true);
@@ -57,19 +63,16 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-    // removeData();
+    removeData();
     getData();
   }, []);
 
   return (
-    
     <View style={styles.mainContainer}>
       <View>{showTutorial === true ? renderTutorial() : <></>}</View>
-
-      <View style={styles.actionButton}>
-      </View>
+      <FloatingButton />
+      
     </View>
-   
   );
 };
 
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: ( Platform.OS === 'ios' ) ? 20 : 0
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
   appButtonContainer: {
     elevation: 8,
