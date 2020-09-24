@@ -63,14 +63,15 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-    removeData();
+    // removeData();
     getData();
   }, []);
 
   return (
     <View style={styles.mainContainer}>
+      <Text>Home</Text>
       <View>{showTutorial === true ? renderTutorial() : <></>}</View>
-      <FloatingButton />
+      <FloatingButton navigation={navigation} />
       
     </View>
   );

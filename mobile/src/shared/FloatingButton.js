@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   View,
   Text,
@@ -8,143 +8,159 @@ import {
   Animated,
 } from 'react-native';
 import burger from '../assets/burger.png';
+import more from '../assets/more.png';
+import history from '../assets/history.png';
+import scan from '../assets/scan.png';
+import plus from '../assets/plus.png';
 
-export default class FloatingButton extends Component {
-  animation=new Animated.Value(0);
+const FloatingButton = (props) => {
 
-toggleMenu =() => {
-const toValue= this.open ? 0 :1
+  animation = new Animated.Value(0);
 
-Animated.spring(this.animation,
-  {
-    toValue,
-    friction:6,
-  }).start();
+  const toggleMenu = () => {
+    const toValue = this.open ? 0 : 1;
+    Animated.spring(animation, {
+      toValue,
+      friction: 6,
+    }).start();
+     this.open = !this.open;
 
-this.open = !this.open;
-
-}
-
-  render() {
-
-
-    const moreStyle= {
-      transform: [
-        {
-          scale: this.animation
-        },
-        {
-          translateY: this.animation.interpolate({
-            inputRange:[0,1],
-            outputRange: [0, -60]
-          })
-        }
-      ]
-    }
-
-    const faqStyle= {
-      transform: [
-        {
-          scale: this.animation
-        },
-        {
-          translateY: this.animation.interpolate({
-            inputRange:[0,1],
-            outputRange: [0, -120]
-          })
-        }
-      ]
-    }
-
-    const privacyStyle= {
-      transform: [
-        {
-          scale: this.animation
-        },
-        {
-          translateY: this.animation.interpolate({
-            inputRange:[0,1],
-            outputRange: [0, -180]
-          })
-        }
-      ]
-    }
-
-    const termsStyle= {
-      transform: [
-        {
-          scale: this.animation
-        },
-        {
-          translateY: this.animation.interpolate({
-            inputRange:[0,1],
-            outputRange: [0, -240]
-          })
-        }
-      ]
-    }
+  };
 
 
 
-const rotation = {
-  transform: [
-    {
-      rotate:this.animation.interpolate({
-        inputRange: [0,1],
-        outputRange: ['0deg', '45deg']
-      })
-    }
-  ]
-}
+  // const {navigation} = props;
 
-    return (
-      <View style={[styles.container, this.props.style]}>
-        <TouchableWithoutFeedback>
-          <Animated.View style={[styles.button, styles.submenu, termsStyle]}>
-            <Image source={burger} style={styles.img} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
-        
-          <TouchableWithoutFeedback>
-          <Animated.View style={[styles.button, styles.submenu, privacyStyle]}>
-            <Image source={burger} style={styles.img} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
+  const moreStyle = {
+    transform: [
+      {
+        scale: animation,
+      },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -60],
+        }),
+      },
+    ],
+  };
 
-        <TouchableWithoutFeedback>
-          <Animated.View style={[styles.button, styles.submenu, faqStyle]}>
-            <Image source={burger} style={styles.img} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
+  const feedbackStyle = {
+    transform: [
+      {
+        scale: animation,
+      },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -120],
+        }),
+      },
+    ],
+  };
 
-        <TouchableWithoutFeedback>
-          <Animated.View style={[styles.button, styles.submenu, aboutStyle]}>
-            <Image source={burger} style={styles.img} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
-        
-        <TouchableWithoutFeedback onPress={this.toggleMenu}>
-          <Animated.View style={[styles.button, styles.menu, rotation]}>
-            <Image source={burger} style={styles.img} />
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </View>
-    );
-    1;
+  const historyStyle = {
+    transform: [
+      {
+        scale: animation,
+      },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -180],
+        }),
+      },
+    ],
+  };
+
+  const scanStyle = {
+    transform: [
+      {
+        scale: animation,
+      },
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -240],
+        }),
+      },
+    ],
+  };
+
+  const rotation = {
+    transform: [
+      {
+        rotate: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['0deg', '45deg'],
+        }),
+      },
+    ],
+  };
+
+  const onMorePressed = () => {
+    props.navigation.navigate("More");
   }
-}
+
+  // TO DO:
+  //  {renderPopButton([styles.button, styles.submenu, scanStyle]), scan}
+
+  return (
+    <View style={[styles.container, props.style]}>
+     
+      <TouchableWithoutFeedback>
+        <Animated.View style={[styles.button, styles.submenu, scanStyle]}>
+          <Image source={scan} style={styles.subImg} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback>
+        <Animated.View style={[styles.button, styles.submenu, historyStyle]}>
+          <Image source={history} style={styles.subImg} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback>
+        <Animated.View style={[styles.button, styles.submenu, feedbackStyle]}>
+          <Image source={plus} style={styles.subImg} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={onMorePressed}>
+        <Animated.View style={[styles.button, styles.submenu, moreStyle]}>
+          <Image source={more} style={styles.subImg} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+
+      <TouchableWithoutFeedback onPress={toggleMenu}>
+        <Animated.View style={[styles.button, styles.menu, rotation]}>
+          <Image source={burger} style={styles.img} />
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    </View>
+  );
+};
+
+export default FloatingButton;
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     position: 'absolute',
-    bottom:80,
-    right:60
+    bottom: 80,
+    right: 60,
   },
   img: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
+    backgroundColor: '#00D9C3',
+    // borderRadius: 40/2
+  },
+  subImg: {
+    width: 30,
+    height: 30,
     backgroundColor: '#FFF',
+    borderRadius: 60 / 2,
   },
   button: {
     position: 'absolute',
@@ -161,12 +177,13 @@ const styles = StyleSheet.create({
     },
   },
   menu: {
-    backgroundColor: '#00213B'
+    backgroundColor: '#00D9C3',
   },
-  submenu:{
-    width: 48,
-    height:48,
-    borderRadius: 48/2,
-    backgroundColor: '#00213B',
-  }
+  submenu: {
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    backgroundColor: '#FFF',
+  },
 });
+/*onPress={props.navigation.navigate('More')}*/

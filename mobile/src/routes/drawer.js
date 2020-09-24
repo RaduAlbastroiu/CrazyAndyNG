@@ -5,6 +5,7 @@ import BurgerStack from './BurgerStack';
 import FAQ from '../screens/FAQ';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import TermsAndConditions from '../screens/TermsAndConditions';
+import More from '../screens/More';
 
 
 const RootDrawerNavigator = createDrawerNavigator({
@@ -13,6 +14,12 @@ const RootDrawerNavigator = createDrawerNavigator({
   },
   About: {
     screen: BurgerStack,
+  },
+  More: {
+    screen: More,
+    navigationOptions: {
+      title: 'More',
+    },
   },
   FAQ: {
     screen: FAQ,
