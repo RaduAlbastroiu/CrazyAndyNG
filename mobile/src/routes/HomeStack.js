@@ -5,9 +5,6 @@ import Tutorial from '../screens/Tutorial';
 import Header from '../shared/Header';
 import React from 'react';
 import More from '../screens/More';
-import FAQ from '../screens/FAQ';
-import PrivacyPolicy from '../screens/PrivacyPolicy';
-import TermsAndConditions from '../screens/TermsAndConditions';
 
 const screens = {
   Home: {
@@ -25,7 +22,8 @@ const screens = {
     navigationOptions: {
       title: 'More',
     },
-  }
+  },
+ 
 };
 
 const HomeStack = createStackNavigator(screens, {

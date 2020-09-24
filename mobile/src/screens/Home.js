@@ -26,10 +26,8 @@ const Home = ({navigation}) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('key');
-      console.log('read value');
 
       if (value !== null) {
-        console.log('value found');
         setShowTutorial(false);
         return;
         // value previously stored
