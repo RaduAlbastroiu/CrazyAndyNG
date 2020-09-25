@@ -1,5 +1,5 @@
-import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import HomeStack from './HomeStack';
 import FAQ from '../screens/FAQ';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
@@ -7,7 +7,7 @@ import TermsAndConditions from '../screens/TermsAndConditions';
 import More from '../screens/More';
 import AboutUs from '../screens/AboutUs'
 
-const mainNavigation = createDrawerNavigator({
+const mainNavigation = ({
   Home: {
     screen: HomeStack,
   },
@@ -44,4 +44,11 @@ const mainNavigation = createDrawerNavigator({
   },
 });
 
-export default createAppContainer(mainNavigation);
+const Navigator = createStackNavigator(mainNavigation, {
+  defaultNavigationOptions: {
+    headerTintColor: '#444',
+    headerStyle: {backgroundColor: '#eee', height: 60},
+  },
+});
+
+export default createAppContainer(Navigator);

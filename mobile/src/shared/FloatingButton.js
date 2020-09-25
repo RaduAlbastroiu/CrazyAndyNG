@@ -183,4 +183,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
 });
-/*onPress={props.navigation.navigate('More')}*/

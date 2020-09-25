@@ -4,14 +4,35 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
-  ScrollView,
+  I18nManager,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FloatingButton from '../shared/FloatingButton';
+import i18n from 'i18next';
+import {useTranslation, initReactI18next} from 'react-i18next';
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    resources: {
+      en: {
+        translation: {
+          Home: '家',
+        },
+      },
+    },
+    lng: 'en',
+    fallbackLng: 'en',
+
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(true);
+  // const [languageSelected, setLanguageSelected] = useState('en');
+  const {t} = useTranslation();
 
   //give item
   const setData = async (value) => {
@@ -67,10 +88,9 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text>Home</Text>
+      <Text>{t('Home')}</Text>
       <View>{showTutorial === true ? renderTutorial() : <></>}</View>
       <FloatingButton navigation={navigation} />
-      
     </View>
   );
 };
