@@ -4,25 +4,43 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  I18nManager,
+  NativeModules,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FloatingButton from '../shared/FloatingButton';
 import i18n from 'i18next';
 import {useTranslation, initReactI18next} from 'react-i18next';
 
+const deviceLanguage =
+  Platform.OS === 'Android'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+    : NativeModules.I18nManager.localeIdentifier;
+
+console.log(deviceLanguage);
+
+// i18n.changeLanguage('en-US');
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources: {
-      en: {
+      en_US: {
+        translation: {
+          Home: 'Home',
+        },
+      },
+      zh: {
         translation: {
           Home: '家',
         },
       },
     },
-    lng: 'en',
-    fallbackLng: 'en',
+   
+   
+    lng: (deviceLanguage),
+    fallbackLng: 'zh',
 
     interpolation: {
       escapeValue: false,
@@ -33,6 +51,7 @@ const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(true);
   // const [languageSelected, setLanguageSelected] = useState('en');
   const {t} = useTranslation();
+  console.log(t);
 
   //give item
   const setData = async (value) => {
@@ -48,7 +67,6 @@ const Home = ({navigation}) => {
     try {
       const value = await AsyncStorage.getItem('key');
       if (value !== null) {
-        console.log('value found');
         setShowTutorial(false);
         return;
         // value previously stored
