@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const createUsername = require('../helpers/usernameCreation');
+const createUsername = require('../../helpers/usernameCreation');
 
 class UserController {
   constructor(model) {
