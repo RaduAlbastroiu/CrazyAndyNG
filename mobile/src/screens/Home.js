@@ -9,44 +9,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FloatingButton from '../shared/FloatingButton';
-import i18n from 'i18next';
-import {useTranslation, initReactI18next} from 'react-i18next';
-
-const deviceLanguage =
-  Platform.OS === 'Android || iOS'
-    ? NativeModules.SettingsManager.settings.AppleLocale ||
-      NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
-    : NativeModules.I18nManager.localeIdentifier;
-
-console.log(deviceLanguage);
-
-
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
-    resources: {
-      en_US: {
-        translation: {
-          Home: 'Home',
-          "Start Tutorial":"Start Tutorial"
-        },
-      },
-      zh: {
-        translation: {
-          Home: '家',
-          "Start Tutorial": '开始教程'
-        },
-      },
-    },
-   
-   
-    lng: (deviceLanguage),
-    fallbackLng: 'zh',
-
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+import {useTranslation} from 'react-i18next';
 
 const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(true);
