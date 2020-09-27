@@ -2,31 +2,22 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function More({navigation}) {
+  const renderHelpButton = (displayName, screenName) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate('HtmlScreen', {screen: screenName})}
+        style={styles.appButtonContainer}>
+        <Text style={styles.appButtonText}>{displayName}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('HtmlScreen', {screen: 'about'})}
-        style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>About Us</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('FAQ')}
-        style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>FAQ</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Terms')}
-        style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Terms and Conditions</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Privacy')}
-        style={styles.appButtonContainer}>
-        <Text style={styles.appButtonText}>Privacy Policy</Text>
-      </TouchableOpacity>
+      {renderHelpButton('About Us', 'about')}
+      {renderHelpButton('FAQ', 'faq')}
+      {renderHelpButton('Terms and Conditions', 'terms')}
+      {renderHelpButton('Privacy Policy', 'privacy')}
     </View>
   );
 }
