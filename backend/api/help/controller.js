@@ -7,28 +7,28 @@ class HelpController {
   getAbout = async () => {
     return {
       page: 'About',
-      htmlContent: aboutHtml,
+      htmlContent: aboutHtml.replace(/\n/g, ''),
     };
   };
 
   getFaq = async () => {
     return {
       page: 'FAQ',
-      htmlContent: faqHtml,
+      htmlContent: faqHtml.replace(/\n/g, ''),
     };
   };
 
   getPrivacyPolicy = async () => {
     return {
       page: 'Privacy Policy',
-      htmlContent: privacyHtml,
+      htmlContent: privacyHtml.replace(/\n/g, ''),
     };
   };
 
   getTermsAndConditions = async () => {
     return {
       page: 'Terms & Conditions',
-      htmlContent: termsHtml,
+      htmlContent: termsHtml.replace(/\n/g, ''),
     };
   };
 }
