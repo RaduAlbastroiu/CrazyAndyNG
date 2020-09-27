@@ -5,7 +5,7 @@ export default function More({navigation}) {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('About')}
+        onPress={() => navigation.navigate('HtmlScreen', {screen: 'about'})}
         style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>About Us</Text>
       </TouchableOpacity>
@@ -15,6 +15,7 @@ export default function More({navigation}) {
         style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>FAQ</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => navigation.navigate('Terms')}
         style={styles.appButtonContainer}>

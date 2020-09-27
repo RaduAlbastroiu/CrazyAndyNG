@@ -7,6 +7,7 @@ import PrivacyPolicy from '../screens/PrivacyPolicy';
 import TermsAndConditions from '../screens/TermsAndConditions';
 import More from '../screens/More';
 import AboutUs from '../screens/AboutUs';
+import HtmlScreen from '../screens/HtmlScreen';
 
 const mainNavigation = {
   Home: {
@@ -19,6 +20,12 @@ const mainNavigation = {
     screen: More,
     navigationOptions: {
       title: 'More',
+    },
+  },
+  HtmlScreen: {
+    screen: HtmlScreen,
+    navigationOptions: {
+      title: 'Help',
     },
   },
   Privacy: {
