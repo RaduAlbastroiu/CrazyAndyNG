@@ -14,7 +14,6 @@ import scan from '../assets/scan.png';
 import plus from '../assets/plus.png';
 
 const FloatingButton = (props) => {
-
   let open = false;
   const animation = new Animated.Value(0);
 
@@ -24,8 +23,7 @@ const FloatingButton = (props) => {
       toValue,
       friction: 6,
     }).start();
-     open = !open;
-
+    open = !open;
   };
 
   const moreStyle = {
@@ -96,15 +94,14 @@ const FloatingButton = (props) => {
   };
 
   const onMorePressed = () => {
-    props.navigation.navigate("More");
-  }
+    props.navigation.navigate('More');
+  };
 
   // TO DO:
   //  {renderPopButton([styles.button, styles.submenu, scanStyle]), scan}
 
   return (
     <View style={[styles.container, props.style]}>
-     
       <TouchableWithoutFeedback>
         <Animated.View style={[styles.button, styles.submenu, scanStyle]}>
           <Image source={scan} style={styles.subImg} />
@@ -144,7 +141,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     position: 'absolute',
-    bottom: 80,
+    bottom: 110,
     right: 60,
   },
   img: {
