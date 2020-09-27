@@ -1,82 +1,20 @@
-const htmlContent = `<article>
-  <h1>HTML Privacy Policy</h1>
-  <p>
-    <strong
-      >These terms and conditions shall govern your use of our website. By using
-      HTML Tidy, you accept these terms and conditions in full; accordingly, if
-      you disagree with these terms and conditions or any part of these terms
-      and conditions, you must not use our website.</strong
-    >
-  </p>
-  <ul>
-    <li>
-      You must be at least 6 years of age to use our website; by using our
-      website or agreeing to these terms and conditions, you warrant and
-      represent to us that you are at least 6 years old.
-    </li>
-    <li>
-      Our website uses cookies to save settings and increase website usability.
-      We use Google Analytics to gather anonymous visitor statistics. By using
-      our website or agreeing to these terms and conditions, you consent to our
-      use of cookies.
-    </li>
-    <li>
-      You are free to use all features of this website in your web browser but
-      copying any content (HTML, CSS, scripts, images) is prohibited.
-    </li>
-    <li>
-      We show AdSense ads to monetize this website. You need to
-      <a href="http://disableadblock.com/" target="_blank"
-        >turn AdBlockers off</a
-      >
-      to access all features.
-    </li>
-    <li>
-      You must not use our website in any way or take any action that causes, or
-      may cause, damage to the website or impairment of the performance,
-      availability or accessibility of the website
-    </li>
-    <li>We never ask for or access your personal information.</li>
-    <li>
-      HTML Tidy offers a free online web content composing tool. We are not
-      responsible for documents edited with our website.
-    </li>
-    <li>
-      HTML Tidy randomly adds paragraphs and links to the edited documents. By
-      using this free tool the visitor agrees not to remove or edit these code
-      snippets.
-    </li>
-    <li>
-      Without prejudice to our other rights under these terms and conditions, if
-      you breach these terms and conditions in any way, or if we reasonably
-      suspect that you have breached these terms and conditions in any way, we
-      may send you one or more formal warnings, suspend your access to our
-      website or commence legal action against you.
-    </li>
-    <li>
-      You may contact us at the following address:
-      <img src="/editor/images/conaddr.png" alt="tc" />
-    </li>
-  </ul>
-  <h2>Privacy Policy</h2>
-  <p>
-    Our general data protection regulation ensures that your valuable
-    information remains safe. The cleaned HTML documents are never sent to our
-    server and we don't have access to them. Please note that your browser or
-    your installed and enabled browser plugins may have access to your
-    documents.
-  </p>
-  <p>
-    We use cookies to save some of your preferred settings to your computer.
-  </p>
-  <p>
-    HTML Tidy doesn't collect and store personal data but we use thrid party
-    plugins that may do. Please check the Privacy Policies of these services to
-    learn more: Google Analytics, Google Adsense, AddThis, Facebbok widget. We
-    may add new or remove any of these programs at any time without notice.
-    Check the source code of the website to identify these plugins.
-  </p>
-  <div class="shareButtonz"></div>
-</article>`;
+const htmlContent = `
+<h3>Privacy Policy</h3>
+<p>Styling texts is a very tricky part of converting HTML into react-native components.</p>
+<p>The way react-native's <em>Text</em> components behaves is a lot different from our browsers' implementation.</p>
+<p>Let's see how styles are applied to texts with this plugin.</p>
+<div style="color:red;">This text is inside a div, without a text tag wrapping it. The <em>div</em> tag only has <em>color:red;</em> as style.</div>
+In the example above, you may find, if you inspect the rendered components, that it's the <em>Text</em> component inside that actually receives the color attribute.
+This is because this library parses every text-only style of <em>View</em> wrappers and moves them to each <em>Text</em> child.
+<div style="color:red">
+  <p>This first paragraph doesn't have a specific styling.</p>
+  <p style="color:blue;">This one is blue.</p>
+</div>
+<p>Here, the <em>div</em> wrapper still has <em>color:red;</em> as style.</div>.</p>
+<p>The first paragraph inside it doesn't have any style attribute, either from HTML or from the <em>tagsStyles</em> or <em>classesStyles</em> props.</p>
+<p>The second one is set to be blue from its <em>style</em> attribute.</p>
+<p>You can see the order of priorities that applies to styling. The less important are your <em>tagsStyles</em>, 
+then your <em>classessStyles</em> and finally the styles parsed from your HTML content.</p>
+`;
 
 module.exports = htmlContent;
