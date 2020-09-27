@@ -1,5 +1,5 @@
 const htmlContent = `<article>
-  <h1>HTML Tidy - Terms and Conditions</h1>
+  <h1>HTML About</h1>
   <p>
     <strong
       >These terms and conditions shall govern your use of our website. By using

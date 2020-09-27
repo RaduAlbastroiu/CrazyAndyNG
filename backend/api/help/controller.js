@@ -4,28 +4,28 @@ const faqHtml = require('../../resources/faq');
 const termsHtml = require('../../resources/termsAndConditions');
 
 class HelpController {
-  about = async () => {
+  getAbout = async () => {
     return {
       page: 'About',
       htmlContent: aboutHtml,
     };
   };
 
-  faq = async () => {
+  getFaq = async () => {
     return {
       page: 'FAQ',
       htmlContent: faqHtml,
     };
   };
 
-  privacyPolicy = async () => {
+  getPrivacyPolicy = async () => {
     return {
       page: 'Privacy Policy',
       htmlContent: privacyHtml,
     };
   };
 
-  termsAndConditions = async () => {
+  getTermsAndConditions = async () => {
     return {
       page: 'Terms & Conditions',
       htmlContent: termsHtml,
