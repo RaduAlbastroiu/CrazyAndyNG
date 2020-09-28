@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  NativeModules,
-  Platform,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FloatingButton from '../shared/FloatingButton';
 import {useTranslation} from 'react-i18next';
@@ -61,7 +54,7 @@ const Home = ({navigation}) => {
 
   //set the loading screen
   useEffect(() => {
-    removeData();
+    // removeData();
     getData();
   }, []);
 

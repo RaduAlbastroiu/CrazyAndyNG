@@ -1,7 +1,7 @@
 import {NativeModules, Platform} from 'react-native';
 import i18n from 'i18next';
 import en from '../languages/en';
-import zh from '../languages/zh';
+import yue_HK from '../languages/yue_HK';
 import {initReactI18next} from 'react-i18next';
 
 const deviceLanguage =
@@ -18,7 +18,7 @@ i18n
   .init({
     resources: {
       en,
-      'zh_CN_#Hans': zh,
+      yue_HK,
     },
 
     lng: deviceLanguage,
