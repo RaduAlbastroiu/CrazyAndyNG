@@ -8,6 +8,9 @@ import HtmlScreen from '../screens/HtmlScreen';
 const mainNavigation = {
   Home: {
     screen: Home,
+    navigationOptions: {
+      title: 'Home',
+    },
   },
   Tutorial: {
     screen: Tutorial,
