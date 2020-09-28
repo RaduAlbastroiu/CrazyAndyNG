@@ -19,8 +19,8 @@ const Home = ({navigation}) => {
       return <Tutorial onDone={onDoneTutorial} />;
     } else {
       return (
-        <View style={styles.mainContainer}>
-          <Text>{t('Home')}</Text>
+        <View>
+          {/* <Text>{t('Home')}</Text> */}
           <FloatingButton navigation={navigation} />
         </View>
       );
@@ -41,25 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Platform.OS === 'ios' ? 20 : 0,
   },
-  // appButtonContainer: {
-  //   elevation: 8,
-  //   backgroundColor: '#009688',
-  //   borderRadius: 10,
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 12,
-  //   marginTop: 25,
-  //   marginLeft: 50,
-  //   marginRight: 50,
-  // },
-  // appButtonText: {
-  //   fontSize: 18,
-  //   color: '#fff',
-  //   fontWeight: 'bold',
-  //   alignSelf: 'center',
-  //   textTransform: 'uppercase',
-  // },
 });
 
 export default Home;
