@@ -18,11 +18,7 @@ const Home = ({navigation}) => {
     if (showTutorial) {
       return <Tutorial onDone={onDoneTutorial} />;
     } else {
-      return (
-        <View>
-          <FloatingButton navigation={navigation} />
-        </View>
-      );
+      return <FloatingButton navigation={navigation} />;
     }
   };
 
