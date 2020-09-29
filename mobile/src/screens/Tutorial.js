@@ -5,7 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  SafeAreaView,
+  Image,
 } from 'react-native';
+import Carousel from 'react-native-snap-carousel';
 import {useTranslation} from 'react-i18next';
 import TutorialFirst from '../assets/tutorialFirst.png';
 import TutorialSecond from '../assets/tutorialSecond.png';
@@ -15,32 +18,46 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
 const Tutorial = (props) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [
+    carouselItems = [
+      TutorialFirst,
+      TutorialSecond,
+      TutorialThird,
+      TutorialFourth,
+    ],
+  ] = useState();
+
   const {t} = useTranslation();
 
-  renderSkip = () => {
+  const renderItem = ({item, index}) => {
     return (
-      <TouchableOpacity onPress={props.onDone} style={styles.buttonBack}>
-        <Text style={styles.appButtonText}>SKIP</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  renderDone = () => {
-    return (
-      <TouchableOpacity onPress={props.onDone} style={styles.buttonNext}>
-        <Text style={styles.appButtonText}>Done</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  return (
-    <View>
-      <ImageBackground source={TutorialFirst} style={styles.image} />
-      <View style={styles.buttonsContainer}>
-        {renderSkip()}
-        {renderDone()}
+      <View>
+        <Image source={arr[index]} style={{width: '100%', height: '100%'}} />
+        <Text style={{fontSize: 30}}>{item.title}</Text>
+        <Text>{item.text}</Text>
       </View>
-    </View>
+    );
+  };
+  {
+    console.log(activeIndex);
+  }
+  return (
+    <SafeAreaView style={{flex: 1, paddingTop: 50}}>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        <Carousel
+          layout={'default'}
+          ref={(ref) => (carousel = ref)}
+          data={carouselItems}
+          sliderWidth={300}
+          itemWidth={300}
+          renderItem={renderItem}
+          dotsLength={4}
+          dotColor={'red'}
+          onSnapToItem={(index) => setActiveIndex({activeIndex: index})}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -77,7 +94,9 @@ const styles = StyleSheet.create({
   image: {
     alignSelf: 'center',
     width: '100%',
-    height: '89%',
+    height: '100%',
+    // flexWrap: 'wrap',
+    // flexDirection: 'r ow',
   },
   appButtonText: {
     fontSize: 18,
@@ -87,3 +106,21 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 });
+
+// renderSkip = () => {
+//   return (
+//     <TouchableOpacity onPress={props.onDone} style={styles.buttonBack}>
+//       <Text style={styles.appButtonText}>SKIP</Text>
+//     </TouchableOpacity>
+//   );
+// };
+
+// renderDone = () => {
+//   return (
+//     <TouchableOpacity onPress={props.onDone} style={styles.buttonNext}>
+//       <Text style={styles.appButtonText}>Done</Text>
+//     </TouchableOpacity>
+//   );
+// };
+
+// return <ImageBackground source={TutorialFirst} style={styles.image} />;
