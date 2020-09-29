@@ -20,7 +20,6 @@ const Home = ({navigation}) => {
     } else {
       return (
         <View>
-          <Text>{t('Home')}</Text>
           <FloatingButton navigation={navigation} />
         </View>
       );
