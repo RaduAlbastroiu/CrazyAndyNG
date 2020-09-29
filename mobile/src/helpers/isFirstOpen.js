@@ -20,7 +20,7 @@ const setData = async () => {
 const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('tutorialShown');
-    console.log(value);
+
     if (value === 'yes') {
       return true;
     }

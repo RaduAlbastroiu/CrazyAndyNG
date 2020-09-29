@@ -14,28 +14,26 @@ const Home = ({navigation}) => {
     console.log('done');
   };
 
-  const renderTutorial = () => {
-    if (showTutorial) {
-      return <Tutorial onDone={onDoneTutorial} />;
-    } else {
-      return <FloatingButton navigation={navigation} />;
-    }
-  };
-
   useEffect(() => {
     isFirstOpen().then((res) => {
-      console.log(res);
       setShowTutorial(res);
     });
   }, []);
-  return <View style={styles.mainContainer}>{renderTutorial()}</View>;
+
+  return (
+    <View style={styles.mainContainer}>
+      {showTutorial ? (
+        <Tutorial onDone={onDoneTutorial} />
+      ) : (
+        <FloatingButton navigation={navigation} />
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
