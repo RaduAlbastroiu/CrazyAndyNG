@@ -99,7 +99,7 @@ export default FloatingButton;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    // alignItems: 'center',
     position: 'absolute',
     top: 190,
     left: 100,

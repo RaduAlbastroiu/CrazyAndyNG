@@ -7,7 +7,6 @@ import {
   ImageBackground,
 } from 'react-native';
 import {useTranslation} from 'react-i18next';
-import FloatingButton from '../shared/FloatingButton';
 import TutorialFirst from '../assets/tutorialFirst.png';
 import TutorialSecond from '../assets/tutorialSecond.png';
 import TutorialThird from '../assets/tutorialThird.png';
@@ -52,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 50,
     position: 'absolute',
+    bottom: -30,
   },
   buttonNext: {
     elevation: 8,
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 
   image: {
     alignSelf: 'center',
-    width: '100%',
-    height: '89%',
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
   },
   appButtonText: {
     fontSize: 18,

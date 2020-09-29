@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 const isFirstOpen = async () => {
-  //   await removeData();
+  // await removeData();
   if ((await getData()) === false) {
     await setData();
     return true;

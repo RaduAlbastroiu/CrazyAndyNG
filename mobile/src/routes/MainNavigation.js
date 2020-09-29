@@ -32,7 +32,7 @@ const mainNavigation = {
 const Navigator = createStackNavigator(mainNavigation, {
   defaultNavigationOptions: {
     headerTintColor: '#444',
-    headerStyle: {backgroundColor: '#eee'},
+    headerStyle: {backgroundColor: '#fff'},
   },
 });
 

@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import HtmlScreen from './HtmlScreen';
+import Tutorial from './Tutorial';
 
 export default function More({navigation}) {
-  const renderHelpButton = (displayName, screenName) => {
+  const renderHelpButton = (displayName, screenName, screen) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('HtmlScreen', {screen: screenName})}
+        onPress={() => navigation.navigate(screen, {screen: screenName})}
         style={styles.appButtonContainer}>
         <Text style={styles.appButtonText}>{displayName}</Text>
       </TouchableOpacity>
@@ -14,10 +16,11 @@ export default function More({navigation}) {
 
   return (
     <View>
-      {renderHelpButton('About Us', 'about')}
-      {renderHelpButton('FAQ', 'faq')}
-      {renderHelpButton('Terms and Conditions', 'terms')}
-      {renderHelpButton('Privacy Policy', 'privacy')}
+      {renderHelpButton('About Us', 'about', 'HtmlScreen')}
+      {renderHelpButton('FAQ', 'faq', 'HtmlScreen')}
+      {renderHelpButton('Terms and Conditions', 'terms', 'HtmlScreen')}
+      {renderHelpButton('Privacy Policy', 'privacy', 'HtmlScreen')}
+      {renderHelpButton('Tutorial', 'Tutorial', 'Tutorial')}
     </View>
   );
 }
