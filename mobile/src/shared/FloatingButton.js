@@ -1,12 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
 import {FloatingAction} from 'react-native-floating-action';
 
 const FloatingButton = ({navigation}) => {
-  const navigateToMore = () => {
-    navigation.navigate('More');
-  };
-
   const actions = [
     {
       text: 'Scan',
@@ -29,7 +24,7 @@ const FloatingButton = ({navigation}) => {
     {
       text: 'More',
       icon: require('../assets/more.png'),
-      name: navigateToMore,
+      name: 'More',
       position: 4,
     },
   ];
@@ -38,7 +33,7 @@ const FloatingButton = ({navigation}) => {
     <FloatingAction
       actions={actions}
       onPressItem={(name) => {
-        name();
+        navigation.navigate('More');
       }}
     />
   );

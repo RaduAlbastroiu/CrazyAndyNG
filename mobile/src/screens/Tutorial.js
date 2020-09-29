@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 
   image: {
     alignSelf: 'center',
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
+    width: '100%',
+    height: '89%',
   },
   appButtonText: {
     fontSize: 18,
