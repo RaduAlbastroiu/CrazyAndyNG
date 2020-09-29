@@ -17,7 +17,7 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
-const Tutorial = (props) => {
+const Tutorial = ({navigation}) => {
   // const [entries] = useState();
   // const [activeSlide, setActiveSlide] = useState();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -34,7 +34,11 @@ const Tutorial = (props) => {
 
   const renderSkip = () => {
     return (
-      <TouchableOpacity onPress={props.onDone} style={styles.buttonBack}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={styles.buttonBack}>
         <Text style={styles.appButtonText}>SKIP</Text>
       </TouchableOpacity>
     );
@@ -42,7 +46,11 @@ const Tutorial = (props) => {
 
   const renderDone = () => {
     return (
-      <TouchableOpacity onPress={props.onDone} style={styles.buttonNext}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={styles.buttonNext}>
         <Text style={styles.appButtonText}>Done</Text>
       </TouchableOpacity>
     );

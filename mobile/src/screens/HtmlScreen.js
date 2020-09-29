@@ -8,8 +8,8 @@ import {
 import useHelp from '../hooks/useHelp';
 import HTML from 'react-native-render-html';
 
-export default function HtmlScreen({navigation}) {
-  const params = navigation.state.params;
+export default function HtmlScreen({route, navigation}) {
+  const {params} = route;
   const {isLoading, data} = useHelp(params.screen);
 
   const windowDimension = useWindowDimensions().width;
