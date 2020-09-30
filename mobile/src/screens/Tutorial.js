@@ -36,8 +36,8 @@ const Tutorial = ({navigation}) => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={{paddingLeft: 10, paddingTop: 10}}>
-        <Text style={{color: '#b9bbb6', fontSize: 18}}>Skip</Text>
+        style={{paddingLeft: 12, paddingTop: 12}}>
+        <Text style={{color: 'black', fontSize: 18}}>Skip</Text>
       </TouchableOpacity>
     );
   };
@@ -48,8 +48,8 @@ const Tutorial = ({navigation}) => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={{marginLeft: 'auto', paddingRight: 10, paddingTop: 10}}>
-        <Text style={{color: '#b9bbb6', fontSize: 18}}>Done</Text>
+        style={{marginLeft: 'auto', paddingRight: 12, paddingTop: 12}}>
+        <Text style={{color: 'black', fontSize: 18}}>Done</Text>
       </TouchableOpacity>
     );
   };
@@ -87,7 +87,7 @@ const Tutorial = ({navigation}) => {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 8,
-          backgroundColor: '#000000',
+          backgroundColor: 'black',
         }}
         inactiveDotStyle={
           {
@@ -110,8 +110,9 @@ const Tutorial = ({navigation}) => {
         sliderWidth={415}
         itemWidth={415}
         renderItem={renderItem}
-        onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
-      />
+        onSnapToItem={(index) =>
+          setActiveIndex((activeIndex = index))
+        }></Carousel>
       <View style={styles.dotsContainer}>{pagination()}</View>
     </SafeAreaView>
   );
@@ -121,13 +122,13 @@ export default Tutorial;
 const styles = StyleSheet.create({
   dotsContainer: {
     position: 'absolute',
-    bottom: -20,
-    left: 90,
+    width: '100%',
+    marginTop: -10,
   },
   image: {
     alignSelf: 'center',
     resizeMode: 'cover',
     width: '100%',
-    height: '97%',
+    height: '100%',
   },
 });
