@@ -41,7 +41,11 @@ function MyStack() {
       />
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="More" component={More} />
-      <Stack.Screen name="HtmlScreen" component={HtmlScreen} />
+      <Stack.Screen
+        name="HtmlScreen"
+        component={HtmlScreen}
+        options={{title: 'Help'}}
+      />
     </Stack.Navigator>
   );
 }
