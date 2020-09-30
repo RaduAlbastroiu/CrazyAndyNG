@@ -71,20 +71,4 @@ productRouter.delete('', async (req, res) => {
   }
 });
 
-/*
-{
-        _id: '507f191e810c19729de860ea',
-        Name: 'Televizor Sony, 121 cm',
-        Brand: 'Sony',
-        Price: '2199.99',
-        Description: `Calitatea imaginiilor care te impresioneaza, 
-        posibila printr-un singur procesor care prelucreaza culoarea,
-        optimizeaza raportul de contrast ridicat si controleaza 
-        functia HDR.`,
-        Hashtags: ['TV', '4K', '48in', 'LED'],
-        Category: 'TV',
-        Images: [''],
-      },
-*/
-
 module.exports = productRouter;
