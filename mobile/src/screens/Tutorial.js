@@ -59,10 +59,6 @@ const Tutorial = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <View>
-        <View style={styles.buttonsContainer}>
-          {renderSkip()}
-          {renderDone()}
-        </View>
         <Image source={arr[index]} style={styles.image} />
         <Text style={{fontSize: 30}}>{item.title}</Text>
         <Text>{item.text}</Text>
@@ -92,23 +88,22 @@ const Tutorial = ({navigation}) => {
       />
     );
   };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Carousel
-          layout={'default'}
-          ref={(ref) => (carousel = ref)}
-          data={carouselItems}
-          sliderWidth={400}
-          itemWidth={300}
-          renderItem={renderItem}
-          dotsLength={4}
-          dotColor={'red'}
-          onSnapToItem={(index) => setActiveIndex({activeIndex: index})}
-          // onSnapToItem={(index) => setActiveSlide({activeSlide: index})}
-        />
-        {pagination()}
-      </View>
+    <SafeAreaView>
+      <Carousel
+        layout={'default'}
+        ref={(ref) => (carousel = ref)}
+        data={carouselItems}
+        sliderWidth={415}
+        itemWidth={420}
+        renderItem={renderItem}
+        dotsLength={4}
+        dotColor={'red'}
+        onSnapToItem={(index) => setActiveIndex({activeIndex: index})}
+        // onSnapToItem={(index) => setActiveSlide({activeSlide: index})}
+      />
+      {pagination()}
     </SafeAreaView>
   );
 };
