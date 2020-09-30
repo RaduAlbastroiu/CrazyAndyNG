@@ -38,8 +38,8 @@ const Tutorial = ({navigation}) => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={styles.buttonBack}>
-        <Text style={styles.appButtonText}>SKIP</Text>
+        style={{paddingLeft: 10, paddingTop: 10}}>
+        <Text style={{color: '#b9bbb6', fontSize: 18}}>Skip</Text>
       </TouchableOpacity>
     );
   };
@@ -50,8 +50,8 @@ const Tutorial = ({navigation}) => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={styles.buttonNext}>
-        <Text style={styles.appButtonText}>Done</Text>
+        style={{marginLeft: 'auto', paddingRight: 10, paddingTop: 10}}>
+        <Text style={{color: '#b9bbb6', fontSize: 18}}>Done</Text>
       </TouchableOpacity>
     );
   };
@@ -59,7 +59,15 @@ const Tutorial = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <View>
-        <Image source={arr[index]} style={styles.image} />
+        <ImageBackground source={arr[index]} style={styles.image}>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            {renderSkip()}
+            {renderDone()}
+          </View>
+        </ImageBackground>
         <Text style={{fontSize: 30}}>{item.title}</Text>
         <Text>{item.text}</Text>
       </View>
@@ -96,7 +104,7 @@ const Tutorial = ({navigation}) => {
         ref={(ref) => (carousel = ref)}
         data={carouselItems}
         sliderWidth={415}
-        itemWidth={420}
+        itemWidth={415}
         renderItem={renderItem}
         dotsLength={4}
         dotColor={'red'}
