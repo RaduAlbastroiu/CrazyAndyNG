@@ -18,9 +18,7 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
 const Tutorial = ({navigation}) => {
-  // const [entries] = useState();
-  // const [activeSlide, setActiveSlide] = useState();
-  const [activeIndex, setActiveIndex] = useState(0);
+  let [activeIndex, setActiveIndex] = useState(0);
   const [
     carouselItems = [
       TutorialFirst,
@@ -80,11 +78,16 @@ const Tutorial = ({navigation}) => {
   const pagination = () => {
     return (
       <Pagination
-        dotsLength={4}
+        dotsLength={carouselItems.length}
         activeDotIndex={activeIndex}
+        // containerStyle={{backgroundColor: 'rgba(0, 0, 0, 0.75)'}}
         dotStyle={{
-          position: 'absolute',
-          backgroundColor: 'rgba(255, 255, 255, 0.92)',
+          // position: 'absolute',
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: '#000000',
         }}
         inactiveDotStyle={
           {
@@ -96,6 +99,7 @@ const Tutorial = ({navigation}) => {
       />
     );
   };
+  console.log('this is activeIndex', activeIndex);
 
   return (
     <SafeAreaView>
@@ -106,23 +110,24 @@ const Tutorial = ({navigation}) => {
         sliderWidth={415}
         itemWidth={415}
         renderItem={renderItem}
-        dotsLength={4}
-        dotColor={'red'}
-        onSnapToItem={(index) => setActiveIndex({activeIndex: index})}
-        // onSnapToItem={(index) => setActiveSlide({activeSlide: index})}
+        onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
       />
-      {pagination()}
+      <View style={styles.dotsContainer}>{pagination()}</View>
     </SafeAreaView>
   );
 };
-
 export default Tutorial;
 
 const styles = StyleSheet.create({
+  dotsContainer: {
+    position: 'absolute',
+    bottom: -20,
+    left: 90,
+  },
   image: {
     alignSelf: 'center',
     resizeMode: 'cover',
     width: '100%',
-    height: '100%',
+    height: '97%',
   },
 });
