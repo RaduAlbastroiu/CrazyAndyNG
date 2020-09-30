@@ -1,20 +1,10 @@
 const htmlContent = `
-<h3>About</h3>
-<p>Styling texts is a very tricky part of converting HTML into react-native components.</p>
-<p>The way react-native's <em>Text</em> components behaves is a lot different from our browsers' implementation.</p>
-<p>Let's see how styles are applied to texts with this plugin.</p>
-<div style="color:red;">This text is inside a div, without a text tag wrapping it. The <em>div</em> tag only has <em>color:red;</em> as style.</div>
-In the example above, you may find, if you inspect the rendered components, that it's the <em>Text</em> component inside that actually receives the color attribute.
-This is because this library parses every text-only style of <em>View</em> wrappers and moves them to each <em>Text</em> child.
-<div style="color:red">
-  <p>This first paragraph doesn't have a specific styling.</p>
-  <p style="color:blue;">This one is blue.</p>
-</div>
-<p>Here, the <em>div</em> wrapper still has <em>color:red;</em> as style.</div>.</p>
-<p>The first paragraph inside it doesn't have any style attribute, either from HTML or from the <em>tagsStyles</em> or <em>classesStyles</em> props.</p>
-<p>The second one is set to be blue from its <em>style</em> attribute.</p>
-<p>You can see the order of priorities that applies to styling. The less important are your <em>tagsStyles</em>, 
-then your <em>classessStyles</em> and finally the styles parsed from your HTML content.</p>
+<h3>關於我們 About us</h3>
+<p>產品比較平台</p>
+<p>而家每種產品選擇咁多、五花百門，買每樣嘢都幾乎要睇一百幾十個網站、每個網站嘅資料又豐富又各有特色、睇完其實都真係花多眼亂</p>
+<p>抗疫產品已經成為咗我哋生活所需，所以我哋希望建立一個簡單方便嘅共享平台俾大家容易比較自己想買嘅產品資料。</p>
+<p>平台初建立，歡迎大家運用「你的意見」分享多啲你嘅想法，亦希望大家用「報料」分享同加入更多產品資料，令大家都可以一齊運用呢個平台簡單地做日常生活上嘅決定！</p>
+<p>聯絡我們: crazy2e.biz@gmail.com</p>
 `;
 
 module.exports = htmlContent;
