@@ -28,8 +28,8 @@ class CategoryController {
     throw 'not found';
   }
 
-  async delete(category) {
-    const found = await this.model.findOneAndDelete({ name: category.name });
+  async delete(_id) {
+    const found = await this.model.findOneAndDelete({ _id });
     if (!found) throw 'not found';
     return found;
   }

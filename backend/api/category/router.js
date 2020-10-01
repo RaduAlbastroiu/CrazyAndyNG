@@ -55,22 +55,17 @@ categoryRouter.put(
   }
 );
 
-categoryRouter.delete(
-  '/',
-  [check('name', 'Name is empty').notEmpty()],
-  validate,
-  async (req, res) => {
-    try {
-      await categoryController.delete(req.body);
-      return res.sendStatus(204);
-    } catch (err) {
-      if (err === 'not found') {
-        return res.status(404).send('Category not found');
-      }
-      console.error(err);
-      return res.status(500).send('Internal Server Error');
+categoryRouter.delete('/:_id', async (req, res) => {
+  try {
+    await categoryController.delete(req.params._id);
+    return res.sendStatus(204);
+  } catch (err) {
+    if (err === 'not found') {
+      return res.status(404).send('Category not found');
     }
+    console.error(err);
+    return res.status(500).send('Internal Server Error');
   }
-);
+});
 
 module.exports = categoryRouter;
