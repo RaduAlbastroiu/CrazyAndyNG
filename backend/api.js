@@ -12,6 +12,9 @@ mainRouter.use('/user', mobileAuthRoutes);
 const categoryRoutes = require('./api/category/router');
 mainRouter.use('/category', categoryRoutes);
 
+const hashtagRoutes = require('./api/hashtag/router');
+mainRouter.use('/hashtag', hashtagRoutes);
+
 const productRoutes = require('./api/product/router');
 mainRouter.use('/product', productRoutes);
 
