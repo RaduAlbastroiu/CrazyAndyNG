@@ -37,6 +37,24 @@ categoryRouter.post(
   }
 );
 
+categoryRouter.put(
+  '/:_id',
+  [check('name', 'Name is empty').notEmpty()],
+  validate,
+  async (req, res) => {
+    try {
+      const updated = await categoryController.update(req.params._id, req.body);
+      return res.status(200).json({ success: 'Updated succesfully', updated });
+    } catch (err) {
+      if (err === 'duplicate') {
+        return res.status(400).send('Duplicated');
+      }
+      console.error(err);
+      return res.status(500).send('Internal Server Error');
+    }
+  }
+);
+
 categoryRouter.delete(
   '/',
   [check('name', 'Name is empty').notEmpty()],
