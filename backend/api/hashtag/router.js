@@ -19,33 +19,18 @@ hashtagRouter.get('/', async (req, res) => {
   }
 });
 
-/*
 hashtagRouter.post(
   '/',
-  [check('name', 'Name is empty').notEmpty()],
+  [
+    check('name', 'Name is empty').notEmpty(),
+    check('category', 'Category is empty').notEmpty(),
+    check('category', 'Category is not an _id').isMongoId(),
+  ],
   validate,
   async (req, res) => {
     try {
       const created = await hashtagController.create(req.body);
       return res.status(201).json({ success: 'Created succesfully', created });
-    } catch (err) {
-      if (err === 'duplicate') {
-        return res.status(400).send('Duplicated');
-      }
-      console.error(err);
-      return res.status(500).send('Internal Server Error');
-    }
-  }
-);
-
-hashtagRouter.delete(
-  '/',
-  [check('name', 'Name is empty').notEmpty()],
-  validate,
-  async (req, res) => {
-    try {
-      await hashtagController.delete(req.body);
-      return res.sendStatus(204);
     } catch (err) {
       if (err === 'not found') {
         return res.status(404).send('Category not found');
@@ -55,6 +40,31 @@ hashtagRouter.delete(
     }
   }
 );
-*/
+
+hashtagRouter.put('/:_id', async (req, res) => {
+  try {
+    const updated = await hashtagController.update(req.params._id, req.body);
+    return res.status(200).json({ success: 'Updated successfully', updated });
+  } catch (err) {
+    if (err === 'not found') {
+      return res.status(404).send('Hashtag not found');
+    }
+    console.error(err);
+    return res.status(500).send('Internal Server Error');
+  }
+});
+
+hashtagRouter.delete('/:_id', async (req, res) => {
+  try {
+    await hashtagController.delete(req.params._id);
+    return res.sendStatus(204);
+  } catch (err) {
+    if (err === 'not found') {
+      return res.status(404).send('Hashtag not found');
+    }
+    console.error(err);
+    return res.status(500).send('Internal Server Error');
+  }
+});
 
 module.exports = hashtagRouter;

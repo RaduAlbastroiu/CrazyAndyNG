@@ -1,3 +1,7 @@
+const hashtagRouter = require('./router');
+
+const CategoryModel = require('../category/model');
+
 class HashtagController {
   constructor(model) {
     this.model = model;
@@ -13,33 +17,30 @@ class HashtagController {
     return foundHashtags;
   }
 
-  /*
-  async create(category) {
-    const duplicate = await this.model.findOne({
-      name: category.name,
-    });
-
-    if (duplicate) throw 'duplicate';
-    const newCategory = new this.model(category);
-    return await newCategory.save();
-  }
-
-  async update(_id, category) {
-    const oldCategory = await this.model.findOne({ _id });
-    if (oldCategory) {
-      oldCategory.name = category.name || oldCategory.name;
-      const newCategory = await oldCategory.save();
-      return newCategory;
+  async create(hashtag) {
+    const category = await CategoryModel.findOne({ _id: hashtag.category });
+    if (category) {
+      const newHashtag = new this.model(hashtag);
+      return await newHashtag.save();
     }
     throw 'not found';
   }
 
-  async delete(category) {
-    const found = await this.model.findOneAndDelete({ name: category.name });
+  async update(_id, hashtag) {
+    const oldHashtag = await this.model.findOne({ _id });
+    if (oldHashtag) {
+      oldHashtag.name = hashtag.name || hashtag.name;
+      const newHashtag = await oldHashtag.save();
+      return newHashtag;
+    }
+    throw 'not found';
+  }
+
+  async delete(_id) {
+    const found = await this.model.findOneAndDelete({ _id });
     if (!found) throw 'not found';
     return found;
   }
-  */
 }
 
 module.exports = HashtagController;
