@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
-  Name: {
+  name: {
     type: String,
     unique: [true, 'Category already exists'],
     required: [true, 'Name field is empty'],

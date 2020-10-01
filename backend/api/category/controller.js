@@ -1,11 +1,10 @@
-class UserController {
+class CategoryController {
   constructor(model) {
     this.model = model;
   }
 
   async getAll() {
     const foundCategory = await this.model.find();
-    console.log(foundCategory);
     return foundCategory;
   }
 
@@ -19,11 +18,11 @@ class UserController {
     return await newCategory.save();
   }
 
-  async delete(categoryName) {
-    const found = await this.model.findOneAndDelete({ name: categoryName });
+  async delete(category) {
+    const found = await this.model.findOneAndDelete({ name: category.name });
     if (!found) throw 'not found';
     return found;
   }
 }
 
-module.exports = UserController;
+module.exports = CategoryController;
