@@ -1,3 +1,6 @@
+const CategoryModel = require('../category/model');
+const HashtagModel = require('../hashtag/model');
+
 class ProductController {
   constructor(model) {
     this.model = model;
@@ -5,9 +8,7 @@ class ProductController {
 
   async find(filter) {
     const skip = (filter.page - 1) * filter.size;
-
     let foundProducts = await this.model.find().skip(skip).limit(filter.size);
-    foundProducts = foundProducts.populate('hashtags', 'name');
 
     return foundProducts;
   }

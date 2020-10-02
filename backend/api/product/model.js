@@ -39,12 +39,10 @@ const productSchema = mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    required: [true, 'Category field is empty'],
     ref: 'category',
   },
   hashtags: {
     type: [mongoose.Schema.Types.ObjectId],
-    required: [true, 'Hashtags field is empty'],
     ref: 'hashtag',
   },
   images: {
