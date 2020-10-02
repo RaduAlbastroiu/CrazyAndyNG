@@ -24,12 +24,26 @@ class ProductController {
     return await newProduct.save();
   }
 
-  async update(_id, category) {
-    const oldCategory = await this.model.findOne({ _id });
-    if (oldCategory) {
-      oldCategory.name = category.name || oldCategory.name;
-      const newCategory = await oldCategory.save();
-      return newCategory;
+  async update(_id, product) {
+    const oldProduct = await this.model.findOne({ _id });
+    if (oldProduct) {
+      oldProduct.name = product.name || oldProduct.name;
+      oldProduct.barcode = product.barcode || oldProduct.barcode;
+      oldProduct.brand = product.brand || oldProduct.brand;
+      oldProduct.price = product.price || oldProduct.price;
+      oldProduct.origin = product.origin || oldProduct.origin;
+      oldProduct.size = product.size || oldProduct.size;
+      oldProduct.colour = product.colour || oldProduct.colour;
+      oldProduct.remarks = product.remarks || oldProduct.remarks;
+      oldProduct.isValid = product.isValid || oldProduct.isValid;
+      oldProduct.productionDate =
+        product.productionDate || oldProduct.productionDate;
+      oldProduct.category = product.category || oldProduct.category;
+      oldProduct.hashtags = product.hashtags || oldProduct.hashtags;
+      oldProduct.images = product.images || oldProduct.images;
+
+      const newProduct = await oldProduct.save();
+      return newProduct;
     }
     throw 'not found';
   }
