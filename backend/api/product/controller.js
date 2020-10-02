@@ -3,9 +3,13 @@ class ProductController {
     this.model = model;
   }
 
-  async find() {
-    const foundCategory = await this.model.find();
-    return foundCategory;
+  async find(filter) {
+    const skip = (filter.page - 1) * filter.size;
+
+    let foundProducts = await this.model.find().skip(skip).limit(filter.size);
+    foundProducts = foundProducts.populate('hashtags', 'name');
+
+    return foundProducts;
   }
 
   async create(category) {
