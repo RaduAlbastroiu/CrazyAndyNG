@@ -12,14 +12,16 @@ class ProductController {
     return foundProducts;
   }
 
-  async create(category) {
-    const duplicate = await this.model.findOne({
-      name: category.name,
-    });
+  async create(product) {
+    if (product.barcode) {
+      const duplicate = await this.model.findOne({
+        barcode: product.barcode,
+      });
+      if (duplicate) throw 'duplicate';
+    }
 
-    if (duplicate) throw 'duplicate';
-    const newCategory = new this.model(category);
-    return await newCategory.save();
+    const newProduct = new this.model(product);
+    return await newProduct.save();
   }
 
   async update(_id, category) {
