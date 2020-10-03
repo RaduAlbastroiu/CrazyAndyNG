@@ -28,7 +28,7 @@ export default function HtmlScreen({route, navigation}) {
     return (
       <ScrollView style={{flex: 1, paddingHorizontal: 10}}>
         <HTML
-          html={htmlContent}
+          html={data.htmlContent}
           contentWidth={windowDimension}
           onLinkPress={(evt, href) => {
             console.log(href);
