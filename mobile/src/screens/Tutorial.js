@@ -34,6 +34,7 @@ const Tutorial = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() => {
+          console.log('Skip pressed');
           navigation.goBack();
         }}
         style={{paddingLeft: 12, paddingTop: 12}}>
@@ -46,9 +47,15 @@ const Tutorial = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() => {
+          console.log('Done pressed');
           navigation.goBack();
         }}
-        style={{marginLeft: 'auto', paddingRight: 12, paddingTop: 12}}>
+        style={{
+          marginLeft: 'auto',
+          paddingRight: 12,
+          paddingTop: 12,
+          zIndex: 100,
+        }}>
         <Text style={{color: 'black', fontSize: 18}}>Done</Text>
       </TouchableOpacity>
     );
@@ -61,10 +68,7 @@ const Tutorial = ({navigation}) => {
           <View
             style={{
               flexDirection: 'row',
-            }}>
-            {renderSkip()}
-            {renderDone()}
-          </View>
+            }}></View>
         </ImageBackground>
         <Text style={{fontSize: 30}}>{item.title}</Text>
         <Text>{item.text}</Text>
@@ -113,7 +117,27 @@ const Tutorial = ({navigation}) => {
         onSnapToItem={(index) =>
           setActiveIndex((activeIndex = index))
         }></Carousel>
-      <View style={styles.dotsContainer}>{pagination()}</View>
+      <View style={styles.dotsContainer}>
+        <View
+          style={{
+            borderWidth: 2,
+            borderColor: 'red',
+            height: 50,
+            width: 50,
+          }}></View>
+        <View
+          style={{
+            height: 50,
+            width: 100,
+          }}></View>
+        <View
+          style={{
+            borderWidth: 2,
+            borderColor: 'red',
+            height: 50,
+            width: 50,
+          }}></View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -122,8 +146,15 @@ export default Tutorial;
 const styles = StyleSheet.create({
   dotsContainer: {
     position: 'absolute',
-    width: '100%',
+    width: '50%',
     marginTop: -10,
+    borderColor: 'blue',
+    borderWidth: 3,
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    //left: '50%',
+    //right: '50%',
   },
   image: {
     alignSelf: 'center',
