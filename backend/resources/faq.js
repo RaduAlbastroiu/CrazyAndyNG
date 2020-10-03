@@ -1,20 +1,20 @@
 const htmlContent = `
-<h3>FAQ</h3>
-<p>Styling texts is a very tricky part of converting HTML into react-native components.</p>
-<p>The way react-native's <em>Text</em> components behaves is a lot different from our browsers' implementation.</p>
-<p>Let's see how styles are applied to texts with this plugin.</p>
-<div style="color:red;">This text is inside a div, without a text tag wrapping it. The <em>div</em> tag only has <em>color:red;</em> as style.</div>
-In the example above, you may find, if you inspect the rendered components, that it's the <em>Text</em> component inside that actually receives the color attribute.
-This is because this library parses every text-only style of <em>View</em> wrappers and moves them to each <em>Text</em> child.
-<div style="color:red">
-  <p>This first paragraph doesn't have a specific styling.</p>
-  <p style="color:blue;">This one is blue.</p>
-</div>
-<p>Here, the <em>div</em> wrapper still has <em>color:red;</em> as style.</div>.</p>
-<p>The first paragraph inside it doesn't have any style attribute, either from HTML or from the <em>tagsStyles</em> or <em>classesStyles</em> props.</p>
-<p>The second one is set to be blue from its <em>style</em> attribute.</p>
-<p>You can see the order of priorities that applies to styling. The less important are your <em>tagsStyles</em>, 
-then your <em>classessStyles</em> and finally the styles parsed from your HTML content.</p>
+<h3>常見問題 FAQ</h3>
+<p>1) 如果我掃描嘅產品「搵唔到」，應該點做？</p>
+<p>如果你掃描嘅產品搵唔到，請幫忙「報料」俾我地啦！</p>
+<p>只要提供品牌名稱、產品名稱等嘅基本產品資料，如果可以根據指示影幾張相俾我地，例如全身、功能同條碼等，然後噤「送出」，我哋收到資料就會整理一下再加入資料庫，讓其他用戶都搵到呢個新加入嘅產品資料。</p>
+<p>由於用戶每天都會提供數百張照片至數據庫，因此產品可能需要一些時間才會顯示在APP中。我們還須要先完成一系列質量控制檢查，才把該產品顯示在應用程式上。</p>
+
+<p>2) 如果掃描唔到條碼，應該點做？</p>
+<p>如果你喺掃描條碼嘅時候遇到問題，希望以下嘅方法可以幫到你：</p>
+<p>•	移動下手機或者點擊螢幕令相機對焦</p>
+<p>•	請喺不同的光照下再次嘗試，以避免反光或陰影</p>
+<p>•	檢查相機的自動對焦功能。嘗試點擊螢幕上的遠近物體，看看焦點是否有改變</p>
+<p>•	嘗試把物體遠離相機，並確保它不會填滿整個螢幕，以便自動對焦可以找到條碼</p>
+<p>如果你的智能手機或平板電腦的相機沒有自動對焦功能，則可能與該裝置不相容。沒有自動對焦功能，條碼圖片會拍攝模糊，繼而導致無法識別條碼。</p>
+
+<p>3) 如果還有問題，該聯絡誰？</p>
+<p>你可以直接email 去 <a href="mailto:crazy2e.biz@gmail.com">crazy2e.biz@gmail.com</a> 俾我哋提出問題或意見，我哋會盡快回覆你。</p>
 `;
 
 module.exports = htmlContent;
