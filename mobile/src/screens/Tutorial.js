@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {useTranslation} from 'react-i18next';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { useTranslation } from 'react-i18next';
 import TutorialFirst from '../assets/tutorialFirst.png';
 import TutorialSecond from '../assets/tutorialSecond.png';
 import TutorialThird from '../assets/tutorialThird.png';
@@ -17,7 +17,7 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
-const Tutorial = ({navigation}) => {
+const Tutorial = ({ navigation }) => {
   let [activeIndex, setActiveIndex] = useState(0);
   const [
     carouselItems = [
@@ -28,7 +28,7 @@ const Tutorial = ({navigation}) => {
     ],
   ] = useState();
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const renderSkip = () => {
     return (
@@ -37,8 +37,8 @@ const Tutorial = ({navigation}) => {
           console.log('Skip pressed');
           navigation.goBack();
         }}
-        style={{paddingLeft: 12, paddingTop: 12}}>
-        <Text style={{color: 'black', fontSize: 18}}>Skip</Text>
+        style={{ paddingLeft: 12, paddingTop: 12 }}>
+        <Text style={{ color: 'black', fontSize: 18 }}>Skip</Text>
       </TouchableOpacity>
     );
   };
@@ -56,12 +56,12 @@ const Tutorial = ({navigation}) => {
           paddingTop: 12,
           zIndex: 100,
         }}>
-        <Text style={{color: 'black', fontSize: 18}}>Done</Text>
+        <Text style={{ color: 'black', fontSize: 18 }}>Done</Text>
       </TouchableOpacity>
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View>
         <ImageBackground source={arr[index]} style={styles.image}>
@@ -70,7 +70,7 @@ const Tutorial = ({navigation}) => {
               flexDirection: 'row',
             }}></View>
         </ImageBackground>
-        <Text style={{fontSize: 30}}>{item.title}</Text>
+        <Text style={{ fontSize: 30 }}>{item.title}</Text>
         <Text>{item.text}</Text>
       </View>
     );

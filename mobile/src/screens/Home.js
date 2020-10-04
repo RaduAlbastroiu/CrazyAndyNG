@@ -22,7 +22,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
-      {showTutorial ? (
+      {showTutorial === false ? (
         <Tutorial onDone={onDoneTutorial} />
       ) : (
         <FloatingButton navigation={navigation} />
