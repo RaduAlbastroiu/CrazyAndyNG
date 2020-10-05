@@ -18,7 +18,7 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
-const Tutorial = ({navigation}) => {
+const Tutorial = (params) => {
   let [activeIndex, setActiveIndex] = useState(0);
   const [
     carouselItems = [
@@ -29,23 +29,21 @@ const Tutorial = ({navigation}) => {
     ],
   ] = useState();
 
+  console.log(params);
+
   const {t} = useTranslation();
 
   const windowWidth = useWindowDimensions().width;
   const dotsWidth = 0.5 * windowWidth;
   const buttonsWidth = 0.225 * windowWidth;
   const lateralPadding = 0.025 * windowWidth;
-  console.log(windowWidth);
-  console.log(dotsWidth);
-  console.log(buttonsWidth);
-  console.log(lateralPadding);
+  const dotsPadding = 0.15 * windowWidth;
 
   const renderSkip = () => {
     return (
       <TouchableOpacity
         onPress={() => {
-          console.log('Skip pressed');
-          navigation.goBack();
+          params.navigation.pop();
         }}
         style={{paddingLeft: 12, paddingTop: 12}}>
         <Text style={{color: 'black', fontSize: 18}}>Skip</Text>
@@ -57,8 +55,7 @@ const Tutorial = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          console.log('Done pressed');
-          navigation.goBack();
+          params.navigation.pop();
         }}
         style={{
           marginLeft: 'auto',
@@ -85,9 +82,6 @@ const Tutorial = ({navigation}) => {
       </View>
     );
   };
-  {
-    console.log(activeIndex);
-  }
 
   const pagination = () => {
     return (
@@ -113,7 +107,6 @@ const Tutorial = ({navigation}) => {
       />
     );
   };
-  console.log('this is activeIndex', activeIndex);
 
   return (
     <SafeAreaView>
@@ -130,17 +123,13 @@ const Tutorial = ({navigation}) => {
       <View
         style={{
           position: 'absolute',
-          marginTop: -10,
-          borderColor: 'blue',
-          borderWidth: 1,
+          marginTop: -5,
+          height: 50,
           flexDirection: 'row',
           width: windowWidth,
         }}>
         <View
           style={{
-            borderWidth: 1,
-            borderColor: 'red',
-            height: 50,
             width: buttonsWidth,
             marginLeft: lateralPadding,
           }}>
@@ -148,18 +137,16 @@ const Tutorial = ({navigation}) => {
         </View>
         <View
           style={{
-            height: 50,
             width: dotsWidth,
+            paddingHorizontal: dotsPadding,
           }}>
           {pagination()}
         </View>
         <View
           style={{
-            borderWidth: 1,
-            borderColor: 'red',
-            height: 50,
             width: buttonsWidth,
             marginRight: lateralPadding,
+            marginTop: 5,
           }}>
           {renderDone()}
         </View>

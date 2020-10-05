@@ -9,24 +9,17 @@ const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(false);
   const {t} = useTranslation();
 
-  const onDoneTutorial = () => {
-    setShowTutorial(false);
-    console.log('done');
-  };
-
   useEffect(() => {
     isFirstOpen().then((res) => {
-      setShowTutorial(res);
+      if (res) {
+        navigation.navigate('Tutorial');
+      }
     });
   }, []);
 
   return (
     <View style={styles.mainContainer}>
-      {showTutorial === false ? (
-        <Tutorial onDone={onDoneTutorial} />
-      ) : (
-        <FloatingButton navigation={navigation} />
-      )}
+      <FloatingButton navigation={navigation} />
     </View>
   );
 };
