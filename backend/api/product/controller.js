@@ -18,8 +18,10 @@ class ProductController {
       const duplicate = await this.model.findOne({
         barcode: product.barcode,
       });
+
       if (duplicate) throw 'duplicate';
     }
+    if (await this.isDuplicate(product)) throw 'duplicate';
 
     const newProduct = new this.model(product);
     return await newProduct.save();
@@ -43,6 +45,8 @@ class ProductController {
       oldProduct.hashtags = product.hashtags || oldProduct.hashtags;
       oldProduct.images = product.images || oldProduct.images;
 
+      if (await this.isDuplicate(product)) throw 'duplicate';
+
       const newProduct = await oldProduct.save();
       return newProduct;
     }
@@ -53,6 +57,16 @@ class ProductController {
     const found = await this.model.findOneAndDelete({ _id });
     if (!found) throw 'not found';
     return found;
+  }
+
+  async isDuplicate(product) {
+    const duplicates = await this.model.find({
+      name: product.name,
+      brand: product.brand,
+      price: product.price,
+    });
+
+    return duplicates.length > 0;
   }
 }
 
