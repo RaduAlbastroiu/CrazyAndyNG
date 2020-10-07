@@ -41,6 +41,9 @@ productRouter.post(
       const created = await productController.create(req.body);
       return res.status(201).json({ success: 'Create successfully', created });
     } catch (err) {
+      if (err === 'duplicate') {
+        return res.status(400).send('Duplicated');
+      }
       console.error(err);
       return res.status(500).send('Internal Server Error');
     }
@@ -52,6 +55,10 @@ productRouter.put('/:_id', async (req, res) => {
     const updated = await productController.update(req.params._id, req.body);
     return res.status(200).json({ success: 'Updated successfully', updated });
   } catch (err) {
+    if (err === 'duplicate') {
+      return res.status(400).send('Duplicated');
+    }
+    console.error(err);
     return res.status(500).send('Internal Server Error');
   }
 });

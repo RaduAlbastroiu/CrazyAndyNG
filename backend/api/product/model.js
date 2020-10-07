@@ -8,14 +8,13 @@ const productSchema = mongoose.Schema({
   },
   barcode: {
     type: String,
-    unique: [true, 'Barcode must be unique'],
   },
   brand: {
     type: String,
     required: [true, 'Brand name field is empty'],
   },
   price: {
-    type: Number,
+    type: [Number],
     required: [true, 'Price field is empty'],
   },
   origin: {
