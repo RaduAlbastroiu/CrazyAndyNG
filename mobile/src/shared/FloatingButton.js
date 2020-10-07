@@ -31,6 +31,7 @@ const FloatingButton = ({navigation}) => {
 
   return (
     <FloatingAction
+      color="#12d8c2"
       actions={actions}
       onPressItem={(name) => {
         navigation.navigate('More');
