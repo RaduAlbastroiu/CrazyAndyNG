@@ -21,6 +21,7 @@ class ProductController {
 
       if (duplicate) throw 'duplicate';
     }
+
     if (await this.isDuplicate(product)) throw 'duplicate';
 
     const newProduct = new this.model(product);
@@ -66,7 +67,31 @@ class ProductController {
       price: product.price,
     });
 
-    return duplicates.length > 0;
+    let isDuplicate = false;
+    duplicates.forEach((duplicate) => {
+      let same = true;
+      if(product.hashtags && duplicate.hashtags && product.hashtags.toString() !== duplicate.hashtags.toString()) {
+        same = false;
+      } 
+      
+      if(product.origin && duplicate.origin && product.origin !== duplicate.origin) {
+        same = false;
+      }
+      
+      if(product.size && duplicate.size && product.size !== duplicate.size) {
+        same = false;
+      }
+
+      if(product.colour && duplicate.colour && product.colour !== duplicate.colour) {
+        same = false;
+      }
+
+      if(same === true) {
+        isDuplicate = true;
+      }
+    });
+
+    return isDuplicate;
   }
 }
 
