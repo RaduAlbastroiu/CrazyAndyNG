@@ -1,14 +1,37 @@
 const CategoryModel = require('../category/model');
 const HashtagModel = require('../hashtag/model');
 
+function converToQuery(filter) {
+  const newFilter = {};
+  if(filter._id) {
+    newFilter._id = filter._id;
+  }
+  if(filter.barcode) {
+    newFilter.barcode = filter.barcode;
+  }
+  if(filter.brand) {
+    newFilter.brand = filter.brand;
+  }
+  if(filter.origin) {
+    newFilter.origin = filter.origin;
+  }
+
+  return newFilter;
+}
+
 class ProductController {
   constructor(model) {
     this.model = model;
   }
 
-  async find(filter) {
-    const skip = (filter.page - 1) * filter.size;
-    let foundProducts = await this.model.find().skip(skip).limit(filter.size);
+  async find(args) {
+    const skip = (args.page - 1) * args.size;
+    const query = converToQuery(args.filter);
+    console.log(query);
+    let foundProducts = await this.model
+      .find(query)
+      .skip(skip)
+      .limit(args.size);
 
     return foundProducts;
   }
@@ -21,6 +44,7 @@ class ProductController {
 
       if (duplicate) throw 'duplicate';
     }
+
     if (await this.isDuplicate(product)) throw 'duplicate';
 
     const newProduct = new this.model(product);
@@ -66,7 +90,31 @@ class ProductController {
       price: product.price,
     });
 
-    return duplicates.length > 0;
+    let isDuplicate = false;
+    duplicates.forEach((duplicate) => {
+      let same = true;
+      if(product.hashtags && duplicate.hashtags && product.hashtags.toString() !== duplicate.hashtags.toString()) {
+        same = false;
+      } 
+      
+      if(product.origin && duplicate.origin && product.origin !== duplicate.origin) {
+        same = false;
+      }
+      
+      if(product.size && duplicate.size && product.size !== duplicate.size) {
+        same = false;
+      }
+
+      if(product.colour && duplicate.colour && product.colour !== duplicate.colour) {
+        same = false;
+      }
+
+      if(same === true) {
+        isDuplicate = true;
+      }
+    });
+
+    return isDuplicate;
   }
 }
 

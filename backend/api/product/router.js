@@ -15,6 +15,9 @@ productRouter.get('/', async (req, res) => {
       size: parseInt(req.query.size, 10) || 20,
       filter: req.query.filter || {},
     };
+    if(req.query.filter) {
+      options.filter = JSON.parse(options.filter);
+    }
     const found = await productController.find(options);
     return res.status(200).json({ success: 'Query successful', found });
   } catch (err) {
