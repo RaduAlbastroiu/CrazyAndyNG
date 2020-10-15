@@ -1,37 +1,21 @@
 import React from "react";
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Product from "./Components/Product";
 import Others from "./Components/Others";
 import Profile from "./Components/Profile";
+import Header from "./Components//Header";
+import "./App.css";
 
 export default function Router() {
   return (
-    <div style={{ backgroundColor: "red", textAlign: "center" }}>
-      <div>
-        <NavLink
-          exact
-          to='/'
-          activeClassName='active'
-          style={{ marginRight: 20, color: "white", textDecoration: "none" }}
-        >
-          Product
-        </NavLink>
-        <NavLink
-          to='/Profile'
-          activeClassName='active'
-          style={{ marginRight: 20, color: "white", textDecoration: "none" }}
-        >
-          Profile
-        </NavLink>
-        <NavLink
-          to='/Others'
-          activeClassName='active'
-          style={{ marginRight: 20, color: "white", textDecoration: "none" }}
-        >
-          Others
-        </NavLink>
-      </div>
+    <div
+      style={{
+        backgroundColor: "#3f51b5",
+        textAlign: "center",
+      }}
+    >
+      <Header />
       <Route
         render={(location) => (
           <TransitionGroup>
