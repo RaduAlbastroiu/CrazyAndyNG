@@ -1,13 +1,16 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Add from "@material-ui/icons/Add";
-
+import "../App.css";
 export default function SearchBar() {
   return (
-    <AppBar position='static' style={{ backgroundColor: "white" }}>
+    <div
+      position='static'
+      style={{ backgroundColor: "white", marginTop: 10 }}
+      className='shadowbox'
+    >
       <Toolbar>
         <div style={{ width: "100%" }}>
           <InputBase
@@ -21,6 +24,6 @@ export default function SearchBar() {
         <SearchIcon style={{ marginLeft: "0.5%", color: "gray" }} />
         <Add style={{ marginLeft: "0.5%", color: "blue" }} />
       </Toolbar>
-    </AppBar>
+    </div>
   );
 }
