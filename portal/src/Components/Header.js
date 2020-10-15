@@ -4,7 +4,10 @@ import "../App.css";
 
 export default function Header() {
   return (
-    <div style={{ paddingBottom: 30 }} className='nav'>
+    <div
+      style={{ paddingBottom: 30, backgroundColor: "#3f51b5" }}
+      className='nav'
+    >
       <NavLink
         exact
         to='/'

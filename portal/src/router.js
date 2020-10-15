@@ -6,16 +6,22 @@ import Others from "./Components/Others";
 import Profile from "./Components/Profile";
 import Header from "./Components//Header";
 import "./App.css";
+import SearchBar from "./Components/SearchBar";
+import ImportExport from "./Components/ImportExport";
 
 export default function Router() {
   return (
-    <div
-      style={{
-        backgroundColor: "#3f51b5",
-        textAlign: "center",
-      }}
-    >
-      <Header />
+    <div>
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <Header />
+        <ImportExport />
+        <SearchBar />
+      </div>
+
       <Route
         render={(location) => (
           <TransitionGroup>
