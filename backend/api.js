@@ -18,6 +18,9 @@ mainRouter.use('/hashtag', hashtagRoutes);
 const productRoutes = require('./api/product/router');
 mainRouter.use('/product', productRoutes);
 
+const feedbackRoutes = require('./api/feedback/router');
+mainRouter.use('/feedback', feedbackRoutes);
+
 const helpRoutes = require('./api/help/router');
 mainRouter.use('/help', helpRoutes);
 

@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const feedbackSchema = mongoose.Schema({
   title: {
     type: String,
-    require: [true, "Title field is empty"]
   },
   comment: {
     type: String,
