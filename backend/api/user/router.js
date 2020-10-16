@@ -36,4 +36,8 @@ userRouter.post(
   }
 );
 
+userRouter.post('/image', async (req, res) => {
+  return res.status(200).send('PNM TEST');
+});
+
 module.exports = userRouter;
