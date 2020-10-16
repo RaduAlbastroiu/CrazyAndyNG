@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const feedbackSchema = mongoose.Schema({
   title: {
@@ -9,14 +9,18 @@ const feedbackSchema = mongoose.Schema({
   },
   stars: {
     type: Number,
-    required: [true, "Stars required"]
+    required: [true, 'Stars required'],
   },
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'product',
     required: true,
   },
+  owner: {
+    type: String,
+    required: true,
+  },
 });
 
-const feedbackModel = mongoose.model("feedback", feedbackSchema);
+const feedbackModel = mongoose.model('feedback', feedbackSchema);
 module.exports = feedbackModel;

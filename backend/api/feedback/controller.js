@@ -14,6 +14,13 @@ class FeedbackController {
     this.model = model;
   }
 
+  async isOwnedBy(deviceId, feedbackId) {
+    const feedback = await this.model.findOne({ _id: feedbackId });
+    if (!feedback) throw 'not found';
+    if (feedback.owner === deviceId) return true;
+    return false;
+  }
+
   async find(args) {
     const skip = (args.page - 1) * args.size;
     const query = convertToQuery(args.filter);
@@ -22,7 +29,8 @@ class FeedbackController {
     return found;
   }
 
-  async create(feedback) {
+  async create(feedback, user) {
+    feedback.owner = user.role === 'user' ? user.deviceId : user.email;
     const newFeedback = new this.model(feedback);
     return await newFeedback.save();
   }

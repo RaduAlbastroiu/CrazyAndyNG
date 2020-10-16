@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const validate = require('../../middleware/paramsValidation');
+const { auth, authAdmin } = require('../../middleware/authValidation');
 
 const FeedbackController = require('./controller');
 const FeedbackModel = require('./model');
@@ -9,7 +10,7 @@ const FeedbackModel = require('./model');
 const feedbackRouter = new Router();
 const feedbackController = new FeedbackController(FeedbackModel);
 
-feedbackRouter.get('/', async (req, res) => {
+feedbackRouter.get('/', auth, async (req, res) => {
   try {
     const options = {
       page: parseInt(req.query.page, 10) || 1,
@@ -31,6 +32,7 @@ feedbackRouter.get('/', async (req, res) => {
 
 feedbackRouter.post(
   '/',
+  auth,
   [
     check('comment', 'Comment cannot be longer than 500 characters').isLength({
       max: 500,
@@ -58,6 +60,7 @@ feedbackRouter.post(
 
 feedbackRouter.put(
   '/:_id',
+  auth,
   [
     check('comment', 'Comment cannot be longer than 500 characters').isLength({
       max: 500,
@@ -72,6 +75,13 @@ feedbackRouter.put(
   validate,
   async (req, res) => {
     try {
+      if (req.user.role === 'user') {
+        const isOwner = await feedbackController.isOwnedBy(
+          req.user.deviceId,
+          req.params._id
+        );
+        if (!isOwner) throw 'forbidden';
+      }
       const updated = await feedbackController.update(req.params._id, req.body);
       return res.status(200).json({ success: 'Updated successfully', updated });
     } catch (err) {
@@ -93,8 +103,15 @@ feedbackRouter.put(
   }
 );
 
-feedbackRouter.delete('/:_id', async (req, res) => {
+feedbackRouter.delete('/:_id', auth, async (req, res) => {
   try {
+    if (req.user.role === 'user') {
+      const isOwner = await feedbackController.isOwnedBy(
+        req.user.deviceId,
+        req.params._id
+      );
+      if (!isOwner) throw 'forbidden';
+    }
     await feedbackController.delete(req.params._id);
     return res.sendStatus(204);
   } catch (err) {
@@ -103,7 +120,7 @@ feedbackRouter.delete('/:_id', async (req, res) => {
         .status(403)
         .send({ err: 'You are not allowed to modify this resource' });
     if (err === 'not found')
-      return res.status(404).send({ err: 'feedback not found' });
+      return res.status(404).send({ err: 'Feedback not found' });
     console.error(err);
     return res.status(500).send('Internal Server Error');
   }
