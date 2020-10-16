@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const validate = require('../../middleware/paramsValidation');
-const { auth, authAdmin } = require('../../middleware/authValidation');
+const { auth } = require('../../middleware/authValidation');
 
 const FeedbackController = require('./controller');
 const FeedbackModel = require('./model');

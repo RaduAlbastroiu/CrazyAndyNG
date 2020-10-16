@@ -47,6 +47,10 @@ const productSchema = mongoose.Schema({
   images: {
     type: [String],
   },
+  owner: {
+    type: String,
+    required: true,
+  },
 });
 
 const productModel = mongoose.model('product', productSchema);
