@@ -4,7 +4,13 @@ import "../App.css";
 export default function ImportExport() {
   return (
     <div
-      style={{ backgroundColor: "white", marginTop: 10, padding: 10 }}
+      style={{
+        backgroundColor: "white",
+        marginTop: 10,
+        padding: 10,
+        marginRight: 10,
+        marginLeft: 10,
+      }}
       className='shadowbox'
     >
       <div style={{ textAlign: "right" }}>

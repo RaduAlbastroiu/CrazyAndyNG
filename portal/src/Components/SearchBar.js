@@ -10,9 +10,7 @@ export default function SearchBar() {
       position='static'
       style={{
         backgroundColor: "white",
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
+        margin: 10,
       }}
       className='shadowbox'
     >
