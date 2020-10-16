@@ -14,21 +14,21 @@ export default function Header() {
         activeClassName='active'
         style={{ marginRight: 20, textDecoration: "none" }}
       >
-        Product
+        PRODUCT
       </NavLink>
       <NavLink
         to='/Profile'
         activeClassName='active'
         style={{ marginRight: 20, textDecoration: "none" }}
       >
-        Profile
+        PROFILE
       </NavLink>
       <NavLink
         to='/Others'
         activeClassName='active'
         style={{ marginRight: 20, textDecoration: "none" }}
       >
-        Others
+        OTHERS
       </NavLink>
     </div>
   );

@@ -8,7 +8,12 @@ export default function SearchBar() {
   return (
     <div
       position='static'
-      style={{ backgroundColor: "white", marginTop: 10 }}
+      style={{
+        backgroundColor: "white",
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+      }}
       className='shadowbox'
     >
       <Toolbar>
