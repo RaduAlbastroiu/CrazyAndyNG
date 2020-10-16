@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 
 const auth = (req, res, next) => {
   let token = req.headers.authorization;
-  token = token.split(' ')[1];
 
   // Check if admin
   if (token) {
     // Verify token
     try {
+      token = token.split(' ')[1];
       const decoded = jwt.verify(token, process.env.SECRET);
       req.user = decoded;
       next();
