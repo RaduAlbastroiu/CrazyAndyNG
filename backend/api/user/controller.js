@@ -12,7 +12,7 @@ class UserController {
         email: user.email,
         role: user.role,
       },
-      process.env.SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
   }

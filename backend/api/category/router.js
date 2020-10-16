@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const validate = require('../../middleware/paramsValidation');
+const { auth, authAdmin } = require('../../middleware/authValidation');
 
 const CategoryController = require('./controller');
 const CategoryModel = require('./model');
@@ -9,7 +10,7 @@ const CategoryModel = require('./model');
 const categoryRouter = new Router();
 const categoryController = new CategoryController(CategoryModel);
 
-categoryRouter.get('/', async (req, res) => {
+categoryRouter.get('/', auth, async (req, res) => {
   try {
     const categories = await categoryController.getAll();
     res.status(200).json(categories);
@@ -21,6 +22,7 @@ categoryRouter.get('/', async (req, res) => {
 
 categoryRouter.post(
   '/',
+  authAdmin,
   [check('name', 'Name is empty').notEmpty()],
   validate,
   async (req, res) => {
@@ -39,6 +41,7 @@ categoryRouter.post(
 
 categoryRouter.put(
   '/:_id',
+  authAdmin,
   [check('name', 'Name is empty').notEmpty()],
   validate,
   async (req, res) => {
@@ -55,7 +58,7 @@ categoryRouter.put(
   }
 );
 
-categoryRouter.delete('/:_id', async (req, res) => {
+categoryRouter.delete('/:_id', authAdmin, async (req, res) => {
   try {
     await categoryController.delete(req.params._id);
     return res.sendStatus(204);
