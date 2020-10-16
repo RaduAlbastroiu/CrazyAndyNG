@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const validate = require('../../middleware/paramsValidation');
+const { auth, authAdmin } = require('../../middleware/authValidation');
 
 const HashtagController = require('./controller');
 const HashtagModel = require('./model');
@@ -9,7 +10,7 @@ const HashtagModel = require('./model');
 const hashtagRouter = new Router();
 const hashtagController = new HashtagController(HashtagModel);
 
-hashtagRouter.get('/', async (req, res) => {
+hashtagRouter.get('/', auth, async (req, res) => {
   try {
     const hashtags = await hashtagController.find(req.params);
     res.status(200).json(hashtags);
@@ -21,6 +22,7 @@ hashtagRouter.get('/', async (req, res) => {
 
 hashtagRouter.post(
   '/',
+  authAdmin,
   [
     check('name', 'Name is empty').notEmpty(),
     check('category', 'Category is empty').notEmpty(),
@@ -41,7 +43,7 @@ hashtagRouter.post(
   }
 );
 
-hashtagRouter.put('/:_id', async (req, res) => {
+hashtagRouter.put('/:_id', authAdmin, async (req, res) => {
   try {
     const updated = await hashtagController.update(req.params._id, req.body);
     return res.status(200).json({ success: 'Updated successfully', updated });
@@ -54,7 +56,7 @@ hashtagRouter.put('/:_id', async (req, res) => {
   }
 });
 
-hashtagRouter.delete('/:_id', async (req, res) => {
+hashtagRouter.delete('/:_id', authAdmin, async (req, res) => {
   try {
     await hashtagController.delete(req.params._id);
     return res.sendStatus(204);
