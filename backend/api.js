@@ -6,9 +6,6 @@ const mainRouter = new Router();
 const authRoutes = require('./api/user/router');
 mainRouter.use('/user', authRoutes);
 
-const mobileAuthRoutes = require('./api/mobileUser/router');
-mainRouter.use('/user', mobileAuthRoutes);
-
 const categoryRoutes = require('./api/category/router');
 mainRouter.use('/category', categoryRoutes);
 
