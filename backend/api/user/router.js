@@ -59,9 +59,9 @@ userRouter.post('/image', async (req, res) => {
 
   // UPLOAD BLOB
   /*
-  const blobName = 'quickstarttextdfgytre.jpg';
+  let blobName = 'quickstarttextdfgytre.jpg';
 
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  let blockBlobClient = containerClient.getBlockBlobClient(blobName);
   const uploadBlobResponse = await blockBlobClient.upload(
     req.files.image0.data,
     req.files.image0.size
@@ -70,41 +70,21 @@ userRouter.post('/image', async (req, res) => {
     'Blob was uploaded successfully. requestId: ',
     uploadBlobResponse.requestId
   );
-  */
 
   // LIST BLOBS
-  /*
   for await (const blob of containerClient.listBlobsFlat()) {
     console.log(blob.name);
   }
   */
 
   // DOWNLOAD BLOB
-  /*
-  const blobName = 'quickstarttextdfgytre.jpg';
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  blobName = 'quickstarttextdfgytre.jpg';
+  blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
   const downloadBlockBlobResponse = await blockBlobClient.download(0);
-  console.log(
-    await streamToString(downloadBlockBlobResponse.readableStreamBody)
-  );
-  */
+  console.log(downloadBlockBlobResponse.readableStreamBody);
 
   return res.status(200).send('PNM TEST');
 });
-
-// A helper function used to read a Node.js readable stream into a string
-async function streamToString(readableStream) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    readableStream.on('data', (data) => {
-      chunks.push(data.toString());
-    });
-    readableStream.on('end', () => {
-      resolve(chunks.join(''));
-    });
-    readableStream.on('error', reject);
-  });
-}
 
 module.exports = userRouter;
