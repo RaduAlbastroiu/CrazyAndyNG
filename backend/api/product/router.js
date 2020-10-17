@@ -9,6 +9,8 @@ const ProductModel = require('./model');
 
 const { BlobServiceClient, BlockBlobClient } = require('@azure/storage-blob');
 
+const fileUpload = require('express-fileupload');
+
 const productRouter = new Router();
 const productController = new ProductController(ProductModel);
 
@@ -137,9 +139,12 @@ productRouter.delete('/:_id', auth, async (req, res) => {
 /*
 // Product Images Area
 */
-productRouter.get('/image', auth, async (req, res) => {
+
+productRouter.use(fileUpload());
+
+productRouter.get('/image/:_id', auth, async (req, res) => {
   try {
-    const found = await productController.find(options);
+    const found = await productController.getImages(req.params._id);
     return res.status(200).json({ success: 'Query successful', found });
   } catch (err) {
     console.error(err);
@@ -147,20 +152,7 @@ productRouter.get('/image', auth, async (req, res) => {
   }
 });
 
-productRouter.post('/image', auth, async (req, res) => {
-  try {
-    const created = await productController.create(req.body, req.user);
-    return res.status(201).json({ success: 'Create successfully', created });
-  } catch (err) {
-    if (err === 'duplicate') {
-      return res.status(400).send('Duplicated');
-    }
-    console.error(err);
-    return res.status(500).send('Internal Server Error');
-  }
-});
-
-productRouter.put('image/:_id', auth, async (req, res) => {
+productRouter.put('/image/:_id', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
       const isOwner = await productController.isOwnedBy(
@@ -169,7 +161,7 @@ productRouter.put('image/:_id', auth, async (req, res) => {
       );
       if (!isOwner) throw 'forbidden';
     }
-    const updated = await productController.update(req.params._id, req.body);
+    const updated = await productController.addImage(req.params._id, req.files);
     return res.status(200).json({ success: 'Updated successfully', updated });
   } catch (err) {
     if (err === 'forbidden') {
@@ -185,7 +177,7 @@ productRouter.put('image/:_id', auth, async (req, res) => {
   }
 });
 
-productRouter.delete('image/:_id', auth, async (req, res) => {
+productRouter.delete('/image/:_id/:imgName', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
       const isOwner = await productController.isOwnedBy(
@@ -194,7 +186,7 @@ productRouter.delete('image/:_id', auth, async (req, res) => {
       );
       if (!isOwner) throw 'forbidden';
     }
-    await productController.delete(req.params._id);
+    await productController.deleteImage(req.params._id, req.params.imgName);
     return res.sendStatus(204);
   } catch (err) {
     if (err === 'not found') {

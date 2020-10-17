@@ -30,6 +30,7 @@ const uploadBlob = async (name, data, dataSize) => {
   try {
     const blockBlobClient = containerClient.getContainerClient(name);
     await blockBlobClient.upload(data, dataSize);
+    return true;
   } catch (err) {
     console.log(err);
     return false;
@@ -41,7 +42,7 @@ const downloadBlob = async (name) => {
     blockBlobClient = containerClient.getBlockBlobClient(name);
 
     const downloadBlockBlobResponse = await blockBlobClient.download(0);
-    return { data: downloadBlockBlobResponse.readableStreamBody };
+    return { name: name, data: downloadBlockBlobResponse.readableStreamBody };
   } catch (err) {
     console.log(err);
     return {};

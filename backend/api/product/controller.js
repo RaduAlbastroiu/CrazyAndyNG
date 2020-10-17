@@ -1,7 +1,12 @@
 const categoryModel = require('../category/model');
-const CategoryModel = require('../category/model');
 const hashtagModel = require('../hashtag/model');
-const HashtagModel = require('../hashtag/model');
+const {
+  downloadBlob,
+  uploadBlob,
+  deleteBlob,
+} = require('../../helpers/azureBlobUtils');
+const { v4 } = require('uuid');
+const uuid = v4;
 
 function converToQuery(filter) {
   const newFilter = {};
@@ -100,6 +105,49 @@ class ProductController {
     return found;
   }
 
+  async getImages(_id) {
+    const dbProduct = await this.model.findOne({ _id });
+    if (!dbProduct) throw 'not found';
+
+    let images = [];
+
+    await dbProduct.images.forEach(async (imageName) => {
+      const downloaded = await downloadBlob(imageName);
+      images.push(downloaded);
+    });
+
+    return images;
+  }
+
+  async addImage(_id, file) {
+    const oldProduct = await this.model.findOne({ _id });
+    if (!oldProduct) throw 'not found';
+
+    let fileName = 'image' + uuid() + '.jpg';
+
+    if (await uploadBlob(fileName, file.data, file.size)) {
+      oldProduct.images.push(fileName);
+
+      const newProduct = await oldProduct.save();
+      return newProduct;
+    }
+    throw 'upload failed';
+  }
+
+  async deleteImage(_id, imgName) {
+    const oldProduct = await this.model.findOne({ _id });
+    if (!oldProduct) throw 'not found';
+
+    const indexToRemove = oldProduct.images.indexOf(imgName);
+    if (indexToRemove >= 0) {
+      await deleteBlob(imgName);
+      oldProduct.images.splice(indexToRemove, 1);
+      const newProduct = await oldProduct.save();
+      return newProduct;
+    }
+    throw 'delete failed';
+  }
+
   async isDuplicate(product) {
     const duplicates = await this.model.find({
       name: product.name,
@@ -170,3 +218,19 @@ class ProductController {
 }
 
 module.exports = ProductController;
+
+/*
+{
+  image0: {
+    name: 'IMG_6990.jpeg',
+    data: <Buffer ff d8 ff e0 00 10 4a 46 49 46 00 01 01 00 00 48 00 48 00 00 ff e1 07 88 45 78 69 66 00 00 4d 4d 00 2a 00 00 00 08 00 0a 01 0f 00 02 00 00 00 06 00 00 ... 1469392 more bytes>,
+    size: 1469442,
+    encoding: '7bit',
+    tempFilePath: '',
+    truncated: false,
+    mimetype: 'image/jpeg',
+    md5: '93c35556a6c2e1f268a2d91d0f97717a',
+    mv: [Function: mv]
+  }
+}
+*/

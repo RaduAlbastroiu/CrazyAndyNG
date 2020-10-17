@@ -58,7 +58,7 @@ userRouter.post('/image', async (req, res) => {
   //const createContainerResponse = await containerClient.create();
 
   // UPLOAD BLOB
-  /*
+
   let blobName = 'quickstarttextdfgytre.jpg';
 
   let blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -75,7 +75,6 @@ userRouter.post('/image', async (req, res) => {
   for await (const blob of containerClient.listBlobsFlat()) {
     console.log(blob.name);
   }
-  */
 
   // DOWNLOAD BLOB
   blobName = 'quickstarttextdfgytre.jpg';
