@@ -9,6 +9,8 @@ const UserModel = require('./model');
 const userRouter = new Router();
 const userController = new UserController(UserModel);
 
+const fileUpload = require('express-fileupload');
+
 userRouter.post(
   '/login',
   [
@@ -36,8 +38,73 @@ userRouter.post(
   }
 );
 
+// TEST AREA
+
+const { BlobServiceClient, BlockBlobClient } = require('@azure/storage-blob');
+
+userRouter.use(fileUpload());
+
 userRouter.post('/image', async (req, res) => {
+  console.log(process.env.AZURE_BLOB);
+  console.log(req.files);
+
+  const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_BLOB
+  );
+
+  const containerName = 'quickstartqirienri2nre2904';
+
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  //const createContainerResponse = await containerClient.create();
+
+  // UPLOAD BLOB
+  /*
+  const blobName = 'quickstarttextdfgytre.jpg';
+
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  const uploadBlobResponse = await blockBlobClient.upload(
+    req.files.image0.data,
+    req.files.image0.size
+  );
+  console.log(
+    'Blob was uploaded successfully. requestId: ',
+    uploadBlobResponse.requestId
+  );
+  */
+
+  // LIST BLOBS
+  /*
+  for await (const blob of containerClient.listBlobsFlat()) {
+    console.log(blob.name);
+  }
+  */
+
+  // DOWNLOAD BLOB
+  /*
+  const blobName = 'quickstarttextdfgytre.jpg';
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+  const downloadBlockBlobResponse = await blockBlobClient.download(0);
+  console.log(
+    await streamToString(downloadBlockBlobResponse.readableStreamBody)
+  );
+  */
+
   return res.status(200).send('PNM TEST');
 });
+
+// A helper function used to read a Node.js readable stream into a string
+async function streamToString(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    readableStream.on('data', (data) => {
+      chunks.push(data.toString());
+    });
+    readableStream.on('end', () => {
+      resolve(chunks.join(''));
+    });
+    readableStream.on('error', reject);
+  });
+}
 
 module.exports = userRouter;
