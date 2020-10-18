@@ -1,62 +1,55 @@
 const { BlobServiceClient } = require('@azure/storage-blob');
 
-let containerClient = null;
-
-const initBlobClient = () => {
-  try {
-    const blobServiceClient = BlobServiceClient.fromConnectionString(
-      process.env.AZURE_BLOB
-    );
-
-    containerClient = blobServiceClient.getContainerClient(
-      process.env.AZURE_CONTAINER_NAME
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const getListOfBlobs = async () => {
-  try {
-    let list = await containerClient.listBlobsFlat();
-    return list;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
+  const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_BLOB
+  );
+  const containerClient = blobServiceClient.getContainerClient(
+    process.env.AZURE_CONTAINER_NAME
+  );
+
+  let list = await containerClient.listBlobsFlat();
+  return list;
 };
 
-const uploadBlob = async (name, data, dataSize) => {
-  try {
-    const blockBlobClient = containerClient.getContainerClient(name);
-    await blockBlobClient.upload(data, dataSize);
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
+const uploadBlob = async (name, file) => {
+  const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_BLOB
+  );
+  const containerClient = blobServiceClient.getContainerClient(
+    process.env.AZURE_CONTAINER_NAME
+  );
+
+  const blockBlobClient = containerClient.getBlockBlobClient(name);
+  await blockBlobClient.upload(file.data, file.size);
 };
 
 const downloadBlob = async (name) => {
-  try {
-    blockBlobClient = containerClient.getBlockBlobClient(name);
+  const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_BLOB
+  );
+  const containerClient = blobServiceClient.getContainerClient(
+    process.env.AZURE_CONTAINER_NAME
+  );
 
-    const downloadBlockBlobResponse = await blockBlobClient.download(0);
-    return { name: name, data: downloadBlockBlobResponse.readableStreamBody };
-  } catch (err) {
-    console.log(err);
-    return {};
-  }
+  const blockBlobClient = containerClient.getBlockBlobClient(name);
+  const downloadBlockBlobResponse = await blockBlobClient.download(0);
+  return {
+    name: name,
+    data: await streamToString(downloadBlockBlobResponse.readableStreamBody),
+  };
 };
 
 const deleteBlob = async (name) => {
-  try {
-    const blockBlobClient = containerClient.getContainerClient(name);
-    await blockBlobClient.delete();
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
+  const blobServiceClient = BlobServiceClient.fromConnectionString(
+    process.env.AZURE_BLOB
+  );
+  const containerClient = blobServiceClient.getContainerClient(
+    process.env.AZURE_CONTAINER_NAME
+  );
+
+  const blockBlobClient = containerClient.getBlockBlobClient(name);
+  await blockBlobClient.delete();
 };
 
 // A helper function used to read a Node.js readable stream into a string
@@ -73,7 +66,6 @@ async function streamToString(readableStream) {
   });
 }
 
-module.exports.initBlobClient = initBlobClient;
 module.exports.getListOfBlobs = getListOfBlobs;
 module.exports.uploadBlob = uploadBlob;
 module.exports.downloadBlob = downloadBlob;

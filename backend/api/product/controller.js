@@ -105,16 +105,27 @@ class ProductController {
     return found;
   }
 
+  async downloadImages(product) {
+    let images = [];
+
+    product.images.forEach(async (imageName) => {
+      const downloaded = await downloadBlob(imageName);
+      images.push(downloaded);
+    });
+
+    return images;
+  }
+
   async getImages(_id) {
     const dbProduct = await this.model.findOne({ _id });
     if (!dbProduct) throw 'not found';
 
     let images = [];
 
-    await dbProduct.images.forEach(async (imageName) => {
+    for (const imageName of dbProduct.images) {
       const downloaded = await downloadBlob(imageName);
       images.push(downloaded);
-    });
+    }
 
     return images;
   }
@@ -125,13 +136,11 @@ class ProductController {
 
     let fileName = 'image' + uuid() + '.jpg';
 
-    if (await uploadBlob(fileName, file.data, file.size)) {
-      oldProduct.images.push(fileName);
+    await uploadBlob(fileName, file.file);
+    oldProduct.images.push(fileName);
 
-      const newProduct = await oldProduct.save();
-      return newProduct;
-    }
-    throw 'upload failed';
+    const newProduct = await oldProduct.save();
+    return newProduct;
   }
 
   async deleteImage(_id, imgName) {
@@ -142,10 +151,10 @@ class ProductController {
     if (indexToRemove >= 0) {
       await deleteBlob(imgName);
       oldProduct.images.splice(indexToRemove, 1);
-      const newProduct = await oldProduct.save();
-      return newProduct;
+      await oldProduct.save();
+    } else {
+      throw 'Image not found';
     }
-    throw 'delete failed';
   }
 
   async isDuplicate(product) {

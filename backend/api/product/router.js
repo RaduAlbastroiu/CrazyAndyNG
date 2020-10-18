@@ -97,6 +97,9 @@ productRouter.put('/:_id', auth, async (req, res) => {
         .status(403)
         .send({ err: 'You are not allowed to modify this resource' });
     }
+    if (err === 'not found') {
+      return res.status(404).send('Product not found');
+    }
     if (err === 'duplicate') {
       return res.status(400).send('Duplicated');
     }
@@ -123,13 +126,13 @@ productRouter.delete('/:_id', auth, async (req, res) => {
     await productController.delete(req.params._id);
     return res.sendStatus(204);
   } catch (err) {
-    if (err === 'not found') {
-      return res.status(404).send('Product not found');
-    }
     if (err === 'forbidden') {
       return res
         .status(403)
         .send({ err: 'You are not allowed to modify this resource' });
+    }
+    if (err === 'not found') {
+      return res.status(404).send('Product not found');
     }
     console.error(err);
     return res.status(500).send('Internal Server Error');
@@ -142,17 +145,20 @@ productRouter.delete('/:_id', auth, async (req, res) => {
 
 productRouter.use(fileUpload());
 
-productRouter.get('/image/:_id', auth, async (req, res) => {
+productRouter.get('/:_id/image', auth, async (req, res) => {
   try {
     const found = await productController.getImages(req.params._id);
     return res.status(200).json({ success: 'Query successful', found });
   } catch (err) {
+    if (err === 'not found') {
+      return res.status(404).send('Product not found');
+    }
     console.error(err);
     return res.status(500).send('Internal Server Error');
   }
 });
 
-productRouter.put('/image/:_id', auth, async (req, res) => {
+productRouter.put('/:_id/image', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
       const isOwner = await productController.isOwnedBy(
@@ -169,6 +175,9 @@ productRouter.put('/image/:_id', auth, async (req, res) => {
         .status(403)
         .send({ err: 'You are not allowed to modify this resource' });
     }
+    if (err === 'not found') {
+      return res.status(404).send('Product not found');
+    }
     if (err === 'duplicate') {
       return res.status(400).send('Duplicated');
     }
@@ -177,7 +186,7 @@ productRouter.put('/image/:_id', auth, async (req, res) => {
   }
 });
 
-productRouter.delete('/image/:_id/:imgName', auth, async (req, res) => {
+productRouter.delete('/:_id/image/:imgName', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
       const isOwner = await productController.isOwnedBy(
@@ -191,6 +200,9 @@ productRouter.delete('/image/:_id/:imgName', auth, async (req, res) => {
   } catch (err) {
     if (err === 'not found') {
       return res.status(404).send('Product not found');
+    }
+    if (err === 'Image not found') {
+      return res.status(404).send('Image not found');
     }
     if (err === 'forbidden') {
       return res
