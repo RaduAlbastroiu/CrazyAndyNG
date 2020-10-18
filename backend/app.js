@@ -10,6 +10,10 @@ app.use(compression());
 app.use(cors());
 app.use(bp.json());
 
+// load database
+const connectDB = require('./db');
+connectDB();
+
 // register api
 const api = require('./api');
 app.use('/api', api);
