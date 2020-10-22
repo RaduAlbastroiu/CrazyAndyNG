@@ -7,7 +7,6 @@ import Profile from "./Components/Profile";
 import Header from "./Components//Header";
 import "./App.css";
 import SearchBar from "./Components/SearchBar";
-import ImportExport from "./Components/ImportExport";
 
 export default function Router() {
   return (
@@ -18,7 +17,6 @@ export default function Router() {
         }}
       >
         <Header />
-        <ImportExport />
         <SearchBar />
       </div>
 
