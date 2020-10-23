@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import FloatingButton from '../shared/FloatingButton';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -191,55 +192,58 @@ const ProductInfo = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      {renderTopItems()}
-      <View
-        style={{
-          backgroundColor: '#E5F4F9',
-          borderRadius: 50,
-          marginHorizontal: 10,
-          marginVertical: 5,
-        }}>
-        <View style={{alignItems: 'center'}}>
-          <View
-            style={{
-              marginTop: 20,
-              width: 300,
-              alignItems: 'center',
-            }}>
-            {renderImagesCarousel()}
-            {renderCarouselPagination()}
-          </View>
-          <View
-            style={{
-              marginHorizontal: 20,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              flexGrow: 1,
-            }}>
-            {renderHashtags()}
-          </View>
-        </View>
-
+      <View>
+        {renderTopItems()}
         <View
           style={{
-            marginVertical: 10,
-            marginHorizontal: 25,
+            backgroundColor: '#E5F4F9',
+            borderRadius: 50,
+            marginHorizontal: 10,
+            marginVertical: 5,
           }}>
-          {renderDetails()}
-        </View>
+          <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                marginTop: 20,
+                width: 300,
+                alignItems: 'center',
+              }}>
+              {renderImagesCarousel()}
+              {renderCarouselPagination()}
+            </View>
+            <View
+              style={{
+                marginHorizontal: 20,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                flexGrow: 1,
+              }}>
+              {renderHashtags()}
+            </View>
+          </View>
 
-        <View style={{alignItems: 'center'}}>
           <View
             style={{
-              flexDirection: 'row',
-              marginBottom: 20,
+              marginVertical: 10,
+              marginHorizontal: 25,
             }}>
-            {renderBottomButton(ShareImage)}
-            {renderBottomButton(EditImage)}
-            {renderBottomButton(CompareImage)}
+            {renderDetails()}
+          </View>
+
+          <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginBottom: 20,
+              }}>
+              {renderBottomButton(ShareImage)}
+              {renderBottomButton(EditImage)}
+              {renderBottomButton(CompareImage)}
+            </View>
           </View>
         </View>
       </View>
+      <FloatingButton navigation={navigation} />
     </View>
   );
 };

@@ -64,7 +64,11 @@ function MyStack() {
           ),
         })}
       />
-      <Stack.Screen name="ProductInfo" component={ProductInfo} />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfo}
+        options={{title: 'Information'}}
+      />
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen
