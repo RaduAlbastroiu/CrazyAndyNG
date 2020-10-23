@@ -51,7 +51,7 @@ const AddProductForm = (props) => {
   };
 
   return (
-    <div style={{ flexDirection: "row" }}>
+    <div style={{ flexDirection: "row", marginBottom: 10, marginLeft: 10 }}>
       <input
         className='u-full-width'
         type='text'
@@ -132,7 +132,11 @@ const AddProductForm = (props) => {
         onChange={handleChange}
         placeholder={getCurrentDate()}
       />
-      <button className='button-primary' type='submit' onClick={handleSubmit}>
+      <button
+        style={{ marginLeft: 10, borderRadius: 10 }}
+        type='submit'
+        onClick={handleSubmit}
+      >
         Add Product
       </button>
     </div>

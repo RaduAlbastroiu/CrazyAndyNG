@@ -6,7 +6,7 @@ const ProductTable = (props) => {
     <table>
       <thead>
         <tr>
-          <th>ID</th>
+          <th></th>
           <th>Name</th>
           <th>Category</th>
           <th>Price</th>
