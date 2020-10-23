@@ -1,5 +1,21 @@
-import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+  Image,
+  useWindowDimensions,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+
+import Placeholder from '../assets/placeholder.png';
+import CalculatorImage from '../assets/calculator.png';
+import TutorialFirst from '../assets/tutorialFirst.png';
+import TutorialSecond from '../assets/tutorialSecond.png';
+import TutorialThird from '../assets/tutorialThird.png';
+import TutorialFourth from '../assets/tutorialFourth.png';
 
 // here just to see the data
 const productMockup = {
@@ -18,24 +34,114 @@ const productMockup = {
 };
 
 const ProductInfo = ({route, navigation}) => {
+  let [activeIndex, setActiveIndex] = useState(0);
+  let [productImages, setProductImage] = useState([
+    Placeholder,
+    Placeholder,
+    Placeholder,
+  ]);
+
   const {params} = route;
+  const windowWidth = useWindowDimensions().width;
+
+  const renderTopItems = () => {
+    return (
+      <View
+        style={{
+          height: 40,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 30,
+            paddingHorizontal: 15,
+            borderWidth: 1,
+            borderColor: 'gray',
+            margin: 5,
+            marginLeft: 10,
+            borderRadius: 7,
+          }}>
+          <Text>{params.category}</Text>
+        </View>
+        <Image
+          style={{height: 40, width: 40, marginRight: 10}}
+          source={CalculatorImage}
+        />
+      </View>
+    );
+  };
+
+  const renderCarouselPagination = () => {
+    return (
+      <Pagination
+        dotsLength={productImages.length}
+        activeDotIndex={activeIndex}
+        dotStyle={{
+          width: 8,
+          height: 8,
+          borderRadius: 5,
+          marginHorizontal: 0,
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+        containerStyle={{paddingVertical: 10}}
+      />
+    );
+  };
+
+  const renderCarouselItem = ({item, index}) => {
+    return (
+      <Image source={productImages[index]} style={{height: 200, width: 200}} />
+    );
+  };
+
+  const renderImagesCarousel = () => {
+    return (
+      <Carousel
+        ref={(c) => {
+          this._carousel = c;
+        }}
+        data={productImages}
+        renderItem={this.renderCarouselItem}
+        sliderWidth={windowWidth / 2}
+        itemWidth={windowWidth / 2}
+        onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
+      />
+    );
+  };
 
   return (
-    <View style={styles.mainContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          console.log(route);
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      {renderTopItems()}
+      <View
+        style={{
+          height: 400,
+          backgroundColor: '#E5F4F9',
+          borderRadius: 50,
+          marginHorizontal: 10,
+          marginVertical: 5,
+          alignItems: 'center',
         }}>
-        <Text>ALTPNM</Text>
-      </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 2,
+            borderColor: 'red',
+            marginTop: 20,
+            width: 300,
+            alignItems: 'center',
+          }}>
+          {renderImagesCarousel()}
+          {renderCarouselPagination()}
+        </View>
+        <View></View>
+        <View></View>
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-});
 
 export default ProductInfo;
