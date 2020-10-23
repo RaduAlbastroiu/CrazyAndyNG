@@ -12,10 +12,9 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
-import TutorialFirst from '../assets/tutorialFirst.png';
-import TutorialSecond from '../assets/tutorialSecond.png';
-import TutorialThird from '../assets/tutorialThird.png';
-import TutorialFourth from '../assets/tutorialFourth.png';
+import EditImage from '../assets/edit.png';
+import CompareImage from '../assets/compare.png';
+import ShareImage from '../assets/share.png';
 
 // here just to see the data
 const productMockup = {
@@ -134,7 +133,7 @@ const ProductInfo = ({route, navigation}) => {
           borderWidth: 1,
           borderColor: 'gray',
           margin: 5,
-          marginLeft: 10,
+          marginRight: 10,
           borderRadius: 7,
         }}
         key={index}>
@@ -149,46 +148,108 @@ const ProductInfo = ({route, navigation}) => {
     });
   };
 
+  const renderDetails = () => {
+    return (
+      <View>
+        <Text style={styles.textDetails}>{params.name}</Text>
+        <Text style={styles.textDetails} style={styles.textDetails}>
+          Brand: {params.brand}
+        </Text>
+        <Text style={styles.textDetails}>Origin: {params.origin}</Text>
+        <Text style={styles.textDetails}>Size: {params.size}</Text>
+        <Text style={styles.textDetails}>
+          Price:{' '}
+          {params.price.length === 2
+            ? `$${params.price[0]} - $${params.price[1]}`
+            : params.price[0]}
+        </Text>
+      </View>
+    );
+  };
+
+  renderBottomButton = (image) => {
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'white',
+          width: 30,
+          height: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: 5,
+        }}
+        onPress={() => {
+          console.log('pressed');
+        }}>
+        <Image
+          source={image}
+          style={{height: 25, width: 25, tintColor: '#50AAE6'}}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {renderTopItems()}
       <View
         style={{
-          height: 400,
           backgroundColor: '#E5F4F9',
           borderRadius: 50,
           marginHorizontal: 10,
           marginVertical: 5,
-          alignItems: 'center',
         }}>
-        <View
-          style={{
-            marginTop: 20,
-            width: 300,
-            alignItems: 'center',
-          }}>
-          {renderImagesCarousel()}
-          {renderCarouselPagination()}
+        <View style={{alignItems: 'center'}}>
+          <View
+            style={{
+              marginTop: 20,
+              width: 300,
+              alignItems: 'center',
+            }}>
+            {renderImagesCarousel()}
+            {renderCarouselPagination()}
+          </View>
+          <View
+            style={{
+              marginHorizontal: 20,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              flexGrow: 1,
+            }}>
+            {renderHashtags()}
+          </View>
         </View>
+
         <View
           style={{
-            marginHorizontal: 15,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            flexGrow: 1,
+            marginVertical: 10,
+            marginHorizontal: 25,
           }}>
-          {renderHashtags()}
+          {renderDetails()}
         </View>
-        <View
-          style={{
-            borderColor: 'blue',
-            borderWidth: 2,
-            height: 100,
-            width: 100,
-          }}></View>
+
+        <View style={{alignItems: 'center'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginBottom: 20,
+            }}>
+            {renderBottomButton(ShareImage)}
+            {renderBottomButton(EditImage)}
+            {renderBottomButton(CompareImage)}
+          </View>
+        </View>
       </View>
     </View>
   );
 };
 
 export default ProductInfo;
+
+const styles = StyleSheet.create({
+  textDetails: {
+    margin: 2,
+    color: '#777777',
+    fontSize: 16,
+  },
+});
