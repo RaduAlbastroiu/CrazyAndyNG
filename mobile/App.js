@@ -10,9 +10,25 @@ import Tutorial from './src/screens/Tutorial';
 import More from './src/screens/More';
 import HtmlScreen from './src/screens/HtmlScreen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ProductInfo from './src/screens/ProductInfo';
 //import MyStack from './src/routes/MainNavigation';
 
 const Stack = createStackNavigator();
+
+const productMockup = {
+  price: [1799.99, 1999.99],
+  hashtags: ['cool', 'tv', '4k', 'something', 'cool', 'tv', '4k', 'something'],
+  images: [
+    'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
+    'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
+  ],
+  name: 'Televizor Sony, 108 cm',
+  brand: 'LG',
+  barcode: 'barcode234',
+  origin: 'US',
+  size: '44',
+  category: 'Tvs',
+};
 
 function MyStack() {
   return (
@@ -24,7 +40,7 @@ function MyStack() {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Tutorial');
+                navigation.navigate('ProductInfo', productMockup);
               }}>
               <Image
                 style={{
@@ -39,6 +55,7 @@ function MyStack() {
           ),
         })}
       />
+      <Stack.Screen name="ProductInfo" component={ProductInfo} />
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen
