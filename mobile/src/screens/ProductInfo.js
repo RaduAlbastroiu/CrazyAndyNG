@@ -20,7 +20,16 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 // here just to see the data
 const productMockup = {
   price: [1799.99, 1999.99],
-  hashtags: ['cool', 'tv', '4k', 'something', 'cool', 'tv', '4k', 'something'],
+  hashtags: [
+    'cool',
+    'tv',
+    '4k',
+    'something',
+    'co2ol',
+    'tv',
+    '43k',
+    'somethin4g',
+  ],
   images: [
     'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
     'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
@@ -114,6 +123,32 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
+  const renderHashtag = (hashtag, index) => {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 30,
+          paddingHorizontal: 15,
+          borderWidth: 1,
+          borderColor: 'gray',
+          margin: 5,
+          marginLeft: 10,
+          borderRadius: 7,
+        }}
+        key={index}>
+        <Text>{hashtag}</Text>
+      </View>
+    );
+  };
+
+  const renderHashtags = () => {
+    return params.hashtags.map((hashtag, index) => {
+      return renderHashtag(hashtag, index);
+    });
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {renderTopItems()}
@@ -128,8 +163,6 @@ const ProductInfo = ({route, navigation}) => {
         }}>
         <View
           style={{
-            borderWidth: 2,
-            borderColor: 'red',
             marginTop: 20,
             width: 300,
             alignItems: 'center',
@@ -137,8 +170,22 @@ const ProductInfo = ({route, navigation}) => {
           {renderImagesCarousel()}
           {renderCarouselPagination()}
         </View>
-        <View></View>
-        <View></View>
+        <View
+          style={{
+            marginHorizontal: 15,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            flexGrow: 1,
+          }}>
+          {renderHashtags()}
+        </View>
+        <View
+          style={{
+            borderColor: 'blue',
+            borderWidth: 2,
+            height: 100,
+            width: 100,
+          }}></View>
       </View>
     </View>
   );

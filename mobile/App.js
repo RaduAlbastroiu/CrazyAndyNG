@@ -17,7 +17,16 @@ const Stack = createStackNavigator();
 
 const productMockup = {
   price: [1799.99, 1999.99],
-  hashtags: ['cool', 'tv', '4k', 'something', 'cool', 'tv', '4k', 'something'],
+  hashtags: [
+    'cool',
+    'tv',
+    '4k',
+    'something',
+    'co2ol',
+    'tv',
+    '43k',
+    'somethin4g',
+  ],
   images: [
     'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
     'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
