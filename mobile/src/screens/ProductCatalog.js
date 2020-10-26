@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-
+import TopSearch from '../components/TopSearch';
 import Placeholder from '../assets/placeholder.png';
 
 // here just to see the data
@@ -108,12 +108,15 @@ const productsMockup = [
 
 const ProductCatalog = ({route, navigation}) => {
   return (
-    <View
-      style={{
-        borderColor: 'red',
-        borderWidth: 2,
-      }}>
-      <Text>ProductCatalog</Text>
+    <View>
+      <TopSearch />
+      <View
+        style={{
+          borderColor: 'red',
+          borderWidth: 2,
+        }}>
+        <Text>ProductCatalog</Text>
+      </View>
     </View>
   );
 };
