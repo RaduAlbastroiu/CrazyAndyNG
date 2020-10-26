@@ -22,7 +22,7 @@ const Home = ({navigation}) => {
       <TouchableOpacity
         onPress={() => {
           console.log('pnm');
-          navigation.navigate('BarcodeScanner');
+          navigation.navigate('ProductCatalog');
         }}>
         <Text>PNM</Text>
       </TouchableOpacity>
