@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
-import ProductInfo from './ProductInfo';
 
 const BarcodeScanner = ({route, navigation}) => {
   const {params} = route;
