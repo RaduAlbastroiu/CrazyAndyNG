@@ -11,6 +11,7 @@ import More from './src/screens/More';
 import HtmlScreen from './src/screens/HtmlScreen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
+import BarcodeScanner from './src/screens/BarcodeScanner';
 //import MyStack from './src/routes/MainNavigation';
 
 const Stack = createStackNavigator();
@@ -76,6 +77,7 @@ function MyStack() {
         component={HtmlScreen}
         options={{title: 'Help'}}
       />
+      <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
     </Stack.Navigator>
   );
 }

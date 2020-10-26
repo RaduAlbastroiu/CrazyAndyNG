@@ -19,6 +19,7 @@
     "react": "16.13.1",
     "react-i18next": "^11.7.3",
     "react-native": "0.63.2",
+    "react-native-camera": "^3.40.0",
     "react-native-device-info": "^6.0.4",
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-floating-action": "radualbastroiu/react-native-floating-action#feature/action_icons_tintcolor",

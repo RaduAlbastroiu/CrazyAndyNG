@@ -51,6 +51,9 @@ const ProductInfo = ({route, navigation}) => {
   ]);
 
   const {params} = route;
+  console.log('-------');
+  console.log(params);
+  console.log('-------');
   const windowWidth = useWindowDimensions().width;
 
   const renderTopItems = () => {
@@ -74,7 +77,7 @@ const ProductInfo = ({route, navigation}) => {
             marginLeft: 10,
             borderRadius: 7,
           }}>
-          <Text>{params.category}</Text>
+          <Text>{'params.category'}</Text>
         </View>
         <Image
           style={{height: 40, width: 40, marginRight: 10}}
@@ -103,9 +106,7 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderCarouselItem = ({item, index}) => {
-    return (
-      <Image source={productImages[index]} style={{height: 200, width: 200}} />
-    );
+    return <Image source={Placeholder} style={{height: 200, width: 200}} />;
   };
 
   const renderImagesCarousel = () => {
@@ -115,7 +116,7 @@ const ProductInfo = ({route, navigation}) => {
           this._carousel = c;
         }}
         data={productImages}
-        renderItem={this.renderCarouselItem}
+        renderItem={renderCarouselItem}
         sliderWidth={windowWidth / 2}
         itemWidth={windowWidth / 2}
         onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
@@ -144,7 +145,7 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderHashtags = () => {
-    return params.hashtags.map((hashtag, index) => {
+    return productMockup.hashtags.map((hashtag, index) => {
       return renderHashtag(hashtag, index);
     });
   };
