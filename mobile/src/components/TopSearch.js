@@ -10,8 +10,9 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {useState, useEffect} from 'react';
+import ProductCatalog from '../screens/ProductCatalog';
 
-const TopSearch = ({route, navigation}) => {
+const TopSearch = ({navigation}) => {
   let [category, setCategory] = useState('mask');
   let [searchText, setSearchText] = useState('');
 
@@ -80,6 +81,13 @@ const TopSearch = ({route, navigation}) => {
       }}>
       {renderCategorySelector()}
       {renderSearch()}
+      <TouchableOpacity
+        style={{marginRight: 10}}
+        onPress={() => {
+          navigation.navigate('ProductCatalog');
+        }}>
+        <Text style={{color: 'blue'}}>Search</Text>
+      </TouchableOpacity>
     </View>
   );
 };

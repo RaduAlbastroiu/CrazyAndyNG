@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import FloatingButton from '../shared/FloatingButton';
 import {useTranslation} from 'react-i18next';
 import isFirstOpen from '../helpers/isFirstOpen';
+import TopSearch from '../components/TopSearch';
+import BarcodeScanner from './BarcodeScanner';
 
 const Home = ({navigation}) => {
   const [showTutorial, setShowTutorial] = useState(false);
@@ -19,13 +21,8 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <FloatingButton navigation={navigation} />
-      <TouchableOpacity
-        onPress={() => {
-          console.log('pnm');
-          navigation.navigate('ProductCatalog');
-        }}>
-        <Text>PNM</Text>
-      </TouchableOpacity>
+      <TopSearch navigation={navigation} />
+      <BarcodeScanner navigation={navigation} />
     </View>
   );
 };

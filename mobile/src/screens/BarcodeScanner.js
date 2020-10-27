@@ -3,12 +3,12 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 
-const BarcodeScanner = ({route, navigation}) => {
-  const {params} = route;
+const BarcodeScanner = ({navigation}) => {
   let didSearch = false;
 
   onBarCodeRead = async (e) => {
     if (didSearch === false) {
+      console.log(e);
       didSearch = true;
       let res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
         params: {
@@ -16,6 +16,7 @@ const BarcodeScanner = ({route, navigation}) => {
           filter: `{"barcode": "${e.type}--${e.data}"}`,
         },
       });
+      didSearch = false;
 
       console.log(`"${e.type}--${e.data}`);
       if (res.data.found.length > 0) {
@@ -57,13 +58,6 @@ const BarcodeScanner = ({route, navigation}) => {
         type={RNCamera.Constants.Type.back}
         onBarCodeRead={onBarCodeRead}
       />
-      <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-        <TouchableOpacity
-          onPress={this.takePicture.bind(this)}
-          style={styles.capture}>
-          <Text style={{fontSize: 14}}> No Barcode </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

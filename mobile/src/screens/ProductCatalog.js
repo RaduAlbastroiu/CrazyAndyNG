@@ -9,6 +9,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 
+import FloatingButton from '../shared/FloatingButton';
 import TopSearch from '../components/TopSearch';
 import SmallProduct from '../components/SmallProduct';
 import Hashtags from '../components/Hashtags';
@@ -269,31 +270,34 @@ const ProductCatalog = ({route, navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: 'white'}}>
-      <TopSearch category="Masks" />
-      <Hashtags
-        hashtags={[
-          '4k',
-          'something',
-          'other',
-          'tags',
-          'fullhd',
-          'digital',
-          'smart',
-        ]}
-      />
-      <ScrollView
-        contentContainerStyle={{
-          zIndex: 6000,
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          paddingBottom: 80,
-          justifyContent: 'center',
-        }}
-        showsVerticalScrollIndicator={false}>
-        {renderProducts()}
-      </ScrollView>
+    <View>
+      <View style={{backgroundColor: 'white'}}>
+        <TopSearch category="Masks" />
+        <Hashtags
+          hashtags={[
+            '4k',
+            'something',
+            'other',
+            'tags',
+            'fullhd',
+            'digital',
+            'smart',
+          ]}
+        />
+        <ScrollView
+          contentContainerStyle={{
+            zIndex: 6000,
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            paddingBottom: 80,
+            justifyContent: 'center',
+          }}
+          showsVerticalScrollIndicator={false}>
+          {renderProducts()}
+        </ScrollView>
+      </View>
+      <FloatingButton navigation={navigation} />
     </View>
   );
 };
