@@ -9,33 +9,10 @@ import {
 import React, {useState, useEffect} from 'react';
 
 import Placeholder from '../assets/placeholder.png';
+import FavIconFill from '../assets/fav_icon_fill.png';
+import FavIconEmpty from '../assets/fav_icon_empty.png';
 
-// here just to see the data
-const productMockup = {
-  price: [1799.99, 1999.99],
-  hashtags: [
-    'cool',
-    'tv',
-    '4k',
-    'something',
-    'co2ol',
-    'tv',
-    '43k',
-    'somethin4g',
-  ],
-  images: [
-    'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
-    'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
-  ],
-  name: 'Televizor Sony, 108 cm',
-  brand: 'LG',
-  barcode: 'barcode234',
-  origin: 'US',
-  size: '44',
-  category: 'Tvs',
-};
-
-const SmallProduct = ({route, navigation}) => {
+const SmallProduct = ({size, product, navigation}) => {
   let [isFavorite, setFavorite] = useState(false);
   let [productImages, setProductImage] = useState([
     Placeholder,
@@ -43,15 +20,109 @@ const SmallProduct = ({route, navigation}) => {
     Placeholder,
   ]);
 
+  renderInfo = () => {
+    let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
+
+    if (product.size) {
+      textComp.push(<Text style={styles.textDetails}>{product.size}</Text>);
+    }
+    if (product.price.length === 1) {
+      textComp.push(
+        <Text style={styles.textDetails}>{`$${product.price[0]}`}</Text>,
+      );
+    } else {
+      textComp.push(
+        <Text
+          style={
+            styles.textDetails
+          }>{`$${product.price[0]} - $${product.price[1]}`}</Text>,
+      );
+    }
+    return textComp;
+  };
+
+  renderBottom = () => {
+    return (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginTop: 10,
+        }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#e5f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            borderRadius: 10,
+          }}>
+          <Text>Button</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{marginLeft: 20}}
+          onPress={() => {
+            setFavorite(!isFavorite);
+          }}>
+          <Image
+            style={{height: 25, width: 25}}
+            source={isFavorite ? FavIconFill : FavIconEmpty}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View
       style={{
-        width: 100,
-        height: 200,
-        borderColor: 'red',
+        width: size.width,
+        height: size.height,
+        borderColor: '#EBEBEB',
         borderWidth: 2,
-      }}></View>
+        borderRadius: 15,
+        margin: 10,
+        display: 'flex',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: 'white',
+      }}>
+      <Image
+        style={{
+          width: '90%',
+          height: undefined,
+          aspectRatio: 1,
+          borderColor: '#D3D3D3',
+          borderWidth: 2,
+          borderRadius: 5,
+          margin: 5,
+        }}
+        source={Placeholder}
+      />
+      <View
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          width: '100%',
+          marginLeft: 10,
+          marginRight: 5,
+          marginTop: 5,
+        }}>
+        {renderInfo()}
+      </View>
+      {renderBottom()}
+    </View>
   );
 };
 
 export default SmallProduct;
+
+const styles = StyleSheet.create({
+  textDetails: {
+    color: '#7F7F7F',
+    fontSize: 14,
+    margin: 1,
+  },
+});
