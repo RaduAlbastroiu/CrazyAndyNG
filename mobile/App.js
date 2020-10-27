@@ -79,7 +79,11 @@ function MyStack() {
         options={{title: 'Help'}}
       />
       <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
-      <Stack.Screen name="ProductCatalog" component={ProductCatalog} />
+      <Stack.Screen
+        name="ProductCatalog"
+        component={ProductCatalog}
+        options={{title: 'Products'}}
+      />
     </Stack.Navigator>
   );
 }

@@ -11,6 +11,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import TopSearch from '../components/TopSearch';
 import SmallProduct from '../components/SmallProduct';
+import Hashtags from '../components/Hashtags';
 
 // here just to see the data
 const productsMockup = [
@@ -252,12 +253,17 @@ const ProductCatalog = ({route, navigation}) => {
   renderProducts = () => {
     return productsMockup.map((product) => {
       return (
-        <SmallProduct
-          size={{
-            width: (windowWidth / 7) * 3,
-          }}
-          product={product}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ProductInfo', product);
+          }}>
+          <SmallProduct
+            size={{
+              width: (windowWidth / 7) * 3,
+            }}
+            product={product}
+          />
+        </TouchableOpacity>
       );
     });
   };
@@ -265,6 +271,17 @@ const ProductCatalog = ({route, navigation}) => {
   return (
     <View style={{backgroundColor: 'white'}}>
       <TopSearch category="Masks" />
+      <Hashtags
+        hashtags={[
+          '4k',
+          'something',
+          'other',
+          'tags',
+          'fullhd',
+          'digital',
+          'smart',
+        ]}
+      />
       <ScrollView
         contentContainerStyle={{
           zIndex: 6000,
@@ -273,7 +290,8 @@ const ProductCatalog = ({route, navigation}) => {
           flexWrap: 'wrap',
           paddingBottom: 80,
           justifyContent: 'center',
-        }}>
+        }}
+        showsVerticalScrollIndicator={false}>
         {renderProducts()}
       </ScrollView>
     </View>
