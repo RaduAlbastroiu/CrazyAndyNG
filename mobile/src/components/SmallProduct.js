@@ -59,7 +59,7 @@ const SmallProduct = ({size, product, navigation}) => {
             padding: 10,
             borderRadius: 10,
           }}>
-          <Text>Button</Text>
+          <Text>Select</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{marginLeft: 20}}

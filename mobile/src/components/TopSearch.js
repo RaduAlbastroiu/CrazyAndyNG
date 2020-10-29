@@ -86,7 +86,7 @@ const TopSearch = ({navigation}) => {
         onPress={() => {
           navigation.navigate('ProductCatalog');
         }}>
-        <Text style={{color: 'blue'}}>Search</Text>
+        <Text style={{color: 'blue'}}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
