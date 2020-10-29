@@ -13,7 +13,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
 import BarcodeScanner from './src/screens/BarcodeScanner';
 import ProductCatalog from './src/screens/ProductCatalog';
-//import MyStack from './src/routes/MainNavigation';
+import CategoryChooser from './src/screens/CategoryChooser';
 
 const Stack = createStackNavigator();
 
@@ -51,7 +51,7 @@ function MyStack() {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('ProductInfo', productMockup);
+                navigation.navigate('CategoryChooser', productMockup);
               }}>
               <Image
                 style={{
@@ -72,6 +72,7 @@ function MyStack() {
         options={{title: 'Information'}}
       />
       <Stack.Screen name="Tutorial" component={Tutorial} />
+      <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen
         name="HtmlScreen"

@@ -19,18 +19,12 @@ const Home = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={{flex: 1}}>
       <FloatingButton navigation={navigation} />
       <TopSearch navigation={navigation} />
       <BarcodeScanner navigation={navigation} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-});
 
 export default Home;
