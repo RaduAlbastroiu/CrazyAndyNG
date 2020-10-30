@@ -10,23 +10,11 @@ export const getProducts = (filter) => async (dispatch) => {
       },
     });
 
-    console.log(res.data);
-    const categories = res.data.map((cat) => {
-      return cat.name;
-    });
-
     dispatch({
       type: UPDATE_CATEGORIES,
-      payload: categories,
+      payload: res.data.found,
     });
   } catch (err) {
     console.log(err);
   }
-};
-
-export const updateCategory = (selectedCategory) => {
-  return {
-    type: UPDATE_SELECTED_CATEGORY,
-    payload: selectedCategory,
-  };
 };

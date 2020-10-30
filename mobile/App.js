@@ -14,7 +14,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
 import BarcodeScanner from './src/screens/BarcodeScanner';
 import ProductCatalog from './src/screens/ProductCatalog';
-import CategoryChooser from './src/screens/CategoryChooser';
+import CategoryChooser from './src/screens/CategorySelector';
 import store from './src/redux/store';
 
 const Stack = createStackNavigator();

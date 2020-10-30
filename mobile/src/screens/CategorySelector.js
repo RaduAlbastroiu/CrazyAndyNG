@@ -7,7 +7,7 @@ import {
 } from '../redux/actions/categoryActions';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
-const Tutorial = (props) => {
+const CategorySelector = (props) => {
   const windowWidth = useWindowDimensions().width;
 
   const categories = useSelector((state) => state.categoryReducer.categories);
@@ -68,4 +68,4 @@ const Tutorial = (props) => {
   );
 };
 
-export default Tutorial;
+export default CategorySelector;
