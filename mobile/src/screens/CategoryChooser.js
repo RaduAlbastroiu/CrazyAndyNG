@@ -1,9 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, useWindowDimensions} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateCategories} from '../redux/actions/categoryActions';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const Tutorial = (params) => {
+const Tutorial = (props) => {
   const windowWidth = useWindowDimensions().width;
+
+  const categories = useSelector((state) => state.categoryReducer.categories);
+  const dispatch = useDispatch();
+
+  console.log(categories);
+
+  const renderCategories = () => {
+    return categories.map((category) => {
+      return renderCategory(category);
+    });
+  };
 
   const renderCategory = (text) => {
     return (
@@ -34,11 +47,14 @@ const Tutorial = (params) => {
       <Text style={{marginTop: 30, color: '#5176e5', fontSize: 28}}>
         Searching for?
       </Text>
-      <View>
-        {renderCategory('Masks')}
-        {renderCategory('Sanitizers')}
-        {renderCategory('Others')}
-      </View>
+      <View>{renderCategories()}</View>
+      <TouchableOpacity
+        style={{marginTop: 20, padding: 20, backgroundColor: 'white'}}
+        onPress={() => {
+          dispatch(updateCategories());
+        }}>
+        <Text>Refresh</Text>
+      </TouchableOpacity>
     </View>
   );
 };
