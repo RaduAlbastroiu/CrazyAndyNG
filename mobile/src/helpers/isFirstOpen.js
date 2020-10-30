@@ -3,13 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 const isFirstOpen = async () => {
   // await removeData();
   if ((await getData()) === false) {
-    await setData();
     return true;
   }
   return false;
 };
 
-const setData = async () => {
+const setFirstOpen = async () => {
   try {
     await AsyncStorage.setItem('tutorialShown', 'yes');
   } catch (e) {
@@ -37,4 +36,5 @@ const removeData = async () => {
   console.log('data removed');
 };
 
-export default isFirstOpen;
+module.exports.isFirstOpen = isFirstOpen;
+module.exports.setFirstOpen = setFirstOpen;

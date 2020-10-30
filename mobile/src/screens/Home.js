@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import FloatingButton from '../shared/FloatingButton';
 import {useTranslation} from 'react-i18next';
-import isFirstOpen from '../helpers/isFirstOpen';
+import {isFirstOpen} from '../helpers/isFirstOpen';
 import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
 
@@ -12,7 +12,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     isFirstOpen().then((res) => {
-      if (res) {
+      if (!res) {
         navigation.navigate('Tutorial');
       }
     });

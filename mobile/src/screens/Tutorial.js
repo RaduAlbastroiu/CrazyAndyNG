@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {useTranslation} from 'react-i18next';
+import {isFirstOpen, setFirstOpen} from '../helpers/isFirstOpen';
 import TutorialFirst from '../assets/tutorialFirst.png';
 import TutorialSecond from '../assets/tutorialSecond.png';
 import TutorialThird from '../assets/tutorialThird.png';
@@ -18,7 +19,7 @@ import TutorialFourth from '../assets/tutorialFourth.png';
 
 const arr = [TutorialFirst, TutorialSecond, TutorialThird, TutorialFourth];
 
-const Tutorial = (params) => {
+const Tutorial = (props) => {
   let [activeIndex, setActiveIndex] = useState(0);
   const [
     carouselItems = [
@@ -29,7 +30,7 @@ const Tutorial = (params) => {
     ],
   ] = useState();
 
-  console.log(params);
+  console.log(props);
 
   const {t} = useTranslation();
 
@@ -39,12 +40,19 @@ const Tutorial = (params) => {
   const lateralPadding = 0.025 * windowWidth;
   const dotsPadding = 0.15 * windowWidth;
 
+  const onDone = async () => {
+    if ((await isFirstOpen()) === false) {
+      setFirstOpen();
+      props.navigation.navigate('CategoryChooser');
+    } else {
+      props.navigation.pop();
+    }
+  };
+
   const renderSkip = () => {
     return (
       <TouchableOpacity
-        onPress={() => {
-          params.navigation.pop();
-        }}
+        onPress={onDone}
         style={{paddingLeft: 12, paddingTop: 12}}>
         <Text style={{color: 'black', fontSize: 18}}>Skip</Text>
       </TouchableOpacity>
@@ -54,9 +62,7 @@ const Tutorial = (params) => {
   const renderDone = () => {
     return (
       <TouchableOpacity
-        onPress={() => {
-          params.navigation.pop();
-        }}
+        onPress={onDone}
         style={{
           marginLeft: 'auto',
           paddingRight: 12,

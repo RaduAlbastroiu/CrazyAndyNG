@@ -54,7 +54,7 @@ function MyStack() {
             headerRight: () => (
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('CategoryChooser', productMockup);
+                  navigation.navigate('Tutorial');
                 }}>
                 <Image
                   style={{
