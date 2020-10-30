@@ -16,7 +16,7 @@ export const getHashtags = (filter) => async (dispatch) => {
     });
 
     dispatch({
-      type: UPDATE_HASHTAGS,
+      type: GET_HASHTAGS,
       payload: hashtags,
     });
   } catch (err) {

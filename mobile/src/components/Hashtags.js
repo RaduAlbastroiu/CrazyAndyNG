@@ -7,13 +7,20 @@ import {
   useWindowDimensions,
   TextInput,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useSelector, useDispatch} from 'react-redux';
+import {getHashtags} from '../redux/actions/hashtagsActions';
 import Hashtag from './Hashtag';
 
-const Hashtags = ({hashtags}) => {
+const Hashtags = () => {
+  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getHashtags());
+  }, []);
+
   const renderHashtags = () => {
     return hashtags.map((hashtag, index) => {
       return <Hashtag hashtag={hashtag} />;

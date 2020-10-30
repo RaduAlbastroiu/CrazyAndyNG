@@ -19,7 +19,6 @@ const CategorySelector = (props) => {
   console.log(categories);
 
   useEffect(() => {
-    console.log('once');
     dispatch(updateCategories());
   }, []);
 
