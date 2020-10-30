@@ -1,11 +1,12 @@
 import axios from 'axios';
-import {UPDATE_CATEGORIES, UPDATE_SELECTED_CATEGORY} from '../types';
+import {GET_PRODUCTS} from '../types';
 
-export const updateCategories = () => async (dispatch) => {
+export const getProducts = (filter) => async (dispatch) => {
   try {
-    const res = await axios.get('https://crazye.herokuapp.com/api/category', {
+    const res = await axios.get('https://crazye.herokuapp.com/api/product/', {
       params: {
         deviceId: 'someDeviceId',
+        filter,
       },
     });
 
