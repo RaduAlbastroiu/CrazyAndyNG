@@ -44,6 +44,7 @@ const Tutorial = (props) => {
         }}
         onPress={() => {
           dispatch(updateCategory(text));
+          props.navigation.navigate('Home');
         }}>
         <Text style={{fontSize: 24, color: '#adadad'}}>{text}</Text>
       </TouchableOpacity>

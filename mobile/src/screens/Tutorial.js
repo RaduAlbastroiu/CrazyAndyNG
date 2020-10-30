@@ -41,7 +41,7 @@ const Tutorial = (props) => {
   const dotsPadding = 0.15 * windowWidth;
 
   const onDone = async () => {
-    if ((await isFirstOpen()) === false) {
+    if (await isFirstOpen()) {
       setFirstOpen();
       props.navigation.navigate('CategoryChooser');
     } else {

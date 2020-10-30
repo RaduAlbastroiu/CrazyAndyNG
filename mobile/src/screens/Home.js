@@ -12,7 +12,7 @@ const Home = ({navigation}) => {
 
   useEffect(() => {
     isFirstOpen().then((res) => {
-      if (!res) {
+      if (res) {
         navigation.navigate('Tutorial');
       }
     });
