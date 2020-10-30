@@ -1,16 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, useWindowDimensions} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {updateCategories} from '../redux/actions/categoryActions';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  updateCategories,
+  updateCategory,
+} from '../redux/actions/categoryActions';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
 const Tutorial = (props) => {
   const windowWidth = useWindowDimensions().width;
 
   const categories = useSelector((state) => state.categoryReducer.categories);
+  const category = useSelector(
+    (state) => state.categoryReducer.selectedCategory,
+  );
   const dispatch = useDispatch();
 
   console.log(categories);
+
+  useEffect(() => {
+    console.log('once');
+    dispatch(updateCategories());
+  }, []);
 
   const renderCategories = () => {
     return categories.map((category) => {
@@ -30,6 +41,9 @@ const Tutorial = (props) => {
           height: windowWidth / 4,
           width: (windowWidth / 4) * 3,
           borderRadius: 20,
+        }}
+        onPress={() => {
+          dispatch(updateCategory(text));
         }}>
         <Text style={{fontSize: 24, color: '#adadad'}}>{text}</Text>
       </TouchableOpacity>
@@ -37,25 +51,19 @@ const Tutorial = (props) => {
   };
 
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         display: 'flex',
         alignItems: 'center',
         flexGrow: 1,
         backgroundColor: '#e5f3f9',
+        paddingBottom: 80,
       }}>
-      <Text style={{marginTop: 30, color: '#5176e5', fontSize: 28}}>
+      <Text style={{marginTop: 40, color: '#5176e5', fontSize: 28}}>
         Searching for?
       </Text>
       <View>{renderCategories()}</View>
-      <TouchableOpacity
-        style={{marginTop: 20, padding: 20, backgroundColor: 'white'}}
-        onPress={() => {
-          dispatch(updateCategories());
-        }}>
-        <Text>Refresh</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
