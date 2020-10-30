@@ -5,6 +5,7 @@ import {Language2} from './src/helpers/Language2';
 import {LogBox, View, Button, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {Provider} from 'react-redux';
 import Home from './src/screens/Home';
 import Tutorial from './src/screens/Tutorial';
 import More from './src/screens/More';
@@ -14,6 +15,7 @@ import ProductInfo from './src/screens/ProductInfo';
 import BarcodeScanner from './src/screens/BarcodeScanner';
 import ProductCatalog from './src/screens/ProductCatalog';
 import CategoryChooser from './src/screens/CategoryChooser';
+import store from './src/redux/store';
 
 const Stack = createStackNavigator();
 
@@ -43,49 +45,51 @@ const productMockup = {
 
 function MyStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={({navigation}) => ({
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('CategoryChooser', productMockup);
-              }}>
-              <Image
-                style={{
-                  width: 30,
-                  height: 30,
-                  marginVertical: 10,
-                  marginRight: 15,
-                }}
-                source={require('./src/assets/question.png')}
-              />
-            </TouchableOpacity>
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="ProductInfo"
-        component={ProductInfo}
-        options={{title: 'Information'}}
-      />
-      <Stack.Screen name="Tutorial" component={Tutorial} />
-      <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
-      <Stack.Screen name="More" component={More} />
-      <Stack.Screen
-        name="HtmlScreen"
-        component={HtmlScreen}
-        options={{title: 'Help'}}
-      />
-      <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
-      <Stack.Screen
-        name="ProductCatalog"
-        component={ProductCatalog}
-        options={{title: 'Products'}}
-      />
-    </Stack.Navigator>
+    <Provider store={store}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={({navigation}) => ({
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('CategoryChooser', productMockup);
+                }}>
+                <Image
+                  style={{
+                    width: 30,
+                    height: 30,
+                    marginVertical: 10,
+                    marginRight: 15,
+                  }}
+                  source={require('./src/assets/question.png')}
+                />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="ProductInfo"
+          component={ProductInfo}
+          options={{title: 'Information'}}
+        />
+        <Stack.Screen name="Tutorial" component={Tutorial} />
+        <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
+        <Stack.Screen name="More" component={More} />
+        <Stack.Screen
+          name="HtmlScreen"
+          component={HtmlScreen}
+          options={{title: 'Help'}}
+        />
+        <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+        <Stack.Screen
+          name="ProductCatalog"
+          component={ProductCatalog}
+          options={{title: 'Products'}}
+        />
+      </Stack.Navigator>
+    </Provider>
   );
 }
 
