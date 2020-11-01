@@ -20,6 +20,7 @@ class HashtagController {
   async create(hashtag) {
     const category = await CategoryModel.findOne({ _id: hashtag.category });
     if (category) {
+      hashtag.isHighlighted = hashtag.isHighlighted || false;
       const newHashtag = new this.model(hashtag);
       return await newHashtag.save();
     }
@@ -29,7 +30,9 @@ class HashtagController {
   async update(_id, hashtag) {
     const oldHashtag = await this.model.findOne({ _id });
     if (oldHashtag) {
-      oldHashtag.name = hashtag.name || hashtag.name;
+      oldHashtag.name = hashtag.name || oldHashtag.name;
+      oldHashtag.isHighlighted =
+        hashtag.isHighlighted || oldHashtag.isHighlighted;
       const newHashtag = await oldHashtag.save();
       return newHashtag;
     }

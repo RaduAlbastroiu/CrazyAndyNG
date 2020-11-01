@@ -5,6 +5,9 @@ const hashtagSchema = mongoose.Schema({
     type: String,
     required: [true, 'Name field is empty'],
   },
+  isHighlighted: {
+    type: Boolean,
+  },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
