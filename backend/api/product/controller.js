@@ -100,7 +100,14 @@ class ProductController {
   }
 
   async delete(_id) {
-    const found = await this.model.findOneAndDelete({ _id });
+    const found = await this.model.findOne({ _id });
+    if (found) {
+      found.images.forEach((imgName) => {
+        deleteBlob(imgName);
+      });
+    }
+
+    found = await this.model.findOneAndDelete({ _id });
     if (!found) throw 'not found';
     return found;
   }
