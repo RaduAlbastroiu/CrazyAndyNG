@@ -29,10 +29,6 @@ const productSchema = mongoose.Schema({
   remarks: {
     type: String,
   },
-  isValid: {
-    type: Boolean,
-    required: true,
-  },
   productionDate: {
     type: Date,
   },

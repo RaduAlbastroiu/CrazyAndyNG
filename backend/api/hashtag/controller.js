@@ -2,18 +2,30 @@ const hashtagRouter = require('./router');
 
 const CategoryModel = require('../category/model');
 
+function converToQuery(filter) {
+  const newFilter = {};
+  if (filter._id) {
+    newFilter._id = filter._id;
+  }
+  if (filter.category) {
+    newFilter.category = filter.category;
+  }
+
+  return newFilter;
+}
+
 class HashtagController {
   constructor(model) {
     this.model = model;
   }
 
-  async find(params) {
-    let filter = {};
-    if (params.category) {
-      filter.category = params.category;
-    }
+  async find(args) {
+    const skip = (args.page - 1) * args.size;
+    const query = converToQuery(args.filter);
 
-    const foundHashtags = await this.model.find(filter);
+    // ignore pagination
+    let foundHashtags = await this.model.find(query);
+
     return foundHashtags;
   }
 

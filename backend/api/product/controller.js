@@ -80,7 +80,6 @@ class ProductController {
       oldProduct.size = product.size || oldProduct.size;
       oldProduct.colour = product.colour || oldProduct.colour;
       oldProduct.remarks = product.remarks || oldProduct.remarks;
-      oldProduct.isValid = product.isValid || oldProduct.isValid;
       oldProduct.productionDate =
         product.productionDate || oldProduct.productionDate;
       oldProduct.category = product.category || oldProduct.category;
@@ -100,7 +99,7 @@ class ProductController {
   }
 
   async delete(_id) {
-    const found = await this.model.findOne({ _id });
+    let found = await this.model.findOne({ _id });
     if (found) {
       found.images.forEach((imgName) => {
         deleteBlob(imgName);

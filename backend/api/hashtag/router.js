@@ -12,7 +12,15 @@ const hashtagController = new HashtagController(HashtagModel);
 
 hashtagRouter.get('/', auth, async (req, res) => {
   try {
-    const hashtags = await hashtagController.find(req.params);
+    const options = {
+      page: parseInt(req.query.page, 10) || 1,
+      size: parseInt(req.query.size, 10) || 20,
+      filter: req.query.filter || {},
+    };
+    if (req.query.filter) {
+      options.filter = JSON.parse(options.filter);
+    }
+    const hashtags = await hashtagController.find(options);
     res.status(200).json(hashtags);
   } catch (err) {
     console.error(err);

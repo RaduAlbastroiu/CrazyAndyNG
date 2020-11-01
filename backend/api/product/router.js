@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const validate = require('../../middleware/paramsValidation');
-const { auth } = require('../../middleware/authValidation');
+const { auth, authAdmin } = require('../../middleware/authValidation');
 
 const ProductController = require('./controller');
 const ProductModel = require('./model');
@@ -48,7 +48,7 @@ productRouter.get('/', auth, async (req, res) => {
 
 productRouter.post(
   '/',
-  auth,
+  authAdmin,
   [
     check('name', 'Name field is empty').notEmpty(),
     check('brand', 'Brand name field is empty').notEmpty(),
@@ -80,15 +80,8 @@ productRouter.post(
   }
 );
 
-productRouter.put('/:_id', auth, async (req, res) => {
+productRouter.put('/:_id', authAdmin, async (req, res) => {
   try {
-    if (req.user.role === 'user') {
-      const isOwner = await productController.isOwnedBy(
-        req.user.deviceId,
-        req.params._id
-      );
-      if (!isOwner) throw 'forbidden';
-    }
     const updated = await productController.update(req.params._id, req.body);
     return res.status(200).json({ success: 'Updated successfully', updated });
   } catch (err) {
@@ -114,15 +107,8 @@ productRouter.put('/:_id', auth, async (req, res) => {
   }
 });
 
-productRouter.delete('/:_id', auth, async (req, res) => {
+productRouter.delete('/:_id', authAdmin, async (req, res) => {
   try {
-    if (req.user.role === 'user') {
-      const isOwner = await productController.isOwnedBy(
-        req.user.deviceId,
-        req.params._id
-      );
-      if (!isOwner) throw 'forbidden';
-    }
     await productController.delete(req.params._id);
     return res.sendStatus(204);
   } catch (err) {
@@ -158,15 +144,8 @@ productRouter.get('/:_id/image', auth, async (req, res) => {
   }
 });
 
-productRouter.put('/:_id/image', auth, async (req, res) => {
+productRouter.put('/:_id/image', authAdmin, async (req, res) => {
   try {
-    if (req.user.role === 'user') {
-      const isOwner = await productController.isOwnedBy(
-        req.user.deviceId,
-        req.params._id
-      );
-      if (!isOwner) throw 'forbidden';
-    }
     const updated = await productController.addImage(req.params._id, req.files);
     return res.status(200).json({ success: 'Updated successfully', updated });
   } catch (err) {
@@ -186,15 +165,8 @@ productRouter.put('/:_id/image', auth, async (req, res) => {
   }
 });
 
-productRouter.delete('/:_id/image/:imgName', auth, async (req, res) => {
+productRouter.delete('/:_id/image/:imgName', authAdmin, async (req, res) => {
   try {
-    if (req.user.role === 'user') {
-      const isOwner = await productController.isOwnedBy(
-        req.user.deviceId,
-        req.params._id
-      );
-      if (!isOwner) throw 'forbidden';
-    }
     await productController.deleteImage(req.params._id, req.params.imgName);
     return res.sendStatus(204);
   } catch (err) {
