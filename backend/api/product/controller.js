@@ -22,6 +22,12 @@ function converToQuery(filter) {
   if (filter.origin) {
     newFilter.origin = filter.origin;
   }
+  if (filter.hashtags) {
+    newFilter.hashtags = { $all: filter.hashtags };
+  }
+  if (filter.name) {
+    newFilter.name = { $regex: `.*${filter.name}.*`, $options: 'i' };
+  }
 
   return newFilter;
 }
