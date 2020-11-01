@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {getProducts} from '../redux/actions/productsActions';
 import FloatingButton from '../shared/FloatingButton';
 import TopSearch from '../components/TopSearch';
 import SmallProduct from '../components/SmallProduct';
@@ -20,8 +21,15 @@ import productsMockup from './MockupData';
 const ProductCatalog = ({route, navigation}) => {
   const windowWidth = useWindowDimensions().width;
 
+  const products = useSelector((state) => state.productsReducer.products);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
   renderProducts = () => {
-    return productsMockup.map((product) => {
+    return products.map((product) => {
       return (
         <TouchableOpacity
           onPress={() => {
@@ -42,17 +50,7 @@ const ProductCatalog = ({route, navigation}) => {
     <View>
       <View style={{backgroundColor: 'white'}}>
         <TopSearch category="Masks" />
-        <Hashtags
-          hashtags={[
-            '4k',
-            'something',
-            'other',
-            'tags',
-            'fullhd',
-            'digital',
-            'smart',
-          ]}
-        />
+        <Hashtags />
         <ScrollView
           contentContainerStyle={{
             zIndex: 6000,
