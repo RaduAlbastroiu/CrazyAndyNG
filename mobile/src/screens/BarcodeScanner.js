@@ -26,62 +26,47 @@ const BarcodeScanner = ({navigation}) => {
     }
   };
 
-  takePicture = async () => {
-    console.log('pressed');
-    let t = {
-      __v: 10,
-      _id: '5f89dfaf51f98253d71efd97',
-      barcode: 'org.gs1.EAN-13--5201360501700',
-      brand: 'LG',
-      category: '5f75ddb9cf785426069f8170',
-      hashtags: ['5f764b06f35aaf3b84f3410b'],
-      images: [
-        'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
-        'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
-      ],
-      isValid: true,
-      name: 'Televizor Sony, 108 cm',
-      origin: 'US',
-      owner: 'someDeviceId',
-      price: [1799.99, 1999.99],
-      size: '44',
-    };
-  };
-
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        height: 200,
+      }}>
+      <View
+        style={{
+          backgroundColor: '#5d554f',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          paddingVertical: 8,
+        }}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 18,
+          }}>
+          Scanning for Barcode
+        </Text>
+      </View>
       <RNCamera
         ref={(ref) => {
           this.camera = ref;
         }}
-        style={styles.preview}
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          height: 200,
+        }}
         type={RNCamera.Constants.Type.back}
         onBarCodeRead={onBarCodeRead}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'black',
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
-  },
-});
 
 export default BarcodeScanner;

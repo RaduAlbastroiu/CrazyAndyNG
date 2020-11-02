@@ -15,10 +15,13 @@ import Hashtag from './Hashtag';
 
 const Hashtags = () => {
   const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+  const selectedCategory = useSelector(
+    (state) => state.categoryReducer.selectedCategory,
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHashtags());
+    dispatch(getHashtags({categoryName: selectedCategory}));
   }, []);
 
   const renderHashtags = () => {

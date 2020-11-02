@@ -20,9 +20,9 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <FloatingButton navigation={navigation} />
       <TopSearch navigation={navigation} />
       <BarcodeScanner navigation={navigation} />
+      <FloatingButton navigation={navigation} />
     </View>
   );
 };
