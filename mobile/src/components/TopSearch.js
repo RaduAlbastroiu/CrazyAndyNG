@@ -83,6 +83,7 @@ const TopSearch = ({navigation}) => {
         justifyContent: 'flex-start',
         flexGrow: 0,
         backgroundColor: 'white',
+        zIndex: 1000,
       }}>
       {renderCategorySelector()}
       {renderSearch()}
