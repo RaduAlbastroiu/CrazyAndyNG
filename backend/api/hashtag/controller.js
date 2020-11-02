@@ -2,7 +2,7 @@ const hashtagRouter = require('./router');
 
 const CategoryModel = require('../category/model');
 
-function converToQuery(filter) {
+async function converToQuery(filter) {
   const newFilter = {};
   if (filter._id) {
     newFilter._id = filter._id;
@@ -10,7 +10,12 @@ function converToQuery(filter) {
   if (filter.category) {
     newFilter.category = filter.category;
   }
-
+  if (filter.categoryName) {
+    const category = await CategoryModel.findOne({ name: filter.categoryName });
+    if (category) {
+      newFilter.category = category._id;
+    }
+  }
   return newFilter;
 }
 
@@ -21,7 +26,7 @@ class HashtagController {
 
   async find(args) {
     const skip = (args.page - 1) * args.size;
-    const query = converToQuery(args.filter);
+    const query = await converToQuery(args.filter);
 
     // ignore pagination
     let foundHashtags = await this.model.find(query);
