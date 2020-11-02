@@ -13,15 +13,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getHashtags} from '../redux/actions/hashtagsActions';
 import Hashtag from './Hashtag';
 
-const Hashtags = () => {
+const Hashtags = (props) => {
+  console.log(props);
   const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
-  const selectedCategory = useSelector(
-    (state) => state.categoryReducer.selectedCategory,
-  );
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHashtags({categoryName: selectedCategory}));
+    dispatch(getHashtags({categoryName: props.category}));
   }, []);
 
   const renderHashtags = () => {

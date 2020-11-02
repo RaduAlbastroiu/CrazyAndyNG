@@ -17,8 +17,10 @@ import {
 import React, {useState, useEffect} from 'react';
 import ProductCatalog from '../screens/ProductCatalog';
 
-const TopSearch = ({navigation}) => {
+const TopSearch = ({navigation}, {text}) => {
   let [searchText, setSearchText] = useState('');
+  console.log('TopSearch');
+  console.log(text);
 
   const categories = useSelector((state) => state.categoryReducer.categories);
   const selectedCategory = useSelector(
@@ -71,6 +73,9 @@ const TopSearch = ({navigation}) => {
             paddingLeft: 12,
           }}
           onChangeText={(text) => setSearchText(text)}
+          onSubmitEditing={(text) => {
+            navigation.navigate('ProductCatalog');
+          }}
           placeholder={'type to search'}
         />
       </View>

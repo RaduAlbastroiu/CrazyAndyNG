@@ -23,6 +23,9 @@ const ProductCatalog = ({route, navigation}) => {
   const windowHeight = useWindowDimensions().height;
 
   const products = useSelector((state) => state.productsReducer.products);
+  const selectedCategory = useSelector(
+    (state) => state.categoryReducer.selectedCategory,
+  );
   const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
   const selectedHashtags = hashtags
     .filter((hashtag) => {
@@ -32,11 +35,14 @@ const ProductCatalog = ({route, navigation}) => {
       return hashtag.name;
     });
 
-  console.log(selectedHashtags);
-
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts());
+    let filter = {categoryName: selectedCategory};
+    if (selectedHashtags.length > 0) {
+      filter.hashtagNames = selectedHashtags;
+    }
+    console.log(filter);
+    dispatch(getProducts(filter));
   }, []);
 
   renderProducts = () => {
@@ -61,8 +67,8 @@ const ProductCatalog = ({route, navigation}) => {
   return (
     <View>
       <View style={{backgroundColor: 'white'}}>
-        <TopSearch category="Masks" />
-        <Hashtags />
+        <TopSearch category="Masks" text="SAFONASOFN" />
+        <Hashtags category={selectedCategory} />
         <View
           style={{
             height: windowHeight - 203,
