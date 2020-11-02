@@ -20,6 +20,7 @@ import productsMockup from './MockupData';
 
 const ProductCatalog = ({route, navigation}) => {
   const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
 
   const products = useSelector((state) => state.productsReducer.products);
 
@@ -32,6 +33,7 @@ const ProductCatalog = ({route, navigation}) => {
     return products.map((product) => {
       return (
         <TouchableOpacity
+          style={{marginBottom: 5}}
           onPress={() => {
             navigation.navigate('ProductInfo', product);
           }}>
@@ -46,23 +48,29 @@ const ProductCatalog = ({route, navigation}) => {
     });
   };
 
+  /*
+  
+          */
   return (
     <View>
       <View style={{backgroundColor: 'white'}}>
         <TopSearch category="Masks" />
         <Hashtags />
-        <ScrollView
-          contentContainerStyle={{
-            zIndex: 6000,
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            paddingBottom: 80,
-            justifyContent: 'center',
-          }}
-          showsVerticalScrollIndicator={false}>
-          {renderProducts()}
-        </ScrollView>
+        <View
+          style={{
+            height: windowHeight - 203,
+          }}>
+          <ScrollView
+            contentContainerStyle={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+            showsVerticalScrollIndicator={false}>
+            {renderProducts()}
+          </ScrollView>
+        </View>
       </View>
       <FloatingButton navigation={navigation} />
     </View>
