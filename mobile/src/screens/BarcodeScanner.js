@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 
 const BarcodeScanner = ({navigation}) => {
+  let [topText, setTopText] = useState('Scanning for Barcode');
   let didSearch = false;
 
   onBarCodeRead = async (e) => {
+    setTopText('Barcode detected');
     if (didSearch === false) {
       console.log(e);
       didSearch = true;
@@ -19,6 +21,7 @@ const BarcodeScanner = ({navigation}) => {
       didSearch = false;
 
       console.log(`"${e.type}--${e.data}`);
+      setTopText('Scanning for Barcode');
       if (res.data.found.length > 0) {
         console.log(res.data.found[0]);
         navigation.navigate('ProductInfo', res.data.found[0]);
@@ -42,7 +45,7 @@ const BarcodeScanner = ({navigation}) => {
             color: 'white',
             fontSize: 18,
           }}>
-          Scanning for Barcode
+          {topText}
         </Text>
       </View>
     );
