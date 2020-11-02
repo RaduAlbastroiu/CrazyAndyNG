@@ -8,7 +8,7 @@ const {
 const { v4 } = require('uuid');
 const uuid = v4;
 
-function converToQuery(filter) {
+async function converToQuery(filter) {
   const newFilter = {};
   if (filter._id) {
     newFilter._id = filter._id;
@@ -25,8 +25,25 @@ function converToQuery(filter) {
   if (filter.hashtags) {
     newFilter.hashtags = { $all: filter.hashtags };
   }
+  if (filter.hashtagNames) {
+    let hashtags = [];
+    for (const hashtag of filter.hashtagNames) {
+      const hashtagDb = await hashtagModel.findOne({ name: hashtag });
+      if (hashtagDb) {
+        hashtags.push(hashtagDb._id);
+      }
+    }
+
+    newFilter.hashtags = { $all: hashtags };
+  }
   if (filter.name) {
     newFilter.name = { $regex: `.*${filter.name}.*`, $options: 'i' };
+  }
+  if (filter.categoryName) {
+    const category = await categoryModel.findOne({ name: filter.categoryName });
+    if (category) {
+      newFilter.category = category._id;
+    }
   }
 
   return newFilter;
@@ -46,7 +63,7 @@ class ProductController {
 
   async find(args) {
     const skip = (args.page - 1) * args.size;
-    const query = converToQuery(args.filter);
+    const query = await converToQuery(args.filter);
     let foundProducts = await this.model
       .find(query)
       .skip(skip)
