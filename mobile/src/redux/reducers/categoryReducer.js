@@ -2,7 +2,7 @@ import {UPDATE_CATEGORIES, UPDATE_SELECTED_CATEGORY} from '../types';
 
 const initialState = {
   categories: ['Masks', 'Sanitizers', 'Others'],
-  selectedCategory: 'kjn',
+  selectedCategory: 'Masks',
 };
 
 const categoryReducer = (state = initialState, action) => {

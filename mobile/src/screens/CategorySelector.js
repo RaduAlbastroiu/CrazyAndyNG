@@ -16,8 +16,6 @@ const CategorySelector = (props) => {
   );
   const dispatch = useDispatch();
 
-  console.log(categories);
-
   useEffect(() => {
     dispatch(updateCategories());
   }, []);

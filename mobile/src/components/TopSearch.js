@@ -9,27 +9,32 @@ import {
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Feather';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  updateCategories,
+  updateCategory,
+} from '../redux/actions/categoryActions';
 import React, {useState, useEffect} from 'react';
 import ProductCatalog from '../screens/ProductCatalog';
 
 const TopSearch = ({navigation}) => {
-  let [category, setCategory] = useState('mask');
   let [searchText, setSearchText] = useState('');
+
+  const categories = useSelector((state) => state.categoryReducer.categories);
+  const dropDownCategories = categories.map((cat) => {
+    return {label: cat, value: cat};
+  });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(updateCategories());
+  }, []);
 
   renderCategorySelector = () => {
     return (
       <DropDownPicker
-        items={[
-          {
-            label: 'Mask',
-            value: 'mask',
-          },
-          {
-            label: 'Tv',
-            value: 'tv',
-          },
-        ]}
-        defaultValue={category}
+        items={dropDownCategories}
+        defaultValue={dropDownCategories[0].value}
         containerStyle={{
           marginLeft: 5,
           height: 40,
@@ -41,7 +46,7 @@ const TopSearch = ({navigation}) => {
           justifyContent: 'flex-start',
         }}
         onChangeItem={(item) => {
-          setCategory(item.value);
+          updateCategory(item.value);
         }}
       />
     );
