@@ -1,10 +1,15 @@
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 
 import React, {useState, useEffect} from 'react';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {updateHashtags} from '../redux/actions/hashtagsActions';
 
 const Hashtag = ({hashtag}) => {
   let [isSelected, setSelected] = useState(false);
+  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+
+  const dispatch = useDispatch();
 
   return (
     <TouchableOpacity
@@ -18,9 +23,15 @@ const Hashtag = ({hashtag}) => {
         backgroundColor: isSelected ? '#D3D3D3' : '#EBEBEB',
       }}
       onPress={() => {
+        dispatch(
+          updateHashtags(
+            {name: hashtag.name, isSelected: !isSelected},
+            hashtags,
+          ),
+        );
         setSelected(!isSelected);
       }}>
-      <Text>{hashtag}</Text>
+      <Text>{hashtag.name}</Text>
     </TouchableOpacity>
   );
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {GET_HASHTAGS} from '../types';
+import {UPDATE_HASHTAGS} from '../types';
+import {useSelector, useDispatch} from 'react-redux';
 
 export const getHashtags = (filter) => async (dispatch) => {
   try {
@@ -14,14 +15,29 @@ export const getHashtags = (filter) => async (dispatch) => {
     console.log(res.data.length);
 
     const hashtags = res.data.map((hashtag) => {
-      return hashtag.name;
+      return {name: hashtag.name, isSelected: false};
     });
 
     dispatch({
-      type: GET_HASHTAGS,
+      type: UPDATE_HASHTAGS,
       payload: hashtags,
     });
   } catch (err) {
     console.log(err);
   }
+};
+
+export const updateHashtags = (hashtag, hashtags) => async (dispatch) => {
+  const index = hashtags.findIndex((element) => {
+    return element.name === hashtag.name;
+  });
+
+  if (index >= 0) {
+    hashtags[index] = hashtag;
+  }
+
+  dispatch({
+    type: UPDATE_HASHTAGS,
+    payload: hashtags,
+  });
 };

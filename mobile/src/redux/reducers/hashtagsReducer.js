@@ -1,4 +1,4 @@
-import {GET_HASHTAGS} from '../types';
+import {UPDATE_HASHTAGS} from '../types';
 
 const initialState = {
   hashtags: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 const hashtagsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_HASHTAGS:
+    case UPDATE_HASHTAGS:
       return {
         hashtags: action.payload,
       };

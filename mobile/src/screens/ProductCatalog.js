@@ -23,6 +23,16 @@ const ProductCatalog = ({route, navigation}) => {
   const windowHeight = useWindowDimensions().height;
 
   const products = useSelector((state) => state.productsReducer.products);
+  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+  const selectedHashtags = hashtags
+    .filter((hashtag) => {
+      return hashtag.isSelected === true;
+    })
+    .map((hashtag) => {
+      return hashtag.name;
+    });
+
+  console.log(selectedHashtags);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,9 +58,6 @@ const ProductCatalog = ({route, navigation}) => {
     });
   };
 
-  /*
-  
-          */
   return (
     <View>
       <View style={{backgroundColor: 'white'}}>

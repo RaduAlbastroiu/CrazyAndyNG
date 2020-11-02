@@ -26,15 +26,8 @@ const BarcodeScanner = ({navigation}) => {
     }
   };
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        height: 200,
-      }}>
+  renderTopText = () => {
+    return (
       <View
         style={{
           backgroundColor: '#5d554f',
@@ -52,6 +45,19 @@ const BarcodeScanner = ({navigation}) => {
           Scanning for Barcode
         </Text>
       </View>
+    );
+  };
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        height: 200,
+      }}>
+      {renderTopText()}
       <RNCamera
         ref={(ref) => {
           this.camera = ref;
