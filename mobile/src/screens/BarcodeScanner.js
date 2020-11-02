@@ -1,9 +1,19 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
+import scanBarcode from '../assets/scanBarcode.png';
 
 const BarcodeScanner = ({navigation}) => {
+  const windowHeight = useWindowDimensions().height;
+  const windowWidth = useWindowDimensions().width;
   let [topText, setTopText] = useState('Scanning for Barcode');
   let didSearch = false;
 
@@ -72,10 +82,35 @@ const BarcodeScanner = ({navigation}) => {
           height: 200,
         }}
         type={RNCamera.Constants.Type.back}
-        onBarCodeRead={onBarCodeRead}
-      />
+        onBarCodeRead={onBarCodeRead}>
+        <Image
+          source={scanBarcode}
+          style={{
+            position: 'absolute',
+            height: (windowWidth / 8) * 9,
+            width: (windowWidth / 8) * 9,
+            tintColor: 'white',
+            bottom: windowHeight / 2 - ((windowWidth / 8) * 7) / 2 - 70,
+          }}
+        />
+      </RNCamera>
     </View>
   );
 };
 
 export default BarcodeScanner;
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
+
+  captueContainer: {
+    position: 'absolute',
+    bottom: 0,
+  },
+
+  captureBtn: {
+    backgroundColor: 'red',
+  },
+});
