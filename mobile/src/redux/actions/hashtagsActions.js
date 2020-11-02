@@ -10,7 +10,6 @@ export const getHashtags = (filter) => async (dispatch) => {
       },
     });
 
-    console.log(res.data);
     const hashtags = res.data.map((hashtag) => {
       return hashtag.name;
     });

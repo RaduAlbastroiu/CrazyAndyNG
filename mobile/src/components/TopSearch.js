@@ -21,6 +21,9 @@ const TopSearch = ({navigation}) => {
   let [searchText, setSearchText] = useState('');
 
   const categories = useSelector((state) => state.categoryReducer.categories);
+  const selectedCategory = useSelector(
+    (state) => state.categoryReducer.selectedCategory,
+  );
   const dropDownCategories = categories.map((cat) => {
     return {label: cat, value: cat};
   });
@@ -34,7 +37,7 @@ const TopSearch = ({navigation}) => {
     return (
       <DropDownPicker
         items={dropDownCategories}
-        defaultValue={dropDownCategories[0].value}
+        defaultValue={selectedCategory}
         containerStyle={{
           marginLeft: 5,
           height: 40,
@@ -46,7 +49,7 @@ const TopSearch = ({navigation}) => {
           justifyContent: 'flex-start',
         }}
         onChangeItem={(item) => {
-          updateCategory(item.value);
+          dispatch(updateCategory(item.value));
         }}
       />
     );

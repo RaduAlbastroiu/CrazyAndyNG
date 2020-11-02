@@ -9,7 +9,6 @@ export const updateCategories = () => async (dispatch) => {
       },
     });
 
-    console.log(res.data);
     const categories = res.data.map((cat) => {
       return cat.name;
     });

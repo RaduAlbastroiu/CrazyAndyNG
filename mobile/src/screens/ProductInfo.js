@@ -51,9 +51,6 @@ const ProductInfo = ({route, navigation}) => {
   ]);
 
   const {params} = route;
-  console.log('-------');
-  console.log(params);
-  console.log('-------');
   const windowWidth = useWindowDimensions().width;
 
   const renderTopItems = () => {
