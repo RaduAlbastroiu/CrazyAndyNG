@@ -2,7 +2,7 @@ import axios from 'axios';
 import {UPDATE_HASHTAGS} from '../types';
 import {useSelector, useDispatch} from 'react-redux';
 
-export const getHashtags = (filter) => async (dispatch) => {
+export const getHashtags = (filter) => async (dispatch, getState) => {
   try {
     const res = await axios.get('https://crazye.herokuapp.com/api/hashtag/', {
       params: {
@@ -10,6 +10,8 @@ export const getHashtags = (filter) => async (dispatch) => {
         filter,
       },
     });
+
+    console.log(getState());
 
     console.log(filter);
     console.log(res.data.length);

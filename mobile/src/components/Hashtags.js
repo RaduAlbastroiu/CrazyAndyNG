@@ -13,20 +13,23 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getHashtags} from '../redux/actions/hashtagsActions';
 import Hashtag from './Hashtag';
 
+const renderHashtags = (hashtags) => {
+  return hashtags.map((hashtag, index) => {
+    return <Hashtag hashtag={hashtag} />;
+  });
+};
+
 const Hashtags = (props) => {
   console.log(props);
   const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+  const selectedCategory = useSelector(
+    (state) => state.categoryReducer.selectedCategory,
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHashtags({categoryName: props.category}));
-  }, []);
-
-  const renderHashtags = () => {
-    return hashtags.map((hashtag, index) => {
-      return <Hashtag hashtag={hashtag} />;
-    });
-  };
+    dispatch(getHashtags({categoryName: selectedCategory}));
+  }, [selectedCategory]);
 
   return (
     <ScrollView
@@ -40,7 +43,7 @@ const Hashtags = (props) => {
       }}
       horizontal={true}
       showsHorizontalScrollIndicator={false}>
-      {renderHashtags()}
+      {renderHashtags(hashtags)}
     </ScrollView>
   );
 };
