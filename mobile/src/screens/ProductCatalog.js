@@ -67,7 +67,6 @@ const ProductCatalog = ({route, navigation}) => {
   return (
     <View>
       <View style={{backgroundColor: 'white'}}>
-        <TopSearch category="Masks" text="SAFONASOFN" />
         <Hashtags category={selectedCategory} />
         <View
           style={{

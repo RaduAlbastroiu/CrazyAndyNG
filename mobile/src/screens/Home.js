@@ -5,9 +5,13 @@ import {useTranslation} from 'react-i18next';
 import {isFirstOpen} from '../helpers/isFirstOpen';
 import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
+import {useSelector, useDispatch} from 'react-redux';
+import ProductCatalog from './ProductCatalog';
 
 const Home = ({navigation}) => {
   const {t} = useTranslation();
+
+  const searchText = useSelector((state) => state.filtersReducer.searchText);
 
   useEffect(() => {
     isFirstOpen().then((res) => {
@@ -17,10 +21,18 @@ const Home = ({navigation}) => {
     });
   }, []);
 
+  renderMainHome = () => {
+    if (searchText && searchText.length) {
+      return <ProductCatalog />;
+    } else {
+      return <BarcodeScanner navigation={navigation} />;
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <TopSearch navigation={navigation} />
-      <BarcodeScanner navigation={navigation} />
+      {renderMainHome()}
       <FloatingButton navigation={navigation} />
     </View>
   );
