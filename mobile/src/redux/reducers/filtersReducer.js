@@ -24,34 +24,23 @@ const filtersReducer = (state = initialState, action) => {
       };
     case UPDATE_SELECTED_CATEGORY:
       return {
-        categories: state.categories,
+        ...state,
         selectedCategory: action.payload.selectedCategory,
-        hashtags: state.hashtags,
-        selectedHashtags: state.selectedHashtags,
-        searchText: state.searchText,
       };
     case UPDATE_HASHTAGS:
       return {
-        categories: state.categories,
-        selectedCategory: state.selectedCategory,
+        ...state,
         hashtags: action.payload.hashtags,
         selectedHashtags: action.payload.selectedHashtags,
-        searchText: state.searchText,
       };
     case UPDATE_SELECTED_HASHTAGS:
       return {
-        categories: state.categories,
-        selectedCategory: state.selectedCategory,
-        hashtags: state.hashtags,
+        ...state,
         selectedHashtags: action.payload.selectedHashtags,
-        searchText: state.searchText,
       };
     case UPDATE_SEARCH_TEXT:
       return {
-        categories: state.categories,
-        selectedCategory: state.selectedCategory,
-        hashtags: state.hashtags,
-        selectedHashtags: state.selectedHashtags,
+        ...state,
         searchText: action.payload.searchText,
       };
     default:

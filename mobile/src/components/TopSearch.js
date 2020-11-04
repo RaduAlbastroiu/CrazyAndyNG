@@ -7,6 +7,7 @@ import {
 } from '../redux/actions/filtersActions';
 import React, {useState, useEffect} from 'react';
 import {updateSearchText} from '../redux/actions/filtersActions';
+import {setShowBarcode} from '../redux/actions/navigationActions';
 
 const TopSearch = () => {
   const searchText = useSelector((state) => state.filtersReducer.searchText);
@@ -64,6 +65,9 @@ const TopSearch = () => {
           value={searchText}
           onChangeText={(text) => {
             dispatch(updateSearchText(text));
+          }}
+          onFocus={() => {
+            dispatch(setShowBarcode(false));
           }}
           placeholder={'type to search'}
         />

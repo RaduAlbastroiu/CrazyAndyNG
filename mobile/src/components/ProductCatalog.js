@@ -82,7 +82,6 @@ const ProductCatalog = ({navigation}) => {
           </ScrollView>
         </View>
       </View>
-      <FloatingButton navigation={navigation} />
     </View>
   );
 };

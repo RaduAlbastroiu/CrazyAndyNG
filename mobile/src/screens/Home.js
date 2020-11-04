@@ -11,7 +11,9 @@ import ProductCatalog from '../components/ProductCatalog';
 const Home = ({navigation}) => {
   const {t} = useTranslation();
 
-  const searchText = useSelector((state) => state.filtersReducer.searchText);
+  const showBarcode = useSelector(
+    (state) => state.navigationReducer.showBarcode,
+  );
 
   useEffect(() => {
     isFirstOpen().then((res) => {
@@ -22,17 +24,16 @@ const Home = ({navigation}) => {
   }, []);
 
   renderMainHome = () => {
-    console.log(searchText);
-    if (searchText && searchText.length) {
-      return <ProductCatalog navigation={navigation} />;
-    } else {
+    if (showBarcode) {
       return <BarcodeScanner navigation={navigation} />;
+    } else {
+      return <ProductCatalog navigation={navigation} />;
     }
   };
 
   return (
     <View style={{flex: 1}}>
-      <TopSearch />
+      <TopSearch navigation={navigation} />
       {renderMainHome()}
       <FloatingButton navigation={navigation} />
     </View>

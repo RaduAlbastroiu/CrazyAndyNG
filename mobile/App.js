@@ -5,7 +5,10 @@ import {Language2} from './src/helpers/Language2';
 import {LogBox, View, Button, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {HeaderBackButton} from '@react-navigation/stack';
 import {Provider} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {setShowBarcode} from './src/redux/actions/navigationActions';
 import Home from './src/screens/Home';
 import Tutorial from './src/screens/Tutorial';
 import More from './src/screens/More';
@@ -44,52 +47,68 @@ const productMockup = {
 };
 
 function MyStack() {
+  const dispatch = useDispatch();
+  const showBarcode = useSelector(
+    (state) => state.navigationReducer.showBarcode,
+  );
+
+  let headerLeft = (
+    <HeaderBackButton
+      onPress={() => {
+        console.log('sd');
+        dispatch(setShowBarcode(true));
+      }}
+    />
+  );
+  if (showBarcode) {
+    headerLeft = <View />;
+  }
+
   return (
-    <Provider store={store}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={({navigation}) => ({
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Tutorial');
-                }}>
-                <Image
-                  style={{
-                    width: 30,
-                    height: 30,
-                    marginVertical: 10,
-                    marginRight: 15,
-                  }}
-                  source={require('./src/assets/question.png')}
-                />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-        <Stack.Screen
-          name="ProductInfo"
-          component={ProductInfo}
-          options={{title: 'Information'}}
-        />
-        <Stack.Screen name="Tutorial" component={Tutorial} />
-        <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
-        <Stack.Screen name="More" component={More} />
-        <Stack.Screen
-          name="HtmlScreen"
-          component={HtmlScreen}
-          options={{title: 'Help'}}
-        />
-        <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
-        <Stack.Screen
-          name="ProductCatalog"
-          component={ProductCatalog}
-          options={{title: 'Products'}}
-        />
-      </Stack.Navigator>
-    </Provider>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={({navigation}) => ({
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Tutorial');
+              }}>
+              <Image
+                style={{
+                  width: 30,
+                  height: 30,
+                  marginVertical: 10,
+                  marginRight: 15,
+                }}
+                source={require('./src/assets/question.png')}
+              />
+            </TouchableOpacity>
+          ),
+          headerLeft: () => headerLeft,
+        })}
+      />
+      <Stack.Screen
+        name="ProductInfo"
+        component={ProductInfo}
+        options={{title: 'Information'}}
+      />
+      <Stack.Screen name="Tutorial" component={Tutorial} />
+      <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
+      <Stack.Screen name="More" component={More} />
+      <Stack.Screen
+        name="HtmlScreen"
+        component={HtmlScreen}
+        options={{title: 'Help'}}
+      />
+      <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+      <Stack.Screen
+        name="ProductCatalog"
+        component={ProductCatalog}
+        options={{title: 'Products'}}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -100,8 +119,10 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </Provider>
   );
 }
