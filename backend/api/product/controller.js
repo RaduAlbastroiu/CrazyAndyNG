@@ -33,8 +33,9 @@ async function converToQuery(filter) {
         hashtags.push(hashtagDb._id);
       }
     }
-
-    newFilter.hashtags = { $all: hashtags };
+    if (hashtags.length) {
+      newFilter.hashtags = { $all: hashtags };
+    }
   }
   if (filter.name) {
     newFilter.name = { $regex: `.*${filter.name}.*`, $options: 'i' };
