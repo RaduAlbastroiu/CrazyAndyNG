@@ -8,18 +8,17 @@ import {
   TextInput,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   updateCategories,
   updateCategory,
-} from '../redux/actions/categoryActions';
+} from '../redux/actions/filtersActions';
 import React, {useState, useEffect} from 'react';
 import {updateSearchText} from '../redux/actions/filtersActions';
 
 const TopSearch = () => {
   const searchText = useSelector((state) => state.filtersReducer.searchText);
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector((state) => state.filtersReducer.categories);
   const selectedCategory = useSelector(
     (state) => state.categoryReducer.selectedCategory,
   );

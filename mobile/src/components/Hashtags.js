@@ -10,8 +10,8 @@ import {
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
-import {getHashtags} from '../redux/actions/hashtagsActions';
 import Hashtag from './Hashtag';
+import {updateHashtags} from '../redux/actions/filtersActions';
 
 const renderHashtags = (hashtags) => {
   return hashtags.map((hashtag, index) => {
@@ -28,7 +28,7 @@ const Hashtags = (props) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getHashtags({categoryName: selectedCategory}));
+    dispatch(updateHashtags({categoryName: selectedCategory}));
   }, [selectedCategory]);
 
   return (

@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   updateCategories,
   updateCategory,
-} from '../redux/actions/categoryActions';
+} from '../redux/actions/filtersActions';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
 const CategorySelector = (props) => {

@@ -6,7 +6,6 @@ import {
   UPDATE_SELECTED_HASHTAGS,
   UPDATE_SEARCH_TEXT,
 } from '../types';
-import {useSelector, useDispatch} from 'react-redux';
 
 export const updateCategories = () => async (dispatch) => {
   try {
