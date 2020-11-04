@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ProductCatalog from '../../components/ProductCatalog';
 import {
   UPDATE_CATEGORIES,
   UPDATE_SELECTED_CATEGORY,
@@ -57,12 +58,27 @@ export const updateHashtags = (filter) => async (dispatch) => {
   }
 };
 
-export const updateSelectedHashtags = (selectedHashtags) => async (
+export const updateSelectedHashtags = (selectedHashtag) => async (
   dispatch,
+  getState,
 ) => {
+  const selectedHashtags = getState().filtersReducer.selectedHashtags;
+  let newSelectedHashtags = selectedHashtags;
+
+  if (newSelectedHashtags != undefined) {
+    const indexOf = newSelectedHashtags.indexOf(selectedHashtag);
+    if (indexOf >= 0) {
+      newSelectedHashtags.splice(indexOf, 1);
+    } else {
+      newSelectedHashtags.push(selectedHashtag);
+    }
+  } else {
+    newSelectedHashtags = [selectedHashtag];
+  }
+
   dispatch({
     type: UPDATE_SELECTED_HASHTAGS,
-    payload: {selectedHashtags},
+    payload: {selectedHashtags: newSelectedHashtags},
   });
 };
 
