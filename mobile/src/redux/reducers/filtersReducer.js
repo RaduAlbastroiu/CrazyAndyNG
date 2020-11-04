@@ -19,16 +19,34 @@ const filtersReducer = (state = initialState, action) => {
     case UPDATE_CATEGORIES:
       return {
         categories: action.payload.categories,
-        selectedCategory: state.selectedCategory,
+        selectedCategory: action.payload.selectedCategory,
+        hashtags: state.hashtags,
+        selectedHashtags: state.selectedHashtags,
+        searchText: state.searchText,
       };
     case UPDATE_SELECTED_CATEGORY:
       return {
         categories: state.categories,
-        selectedCategory: action.payload,
+        selectedCategory: action.payload.selectedCategory,
+        hashtags: state.hashtags,
+        selectedHashtags: state.selectedHashtags,
+        searchText: state.searchText,
       };
     case UPDATE_HASHTAGS:
       return {
-        hashtags: action.payload,
+        categories: state.categories,
+        selectedCategory: state.selectedCategory,
+        hashtags: action.payload.hashtags,
+        selectedHashtags: action.payload.selectedHashtags,
+        searchText: state.searchText,
+      };
+    case UPDATE_SELECTED_HASHTAGS:
+      return {
+        categories: state.categories,
+        selectedCategory: state.selectedCategory,
+        hashtags: state.hashtags,
+        selectedHashtags: action.payload.selectedHashtags,
+        searchText: state.searchText,
       };
     case UPDATE_SEARCH_TEXT:
       return {

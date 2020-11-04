@@ -13,7 +13,7 @@ import HtmlScreen from './src/screens/HtmlScreen';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
 import BarcodeScanner from './src/screens/BarcodeScanner';
-import ProductCatalog from './src/screens/ProductCatalog';
+import ProductCatalog from './src/components/ProductCatalog';
 import CategoryChooser from './src/screens/CategorySelector';
 import store from './src/redux/store';
 

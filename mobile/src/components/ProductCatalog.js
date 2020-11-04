@@ -11,38 +11,33 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 import {getProducts} from '../redux/actions/productsActions';
 import FloatingButton from '../shared/FloatingButton';
-import TopSearch from '../components/TopSearch';
-import SmallProduct from '../components/SmallProduct';
-import Hashtags from '../components/Hashtags';
+import TopSearch from './TopSearch';
+import SmallProduct from './SmallProduct';
+import Hashtags from './Hashtags';
 
 // here just to see the data
-import productsMockup from './MockupData';
+import productsMockup from '../screens/MockupData';
 
 const ProductCatalog = ({route, navigation}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
-  const products = useSelector((state) => state.productsReducer.products);
-  const selectedCategory = useSelector(
+  const products = []; // useSelector((state) => state.productsReducer.products);
+  const selectedCategory = []; /*useSelector(
     (state) => state.categoryReducer.selectedCategory,
-  );
-  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
-  const selectedHashtags = hashtags
-    .filter((hashtag) => {
-      return hashtag.isSelected === true;
-    })
-    .map((hashtag) => {
-      return hashtag.name;
-    });
+  );*/
+  const hashtags = []; //useSelector((state) => state.hashtagsReducer.hashtags);
 
   const dispatch = useDispatch();
   useEffect(() => {
     let filter = {categoryName: selectedCategory};
+    /*
     if (selectedHashtags.length > 0) {
       filter.hashtagNames = selectedHashtags;
     }
+    */
     console.log(filter);
-    dispatch(getProducts(filter));
+    //dispatch(getProducts(filter));
   }, []);
 
   renderProducts = () => {

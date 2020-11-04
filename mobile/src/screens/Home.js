@@ -6,7 +6,7 @@ import {isFirstOpen} from '../helpers/isFirstOpen';
 import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
 import {useSelector, useDispatch} from 'react-redux';
-import ProductCatalog from './ProductCatalog';
+import ProductCatalog from '../components/ProductCatalog';
 
 const Home = ({navigation}) => {
   const {t} = useTranslation();
