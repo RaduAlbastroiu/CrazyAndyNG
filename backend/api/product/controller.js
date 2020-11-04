@@ -157,6 +157,8 @@ class ProductController {
       images.push(downloaded);
     }
 
+    // res.send[buffer] content-type jpeg
+
     return images;
   }
 

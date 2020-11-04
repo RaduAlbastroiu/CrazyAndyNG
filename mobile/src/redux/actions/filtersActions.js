@@ -63,7 +63,7 @@ export const updateSelectedHashtags = (selectedHashtag) => async (
   getState,
 ) => {
   const selectedHashtags = getState().filtersReducer.selectedHashtags;
-  let newSelectedHashtags = selectedHashtags;
+  let newSelectedHashtags = [...selectedHashtags];
 
   if (newSelectedHashtags != undefined) {
     const indexOf = newSelectedHashtags.indexOf(selectedHashtag);

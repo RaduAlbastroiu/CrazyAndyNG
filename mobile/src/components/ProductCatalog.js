@@ -40,7 +40,7 @@ const ProductCatalog = ({navigation}) => {
     };
 
     dispatch(getProducts(filter));
-  });
+  }, [selectedHashtags, selectedCategory, searchText]);
 
   renderProducts = () => {
     return products.map((product, index) => {

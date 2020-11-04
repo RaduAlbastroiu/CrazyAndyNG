@@ -18,11 +18,9 @@ const filtersReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CATEGORIES:
       return {
+        ...state,
         categories: action.payload.categories,
         selectedCategory: action.payload.selectedCategory,
-        hashtags: state.hashtags,
-        selectedHashtags: state.selectedHashtags,
-        searchText: state.searchText,
       };
     case UPDATE_SELECTED_CATEGORY:
       return {
