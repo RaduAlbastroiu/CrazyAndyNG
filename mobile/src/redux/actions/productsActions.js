@@ -3,12 +3,15 @@ import {GET_PRODUCTS} from '../types';
 
 export const getProducts = (filter) => async (dispatch) => {
   try {
+    console.log(filter);
     const res = await axios.get('https://crazye.herokuapp.com/api/product/', {
       params: {
         deviceId: 'someDeviceId',
         filter,
       },
     });
+
+    console.log(res.data);
 
     dispatch({
       type: GET_PRODUCTS,

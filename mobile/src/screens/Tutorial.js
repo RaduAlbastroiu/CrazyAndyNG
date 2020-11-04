@@ -30,8 +30,6 @@ const Tutorial = (props) => {
     ],
   ] = useState();
 
-  console.log(props);
-
   const {t} = useTranslation();
 
   const windowWidth = useWindowDimensions().width;

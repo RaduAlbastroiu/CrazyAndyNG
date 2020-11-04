@@ -20,7 +20,6 @@ const renderHashtags = (hashtags) => {
 };
 
 const Hashtags = (props) => {
-  console.log(props);
   const hashtags = useSelector((state) => state.filtersReducer.hashtags);
   const selectedCategory = useSelector(
     (state) => state.filtersReducer.selectedCategory,

@@ -9,14 +9,12 @@ import {
 const initialState = {
   categories: ['Masks', 'Sanitizers', 'Others'],
   selectedCategory: 'Masks',
-  hashtags: [''],
-  selectedHashtags: [''],
+  hashtags: [],
+  selectedHashtags: [],
   searchText: '',
 };
 
 const filtersReducer = (state = initialState, action) => {
-  console.log(action);
-
   switch (action.type) {
     case UPDATE_CATEGORIES:
       return {

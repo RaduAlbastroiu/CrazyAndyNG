@@ -22,23 +22,25 @@ const ProductCatalog = ({route, navigation}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
-  const products = []; // useSelector((state) => state.productsReducer.products);
-  const selectedCategory = []; /*useSelector(
+  const products = useSelector((state) => state.productsReducer.products);
+  const selectedCategory = useSelector(
     (state) => state.filtersReducer.selectedCategory,
-  );*/
-  const hashtags = []; //useSelector((state) => state.filtersReducer.hashtags);
+  );
+  const selectedHashtags = useSelector(
+    (state) => state.filtersReducer.selectedHashtags,
+  );
+  const searchText = useSelector((state) => state.filtersReducer.searchText);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    let filter = {categoryName: selectedCategory};
-    /*
-    if (selectedHashtags.length > 0) {
-      filter.hashtagNames = selectedHashtags;
-    }
-    */
-    console.log(filter);
-    //dispatch(getProducts(filter));
-  }, []);
+    let filter = {
+      categoryName: selectedCategory,
+      hashtagNames: selectedHashtags,
+      name: searchText,
+    };
+
+    dispatch(getProducts(filter));
+  }, [searchText, selectedHashtags, selectedCategory]);
 
   renderProducts = () => {
     return products.map((product) => {

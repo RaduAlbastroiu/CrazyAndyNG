@@ -72,8 +72,6 @@ const TopSearch = () => {
   };
 
   renderCancelButton = () => {
-    console.log('.....');
-    console.log(searchText);
     if (searchText && searchText.length) {
       return (
         <TouchableOpacity

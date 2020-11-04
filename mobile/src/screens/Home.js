@@ -23,7 +23,6 @@ const Home = ({navigation}) => {
 
   renderMainHome = () => {
     console.log(searchText);
-    console.log('....');
     if (searchText && searchText.length) {
       return <ProductCatalog />;
     } else {
