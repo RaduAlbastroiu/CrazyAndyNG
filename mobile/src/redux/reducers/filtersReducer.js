@@ -11,7 +11,7 @@ const initialState = {
   selectedCategory: 'Masks',
   hashtags: [''],
   selectedHashtags: [''],
-  searchTest: '',
+  searchText: '',
 };
 
 const filtersReducer = (state = initialState, action) => {
@@ -29,6 +29,14 @@ const filtersReducer = (state = initialState, action) => {
     case UPDATE_HASHTAGS:
       return {
         hashtags: action.payload,
+      };
+    case UPDATE_SEARCH_TEXT:
+      return {
+        categories: state.categories,
+        selectedCategory: state.selectedCategory,
+        hashtags: state.hashtags,
+        selectedHashtags: state.selectedHashtags,
+        searchText: action.payload.searchText,
       };
     default:
       return state;

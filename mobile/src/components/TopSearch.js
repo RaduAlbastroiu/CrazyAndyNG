@@ -15,13 +15,10 @@ import {
   updateCategory,
 } from '../redux/actions/categoryActions';
 import React, {useState, useEffect} from 'react';
-import ProductCatalog from '../screens/ProductCatalog';
+import {updateSearchText} from '../redux/actions/filtersActions';
 
-const TopSearch = ({navigation}, {text}) => {
-  let [searchText, setSearchText] = useState('');
-  console.log('TopSearch');
-  console.log(text);
-
+const TopSearch = () => {
+  const searchText = useSelector((state) => state.filtersReducer.searchText);
   const categories = useSelector((state) => state.categoryReducer.categories);
   const selectedCategory = useSelector(
     (state) => state.categoryReducer.selectedCategory,
@@ -73,7 +70,9 @@ const TopSearch = ({navigation}, {text}) => {
             paddingLeft: 12,
           }}
           value={searchText}
-          onChangeText={(text) => setSearchText(text)}
+          onChangeText={(text) => {
+            dispatch(updateSearchText(text));
+          }}
           placeholder={'type to search'}
         />
       </View>
@@ -81,12 +80,14 @@ const TopSearch = ({navigation}, {text}) => {
   };
 
   renderCancelButton = () => {
-    if (searchText.length) {
+    console.log('.....');
+    console.log(searchText);
+    if (searchText && searchText.length) {
       return (
         <TouchableOpacity
           style={{marginRight: 10}}
           onPress={() => {
-            setSearchText('');
+            dispatch(updateSearchText(''));
           }}>
           <Text style={{color: 'blue'}}>Cancel</Text>
         </TouchableOpacity>
