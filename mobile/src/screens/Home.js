@@ -7,7 +7,6 @@ import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
 
 const Home = ({navigation}) => {
-  const [showTutorial, setShowTutorial] = useState(false);
   const {t} = useTranslation();
 
   useEffect(() => {

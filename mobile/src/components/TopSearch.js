@@ -72,14 +72,26 @@ const TopSearch = ({navigation}, {text}) => {
             borderRadius: 10,
             paddingLeft: 12,
           }}
+          value={searchText}
           onChangeText={(text) => setSearchText(text)}
-          onSubmitEditing={(text) => {
-            navigation.navigate('ProductCatalog');
-          }}
           placeholder={'type to search'}
         />
       </View>
     );
+  };
+
+  renderCancelButton = () => {
+    if (searchText.length) {
+      return (
+        <TouchableOpacity
+          style={{marginRight: 10}}
+          onPress={() => {
+            setSearchText('');
+          }}>
+          <Text style={{color: 'blue'}}>Cancel</Text>
+        </TouchableOpacity>
+      );
+    }
   };
 
   return (
@@ -95,13 +107,7 @@ const TopSearch = ({navigation}, {text}) => {
       }}>
       {renderCategorySelector()}
       {renderSearch()}
-      <TouchableOpacity
-        style={{marginRight: 10}}
-        onPress={() => {
-          navigation.navigate('ProductCatalog');
-        }}>
-        <Text style={{color: 'blue'}}>Cancel</Text>
-      </TouchableOpacity>
+      {renderCancelButton()}
     </View>
   );
 };
