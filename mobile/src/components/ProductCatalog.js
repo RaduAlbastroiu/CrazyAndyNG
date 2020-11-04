@@ -18,7 +18,7 @@ import Hashtags from './Hashtags';
 // here just to see the data
 import productsMockup from '../screens/MockupData';
 
-const ProductCatalog = ({route, navigation}) => {
+const ProductCatalog = ({navigation}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
@@ -40,12 +40,13 @@ const ProductCatalog = ({route, navigation}) => {
     };
 
     dispatch(getProducts(filter));
-  }, [searchText, selectedHashtags, selectedCategory]);
+  });
 
   renderProducts = () => {
-    return products.map((product) => {
+    return products.map((product, index) => {
       return (
         <TouchableOpacity
+          key={index}
           style={{marginBottom: 5}}
           onPress={() => {
             navigation.navigate('ProductInfo', product);

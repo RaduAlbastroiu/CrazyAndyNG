@@ -11,14 +11,39 @@ import React, {useState, useEffect} from 'react';
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
+import axios from 'axios';
 
-const SmallProduct = ({size, product, navigation}) => {
+const SmallProduct = ({size, product}) => {
   let [isFavorite, setFavorite] = useState(false);
-  let [productImages, setProductImage] = useState([
+  let [productImages, setProductImages] = useState([
     Placeholder,
     Placeholder,
     Placeholder,
   ]);
+
+  getImg = async () => {
+    /*
+    console.log('***********************');
+    const res = await axios.get(
+      'https://crazye.herokuapp.com/api/product/5f9f0a40af40a04557db65c7/image?deviceId=someDeviceId',
+    );
+    console.log('************did it***********');
+    let i = 0;
+    let photos = [];
+    for (; i < res.data.found.length; i++) {
+      var base64Photo = `data:image/jpg;base64,${res.data.found[i].data}`;
+      photos.push(base64Photo);
+    }
+
+    setProductImages(photos);
+    */
+
+    setProductImages([FavIconEmpty]);
+  };
+
+  useEffect(() => {
+    getImg();
+  }, []);
 
   renderInfo = () => {
     let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
@@ -99,7 +124,7 @@ const SmallProduct = ({size, product, navigation}) => {
           borderRadius: 5,
           margin: 5,
         }}
-        source={Placeholder}
+        source={productImages[0]}
       />
       <View
         style={{

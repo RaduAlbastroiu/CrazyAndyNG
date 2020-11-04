@@ -24,7 +24,7 @@ const Home = ({navigation}) => {
   renderMainHome = () => {
     console.log(searchText);
     if (searchText && searchText.length) {
-      return <ProductCatalog />;
+      return <ProductCatalog navigation={navigation} />;
     } else {
       return <BarcodeScanner navigation={navigation} />;
     }

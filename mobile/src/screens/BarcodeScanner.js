@@ -30,7 +30,7 @@ const BarcodeScanner = ({navigation}) => {
       });
       didSearch = false;
 
-      console.log(`"${e.type}--${e.data}`);
+      console.log(`"${e.type}--${e.data}'"`);
       setTopText('Scanning for Barcode');
       if (res.data.found.length > 0) {
         console.log(res.data.found[0]);

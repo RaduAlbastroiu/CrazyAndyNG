@@ -11,8 +11,6 @@ export const getProducts = (filter) => async (dispatch) => {
       },
     });
 
-    console.log(res.data);
-
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data.found,
