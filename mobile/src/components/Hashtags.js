@@ -21,9 +21,9 @@ const renderHashtags = (hashtags) => {
 
 const Hashtags = (props) => {
   console.log(props);
-  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+  const hashtags = useSelector((state) => state.filtersReducer.hashtags);
   const selectedCategory = useSelector(
-    (state) => state.categoryReducer.selectedCategory,
+    (state) => state.filtersReducer.selectedCategory,
   );
 
   const dispatch = useDispatch();

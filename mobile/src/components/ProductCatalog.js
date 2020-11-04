@@ -24,9 +24,9 @@ const ProductCatalog = ({route, navigation}) => {
 
   const products = []; // useSelector((state) => state.productsReducer.products);
   const selectedCategory = []; /*useSelector(
-    (state) => state.categoryReducer.selectedCategory,
+    (state) => state.filtersReducer.selectedCategory,
   );*/
-  const hashtags = []; //useSelector((state) => state.hashtagsReducer.hashtags);
+  const hashtags = []; //useSelector((state) => state.filtersReducer.hashtags);
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  useWindowDimensions,
-  TextInput,
-} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -20,8 +12,9 @@ const TopSearch = () => {
   const searchText = useSelector((state) => state.filtersReducer.searchText);
   const categories = useSelector((state) => state.filtersReducer.categories);
   const selectedCategory = useSelector(
-    (state) => state.categoryReducer.selectedCategory,
+    (state) => state.filtersReducer.selectedCategory,
   );
+
   const dropDownCategories = categories.map((cat) => {
     return {label: cat, value: cat};
   });
@@ -35,7 +28,7 @@ const TopSearch = () => {
     return (
       <DropDownPicker
         items={dropDownCategories}
-        defaultValue={selectedCategory}
+        defaultValue={'Masks'}
         containerStyle={{
           marginLeft: 5,
           height: 40,

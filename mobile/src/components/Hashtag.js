@@ -3,11 +3,11 @@ import {Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {updateHashtags} from '../redux/actions/hashtagsActions';
+import {updateHashtags} from '../redux/actions/filtersActions';
 
 const Hashtag = ({hashtag}) => {
   let [isSelected, setSelected] = useState(false);
-  const hashtags = useSelector((state) => state.hashtagsReducer.hashtags);
+  const hashtags = useSelector((state) => state.filtersReducer.hashtags);
 
   const dispatch = useDispatch();
 

@@ -22,6 +22,8 @@ const Home = ({navigation}) => {
   }, []);
 
   renderMainHome = () => {
+    console.log(searchText);
+    console.log('....');
     if (searchText && searchText.length) {
       return <ProductCatalog />;
     } else {
@@ -31,7 +33,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <TopSearch navigation={navigation} />
+      <TopSearch />
       {renderMainHome()}
       <FloatingButton navigation={navigation} />
     </View>

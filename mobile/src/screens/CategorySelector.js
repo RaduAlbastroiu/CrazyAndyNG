@@ -10,9 +10,9 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 const CategorySelector = (props) => {
   const windowWidth = useWindowDimensions().width;
 
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  const categories = useSelector((state) => state.filtersReducer.categories);
   const category = useSelector(
-    (state) => state.categoryReducer.selectedCategory,
+    (state) => state.filtersReducer.selectedCategory,
   );
   const dispatch = useDispatch();
 

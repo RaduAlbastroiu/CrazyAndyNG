@@ -15,6 +15,8 @@ const initialState = {
 };
 
 const filtersReducer = (state = initialState, action) => {
+  console.log(action);
+
   switch (action.type) {
     case UPDATE_CATEGORIES:
       return {
