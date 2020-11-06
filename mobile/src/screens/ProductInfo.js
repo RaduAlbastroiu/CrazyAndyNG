@@ -10,6 +10,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../shared/FloatingButton';
+import StarsFeedback from '../components/StarsFeedback';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -166,6 +167,14 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
+  const renderFeedback = () => {
+    return (
+      <View style={{marginTop: 10, marginBottom: 10}}>
+        <StarsFeedback stars={3.71} noReviews={7}></StarsFeedback>
+      </View>
+    );
+  };
+
   renderBottomButton = (image) => {
     return (
       <TouchableOpacity
@@ -226,6 +235,7 @@ const ProductInfo = ({route, navigation}) => {
               marginHorizontal: 25,
             }}>
             {renderDetails()}
+            {renderFeedback()}
           </View>
 
           <View style={{alignItems: 'center'}}>
