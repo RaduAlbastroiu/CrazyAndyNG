@@ -146,20 +146,19 @@ class ProductController {
     return images;
   }
 
-  async getImages(_id) {
+  async getImage(_id, _imgId) {
     const dbProduct = await this.model.findOne({ _id });
     if (!dbProduct) throw 'not found';
 
-    let images = [];
-
-    for (const imageName of dbProduct.images) {
-      const downloaded = await downloadBlob(imageName);
-      images.push(downloaded);
+    let index = dbProduct.images.findIndex((imgName) => {
+      return imgName === _imgId;
+    });
+    if (index < 0) {
+      throw 'not found';
     }
 
-    // res.send[buffer] content-type jpeg
-
-    return images;
+    let image = await downloadBlob(_imgId);
+    return image.data;
   }
 
   async addImage(_id, file) {

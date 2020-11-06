@@ -129,15 +129,26 @@ productRouter.delete('/:_id', authAdmin, async (req, res) => {
 // Product Images Area
 */
 
+var mime = {
+  gif: 'image/gif',
+  jpg: 'image/jpg',
+  png: 'image/png',
+  svg: 'image/svg+xml',
+};
+
 productRouter.use(fileUpload());
 
-productRouter.get('/:_id/image', auth, async (req, res) => {
+productRouter.get('/:_id/image/:_imgId', auth, async (req, res) => {
   try {
-    const found = await productController.getImages(req.params._id);
-    return res.status(200).json({ success: 'Query successful', found });
+    const found = await productController.getImage(
+      req.params._id,
+      req.params._imgId
+    );
+    res.setHeader('Content-Type', mime.jpg);
+    return res.send(found);
   } catch (err) {
     if (err === 'not found') {
-      return res.status(404).send('Product not found');
+      return res.status(404).send(200, {});
     }
     console.error(err);
     return res.status(500).send('Internal Server Error');
