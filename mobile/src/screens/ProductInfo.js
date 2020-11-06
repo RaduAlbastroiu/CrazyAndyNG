@@ -51,6 +51,7 @@ const ProductInfo = ({route, navigation}) => {
   ]);
 
   const {params} = route;
+  console.log(params);
   const windowWidth = useWindowDimensions().width;
 
   const renderTopItems = () => {
@@ -74,7 +75,7 @@ const ProductInfo = ({route, navigation}) => {
             marginLeft: 10,
             borderRadius: 7,
           }}>
-          <Text>{'params.category'}</Text>
+          <Text>{params.category.name}</Text>
         </View>
         <Image
           style={{height: 40, width: 40, marginRight: 10}}
@@ -141,8 +142,8 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderHashtags = () => {
-    return productMockup.hashtags.map((hashtag, index) => {
-      return renderHashtag(hashtag, index);
+    return params.hashtags.map((hashtag, index) => {
+      return renderHashtag(hashtag.name, index);
     });
   };
 
