@@ -65,12 +65,12 @@ class ProductController {
   async find(args) {
     const skip = (args.page - 1) * args.size;
     const query = await converToQuery(args.filter);
-    let foundProducts = await this.model
-      .find(query)
-      .skip(skip)
-      .limit(args.size);
+    let foundProducts = this.model.find(query).skip(skip).limit(args.size);
+    foundProducts = foundProducts.populate('category');
+    foundProducts = foundProducts.populate('hashtags');
+    const res = await Promise.all([foundProducts]);
 
-    return foundProducts;
+    return res[0];
   }
 
   async create(product, user) {

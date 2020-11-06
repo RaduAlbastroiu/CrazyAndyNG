@@ -36,10 +36,12 @@ const productSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
   },
-  hashtags: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'hashtag',
-  },
+  hashtags: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'hashtag',
+    },
+  ],
   images: {
     type: [String],
   },

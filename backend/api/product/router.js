@@ -14,20 +14,6 @@ const fileUpload = require('express-fileupload');
 const productRouter = new Router();
 const productController = new ProductController(ProductModel);
 
-// A helper function used to read a readable stream into a string
-async function streamToString(readableStream) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    readableStream.on('data', (data) => {
-      chunks.push(data.toString());
-    });
-    readableStream.on('end', () => {
-      resolve(chunks.join(''));
-    });
-    readableStream.on('error', reject);
-  });
-}
-
 productRouter.get('/', auth, async (req, res) => {
   try {
     const options = {
