@@ -13,8 +13,6 @@ const feedbackController = new FeedbackController(FeedbackModel);
 feedbackRouter.get('/', auth, async (req, res) => {
   try {
     const options = {
-      page: parseInt(req.query.page, 10) || 1,
-      size: parseInt(req.query.size, 10) || 10,
       filter: req.query.filter || {},
     };
     if (req.query.filter) {

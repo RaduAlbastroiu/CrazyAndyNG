@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../shared/FloatingButton';
 import StarsFeedback from '../components/StarsFeedback';
+import {getFeedback} from '../redux/actions/feedbackActions';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -50,10 +51,28 @@ const ProductInfo = ({route, navigation}) => {
     Placeholder,
     Placeholder,
   ]);
+  let [starsFeedback, setStarsFeedback] = useState(0);
 
   const {params} = route;
   console.log(params);
   const windowWidth = useWindowDimensions().width;
+
+  useEffect(() => {
+    let filter = {product: params._id};
+    console.log(filter);
+
+    getFeedback(filter).then((res) => {
+      let sumScores = 0;
+      res.forEach((review) => {
+        sumScores += review.stars;
+      });
+      if (sumScores === 0) {
+        setStarsFeedback(0);
+      } else {
+        setStarsFeedback(sumScores / res.length);
+      }
+    });
+  }, []);
 
   const renderTopItems = () => {
     return (
@@ -170,12 +189,12 @@ const ProductInfo = ({route, navigation}) => {
   const renderFeedback = () => {
     return (
       <View style={{marginTop: 10, marginBottom: 10}}>
-        <StarsFeedback stars={3.71} noReviews={7}></StarsFeedback>
+        <StarsFeedback stars={starsFeedback}></StarsFeedback>
       </View>
     );
   };
 
-  renderBottomButton = (image) => {
+  const renderBottomButton = (image) => {
     return (
       <TouchableOpacity
         style={{

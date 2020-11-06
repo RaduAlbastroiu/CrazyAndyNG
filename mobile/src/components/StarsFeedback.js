@@ -51,7 +51,8 @@ const StarsFeedback = ({stars, noReviews}) => {
         textStar = textStar.substring(0, 4);
       }
       return (
-        <Text style={{fontSize: 15, marginLeft: 8, marginTop: 1}}>
+        <Text
+          style={{fontSize: 16, marginLeft: 8, marginTop: 1, color: '#777777'}}>
           {`${textStar}`}
         </Text>
       );
