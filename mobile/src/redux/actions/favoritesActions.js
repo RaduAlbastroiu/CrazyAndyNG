@@ -20,3 +20,41 @@ export const getFavorites = (deviceId) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const addToFavorites = (deviceId, productId) => async (dispatch) => {
+  try {
+    let res = await axios.put(
+      `https://crazye.herokuapp.com/api/favorites/${deviceId}`,
+      {
+        params: {
+          deviceId: 'someDeviceId',
+        },
+        add: productId,
+      },
+    );
+
+    dispatch(getFavorites(deviceId));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const removeFromFavorites = (deviceId, productId) => async (
+  dispatch,
+) => {
+  try {
+    let res = await axios.put(
+      `https://crazye.herokuapp.com/api/favorites/${deviceId}`,
+      {
+        params: {
+          deviceId: 'someDeviceId',
+        },
+        remove: productId,
+      },
+    );
+
+    dispatch(getFavorites(deviceId));
+  } catch (err) {
+    console.log(err);
+  }
+};

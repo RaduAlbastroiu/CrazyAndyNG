@@ -13,8 +13,7 @@ const Favorites = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <TopSearch navigation={navigation} />
-      <ProductCatalog navigation={navigation} />
+      <ProductCatalog navigation={navigation} productsSource={'favorites'} />
       <FloatingButton navigation={navigation} />
     </View>
   );

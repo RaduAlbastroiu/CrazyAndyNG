@@ -10,16 +10,16 @@ import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 import {getProducts} from '../redux/actions/productsActions';
-import {getFavorites} from '../redux/actions/productsActions';
+import {getFavorites} from '../redux/actions/favoritesActions';
 import FloatingButton from './FloatingButton';
 import TopSearch from './TopSearch';
 import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
-import {get} from 'mongoose';
 
-const ProductCatalog = ({navigation}, {productsSource}) => {
+const ProductCatalog = ({navigation, productsSource}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
+  console.log(productsSource);
 
   let products = useSelector((state) => state.productsReducer.products);
   if (productsSource === 'favorites') {
@@ -43,7 +43,7 @@ const ProductCatalog = ({navigation}, {productsSource}) => {
     };
 
     if (productsSource === 'favorites') {
-      dispatch(getFavorites(filter));
+      dispatch(getFavorites('someDeviceId'));
     } else {
       dispatch(getProducts(filter));
     }
@@ -69,13 +69,22 @@ const ProductCatalog = ({navigation}, {productsSource}) => {
     });
   };
 
+  renderHashtags = () => {
+    if (productsSource != 'favorites') {
+      return <Hashtags category={selectedCategory} />;
+    }
+  };
+
   return (
     <View>
       <View style={{backgroundColor: 'white'}}>
-        <Hashtags category={selectedCategory} />
+        {renderHashtags()}
         <View
           style={{
-            height: windowHeight - 203,
+            height:
+              productsSource != 'favorites'
+                ? windowHeight - 203
+                : windowHeight - 93,
           }}>
           <ScrollView
             contentContainerStyle={{

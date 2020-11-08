@@ -1,5 +1,5 @@
 import products from '../../screens/MockupData';
-import {GET_PRODUCTS} from '../types';
+import {GET_FAVORITES} from '../types';
 
 const initialState = {
   products: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:
+    case GET_FAVORITES:
       return {
         products: action.payload.products,
       };
