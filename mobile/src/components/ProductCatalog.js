@@ -19,7 +19,6 @@ import Hashtags from './Hashtags';
 const ProductCatalog = ({navigation, productsSource}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
-  console.log(productsSource);
 
   let products = useSelector((state) => state.productsReducer.products);
   if (productsSource === 'favorites') {

@@ -27,7 +27,7 @@ const Home = ({navigation}) => {
     if (showBarcode) {
       return <BarcodeScanner navigation={navigation} />;
     } else {
-      return <ProductCatalog navigation={navigation} />;
+      return <ProductCatalog navigation={navigation} productsSource={'Home'} />;
     }
   };
 

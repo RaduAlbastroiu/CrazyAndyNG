@@ -7,20 +7,39 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {getImageUrl} from '../helpers/apiRoutes';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../redux/actions/favoritesActions';
 
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
 
 const SmallProduct = ({size, product}) => {
-  let [isFavorite, setFavorite] = useState(false);
   let productImage = Placeholder;
   if (product.images.length) {
     productImage = {
       uri: getImageUrl(product._id, product.images[0], 'someDeviceId'),
     };
   }
+
+  let isFavorite = false;
+  const favoritesProducts = useSelector(
+    (state) => state.favoritesReducer.products,
+  );
+
+  if (
+    favoritesProducts.some((prod) => {
+      return prod._id === product._id;
+    })
+  ) {
+    isFavorite = true;
+  }
+
+  const dispatch = useDispatch();
 
   renderInfo = () => {
     let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
@@ -66,7 +85,11 @@ const SmallProduct = ({size, product}) => {
         <TouchableOpacity
           style={{marginLeft: 20}}
           onPress={() => {
-            setFavorite(!isFavorite);
+            if (isFavorite) {
+              dispatch(removeFromFavorites('someDeviceId', product._id));
+            } else {
+              dispatch(addToFavorites('someDeviceId', product._id));
+            }
           }}>
           <Image
             style={{height: 25, width: 25}}

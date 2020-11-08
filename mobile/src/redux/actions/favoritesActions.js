@@ -24,11 +24,8 @@ export const getFavorites = (deviceId) => async (dispatch) => {
 export const addToFavorites = (deviceId, productId) => async (dispatch) => {
   try {
     let res = await axios.put(
-      `https://crazye.herokuapp.com/api/favorites/${deviceId}`,
+      `https://crazye.herokuapp.com/api/favorites/${deviceId}?deviceId=${deviceId}`,
       {
-        params: {
-          deviceId: 'someDeviceId',
-        },
         add: productId,
       },
     );
@@ -44,7 +41,7 @@ export const removeFromFavorites = (deviceId, productId) => async (
 ) => {
   try {
     let res = await axios.put(
-      `https://crazye.herokuapp.com/api/favorites/${deviceId}`,
+      `https://crazye.herokuapp.com/api/favorites/${deviceId}?deviceId=${deviceId}`,
       {
         params: {
           deviceId: 'someDeviceId',
