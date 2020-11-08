@@ -1,5 +1,7 @@
 import React from 'react';
 import {FloatingAction} from 'react-native-floating-action';
+import {setShowBarcode} from '../redux/actions/navigationActions';
+import {useDispatch} from 'react-redux';
 
 const FloatingButton = ({navigation}) => {
   const actions = [
@@ -37,6 +39,8 @@ const FloatingButton = ({navigation}) => {
     },
   ];
 
+  const dispatch = useDispatch();
+
   return (
     <FloatingAction
       color="#12d8c2"
@@ -45,7 +49,12 @@ const FloatingButton = ({navigation}) => {
         if (name === 'Favorites') {
           navigation.navigate(name);
         } else {
-          navigation.navigate('More');
+          if (name === 'Scan') {
+            dispatch(setShowBarcode(true));
+            navigation.navigate('Home');
+          } else {
+            navigation.navigate('More');
+          }
         }
       }}
     />

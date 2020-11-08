@@ -4,14 +4,23 @@ class FavoritesController {
   }
 
   async find(ownerId) {
-    let found = this.model.findOne({ owner: ownerId });
-    found = found.populate('products');
-    const res = await Promise.all([found]);
-    if (!res[0]) {
+    let found = await this.model.findOne({ owner: ownerId }).populate({
+      path: 'products',
+      populate: [
+        {
+          path: 'category',
+        },
+        {
+          path: 'hashtags',
+        },
+      ],
+    });
+
+    if (!found) {
       throw 'not found';
     }
 
-    return res[0];
+    return found;
   }
 
   async update(_ownerId, favoritesUpdate) {
