@@ -157,8 +157,7 @@ class ProductController {
       throw 'not found';
     }
 
-    let image = await downloadBlob(_imgId);
-    return image.data;
+    return await downloadBlob(_imgId);
   }
 
   async addImage(_id, file) {

@@ -131,7 +131,7 @@ productRouter.get('/:_id/image/:_imgId', auth, async (req, res) => {
       req.params._imgId
     );
     res.setHeader('Content-Type', mime.jpg);
-    return res.send(found);
+    return found.pipe(res);
   } catch (err) {
     if (err === 'not found') {
       return res.status(404).send(200, {});

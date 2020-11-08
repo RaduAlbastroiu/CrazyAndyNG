@@ -34,10 +34,7 @@ const downloadBlob = async (name) => {
 
   const blockBlobClient = containerClient.getBlockBlobClient(name);
   const downloadBlockBlobResponse = await blockBlobClient.download(0);
-  return {
-    name: name,
-    data: await streamToString(downloadBlockBlobResponse.readableStreamBody),
-  };
+  return downloadBlockBlobResponse.readableStreamBody;
 };
 
 const deleteBlob = async (name) => {
