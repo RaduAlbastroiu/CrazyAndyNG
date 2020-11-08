@@ -1,0 +1,47 @@
+class FavoritesController {
+  constructor(model) {
+    this.model = model;
+  }
+
+  async find(ownerId) {
+    let found = await this.model.findOne({ owner: ownerId });
+    if (!found) {
+      throw 'not found';
+    }
+
+    return found;
+  }
+
+  async update(_ownerId, favoritesUpdate) {
+    let oldFavorites = await this.model.findOne({ owner: _ownerId });
+
+    // if no item in favorites
+    if (!oldFavorites) {
+      oldFavorites = {
+        products: [],
+        owner: _ownerId,
+      };
+    }
+
+    if (favorites.add) {
+      oldFavorites.products.push(favorites.add);
+    }
+    if (favorites.remove) {
+      let indexToRemove = oldFavorites.products.indexOf(favorites.remove);
+      if (indexToRemove > -1) {
+        oldFavorites.products.splice(indexToRemove, 1);
+      }
+    }
+
+    const newFavorites = await oldFavorites.save();
+    return newFavorites;
+  }
+
+  async delete(_ownerId) {
+    const found = await this.model.findOneAndDelete({ owner: _ownerId });
+    if (!found) throw 'not found';
+    return found;
+  }
+}
+
+module.exports = FavoritesController;
