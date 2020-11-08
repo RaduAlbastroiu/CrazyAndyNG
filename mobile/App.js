@@ -13,6 +13,7 @@ import Home from './src/screens/Home';
 import Tutorial from './src/screens/Tutorial';
 import More from './src/screens/More';
 import HtmlScreen from './src/screens/HtmlScreen';
+import Favorites from './src/screens/Favorites';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
 import BarcodeScanner from './src/screens/BarcodeScanner';
@@ -95,6 +96,7 @@ function MyStack() {
         options={{title: 'Information'}}
       />
       <Stack.Screen name="Tutorial" component={Tutorial} />
+      <Stack.Screen name="Favorites" component={Favorites} />
       <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import FloatingButton from '../shared/FloatingButton';
+import FloatingButton from '../components/FloatingButton';
 import StarsFeedback from '../components/StarsFeedback';
 import {getFeedback} from '../redux/actions/feedbackActions';
 import {getImageUrl} from '../helpers/apiRoutes';

@@ -4,40 +4,20 @@ import FloatingButton from '../components/FloatingButton';
 import {useTranslation} from 'react-i18next';
 import {isFirstOpen} from '../helpers/isFirstOpen';
 import TopSearch from '../components/TopSearch';
-import BarcodeScanner from './BarcodeScanner';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductCatalog from '../components/ProductCatalog';
+import products from './MockupData';
 
-const Home = ({navigation}) => {
+const Favorites = ({navigation}) => {
   const {t} = useTranslation();
-
-  const showBarcode = useSelector(
-    (state) => state.navigationReducer.showBarcode,
-  );
-
-  useEffect(() => {
-    isFirstOpen().then((res) => {
-      if (res) {
-        navigation.navigate('Tutorial');
-      }
-    });
-  }, []);
-
-  renderMainHome = () => {
-    if (showBarcode) {
-      return <BarcodeScanner navigation={navigation} />;
-    } else {
-      return <ProductCatalog navigation={navigation} />;
-    }
-  };
 
   return (
     <View style={{flex: 1}}>
       <TopSearch navigation={navigation} />
-      {renderMainHome()}
+      <ProductCatalog navigation={navigation} />
       <FloatingButton navigation={navigation} />
     </View>
   );
 };
 
-export default Home;
+export default Favorites;

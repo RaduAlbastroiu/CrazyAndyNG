@@ -10,19 +10,22 @@ import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 import {getProducts} from '../redux/actions/productsActions';
-import FloatingButton from '../shared/FloatingButton';
+import {getFavorites} from '../redux/actions/productsActions';
+import FloatingButton from './FloatingButton';
 import TopSearch from './TopSearch';
 import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
+import {get} from 'mongoose';
 
-// here just to see the data
-import productsMockup from '../screens/MockupData';
-
-const ProductCatalog = ({navigation}) => {
+const ProductCatalog = ({navigation}, {productsSource}) => {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
-  const products = useSelector((state) => state.productsReducer.products);
+  let products = useSelector((state) => state.productsReducer.products);
+  if (productsSource === 'favorites') {
+    products = useSelector((state) => state.favoritesReducer.products);
+  }
+
   const selectedCategory = useSelector(
     (state) => state.filtersReducer.selectedCategory,
   );
@@ -39,7 +42,11 @@ const ProductCatalog = ({navigation}) => {
       name: searchText,
     };
 
-    dispatch(getProducts(filter));
+    if (productsSource === 'favorites') {
+      dispatch(getFavorites(filter));
+    } else {
+      dispatch(getProducts(filter));
+    }
   }, [selectedHashtags, selectedCategory, searchText]);
 
   renderProducts = () => {
