@@ -7,43 +7,20 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
+import {getImageUrl} from '../helpers/apiRoutes';
 
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
-import axios from 'axios';
 
 const SmallProduct = ({size, product}) => {
   let [isFavorite, setFavorite] = useState(false);
-  let [productImages, setProductImages] = useState([
-    Placeholder,
-    Placeholder,
-    Placeholder,
-  ]);
-
-  getImg = async () => {
-    /*
-    console.log('***********************');
-    const res = await axios.get(
-      'https://crazye.herokuapp.com/api/product/5f9f0a40af40a04557db65c7/image?deviceId=someDeviceId',
-    );
-    console.log('************did it***********');
-    let i = 0;
-    let photos = [];
-    for (; i < res.data.found.length; i++) {
-      var base64Photo = `data:image/jpg;base64,${res.data.found[i].data}`;
-      photos.push(base64Photo);
-    }
-
-    setProductImages(photos);
-    */
-
-    setProductImages([FavIconEmpty]);
-  };
-
-  useEffect(() => {
-    getImg();
-  }, []);
+  let productImage = Placeholder;
+  if (product.images.length) {
+    productImage = {
+      uri: getImageUrl(product._id, product.images[0], 'someDeviceId'),
+    };
+  }
 
   renderInfo = () => {
     let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
@@ -124,7 +101,7 @@ const SmallProduct = ({size, product}) => {
           borderRadius: 5,
           margin: 5,
         }}
-        source={productImages[0]}
+        source={productImage}
       />
       <View
         style={{
