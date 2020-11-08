@@ -27,7 +27,10 @@ class FavoritesController {
       oldFavorites = new this.model(oldFavorites);
     }
 
-    if (favoritesUpdate.add) {
+    if (
+      favoritesUpdate.add &&
+      oldFavorites.products.indexOf(favoritesUpdate.add) < 0
+    ) {
       oldFavorites.products.push(favoritesUpdate.add);
     }
     if (favoritesUpdate.remove) {
