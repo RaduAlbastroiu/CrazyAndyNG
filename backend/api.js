@@ -21,4 +21,7 @@ mainRouter.use('/feedback', feedbackRoutes);
 const helpRoutes = require('./api/help/router');
 mainRouter.use('/help', helpRoutes);
 
+const favoritesRoutes = require('./api/favorites/router');
+mainRouter.use('/favorites', favoritesRoutes);
+
 module.exports = mainRouter;

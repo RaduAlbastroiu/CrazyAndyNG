@@ -21,13 +21,15 @@ class FavoritesController {
         products: [],
         owner: _ownerId,
       };
+
+      oldFavorites = new this.model(oldFavorites);
     }
 
-    if (favorites.add) {
-      oldFavorites.products.push(favorites.add);
+    if (favoritesUpdate.add) {
+      oldFavorites.products.push(favoritesUpdate.add);
     }
-    if (favorites.remove) {
-      let indexToRemove = oldFavorites.products.indexOf(favorites.remove);
+    if (favoritesUpdate.remove) {
+      let indexToRemove = oldFavorites.products.indexOf(favoritesUpdate.remove);
       if (indexToRemove > -1) {
         oldFavorites.products.splice(indexToRemove, 1);
       }

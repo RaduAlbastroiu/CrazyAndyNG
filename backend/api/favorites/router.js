@@ -10,15 +10,9 @@ const FavoritesModel = require('./model');
 const favoritesRouter = new Router();
 const favoritesController = new FavoritesController(FavoritesModel);
 
-favoritesRouter.get('/', auth, async (req, res) => {
+favoritesRouter.get('/:_ownerId', auth, async (req, res) => {
   try {
-    const options = {
-      filter: req.query.filter || {},
-    };
-    if (req.query.filter) {
-      options.filter = JSON.parse(options.filter);
-    }
-    const found = await favoritesController.find(options);
+    const found = await favoritesController.find(req.params._ownerId);
     return res.status(200).json({ success: 'Query successful', found });
   } catch (err) {
     if (err === 'not found')
@@ -31,10 +25,7 @@ favoritesRouter.get('/', auth, async (req, res) => {
 favoritesRouter.put('/:_ownerId', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
-      const isOwner = await favoritesController.isOwnedBy(
-        req.user.deviceId,
-        req.params._ownerId
-      );
+      const isOwner = req.user.deviceId === req.params._ownerId;
       if (!isOwner) throw 'forbidden';
     }
     const updated = await favoritesController.update(
@@ -55,10 +46,7 @@ favoritesRouter.put('/:_ownerId', auth, async (req, res) => {
 favoritesRouter.delete('/:_ownerId', auth, async (req, res) => {
   try {
     if (req.user.role === 'user') {
-      const isOwner = await favoritesController.isOwnedBy(
-        req.user.deviceId,
-        req.params._ownerId
-      );
+      const isOwner = req.user.deviceId === req.params._ownerId;
       if (!isOwner) throw 'forbidden';
     }
     await favoritesController.delete(req.params._ownerId);
