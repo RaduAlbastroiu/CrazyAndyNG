@@ -12,6 +12,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../shared/FloatingButton';
 import StarsFeedback from '../components/StarsFeedback';
 import {getFeedback} from '../redux/actions/feedbackActions';
+import {getImageUrl} from '../helpers/apiRoutes';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -45,21 +46,27 @@ const productMockup = {
 };
 
 const ProductInfo = ({route, navigation}) => {
+  const {params} = route;
+  const product = params;
+  const windowWidth = useWindowDimensions().width;
+
   let [activeIndex, setActiveIndex] = useState(0);
-  let [productImages, setProductImage] = useState([
-    Placeholder,
-    Placeholder,
-    Placeholder,
-  ]);
   let [starsFeedback, setStarsFeedback] = useState(0);
 
-  const {params} = route;
-  console.log(params);
-  const windowWidth = useWindowDimensions().width;
+  let productImages = [];
+  if (product.images.length) {
+    product.images.forEach((imgName) => {
+      let productImage = {
+        uri: getImageUrl(product._id, imgName, 'someDeviceId'),
+      };
+      productImages.push(productImage);
+    });
+  } else {
+    productImages.push(Placeholder);
+  }
 
   useEffect(() => {
     let filter = {product: params._id};
-    console.log(filter);
 
     getFeedback(filter).then((res) => {
       let sumScores = 0;
@@ -124,7 +131,12 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderCarouselItem = ({item, index}) => {
-    return <Image source={Placeholder} style={{height: 200, width: 200}} />;
+    return (
+      <Image
+        source={item}
+        style={{height: (windowWidth / 3) * 2, width: (windowWidth / 3) * 2}}
+      />
+    );
   };
 
   const renderImagesCarousel = () => {
@@ -135,8 +147,8 @@ const ProductInfo = ({route, navigation}) => {
         }}
         data={productImages}
         renderItem={renderCarouselItem}
-        sliderWidth={windowWidth / 2}
-        itemWidth={windowWidth / 2}
+        sliderWidth={(windowWidth / 3) * 2}
+        itemWidth={(windowWidth / 3) * 2}
         onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
       />
     );

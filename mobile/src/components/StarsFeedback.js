@@ -6,8 +6,6 @@ import fullStar from '../assets/star-full.png';
 import halfStar from '../assets/star-half.png';
 
 const StarsFeedback = ({stars, noReviews}) => {
-  console.log(stars);
-
   const starsType = [fullStar, halfStar, emptyStar];
   const renderStars = () => {
     let starsTypeArr = [0, 0, 0];
