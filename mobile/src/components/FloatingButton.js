@@ -12,9 +12,9 @@ const FloatingButton = ({navigation}) => {
       position: 1,
     },
     {
-      text: 'History',
-      icon: require('../assets/history.png'),
-      name: 'History',
+      text: 'Favorites',
+      icon: require('../assets/fav_icon_empty.png'),
+      name: 'Favorites',
       color: 'white',
       tintColor: 'black',
       position: 2,
@@ -42,7 +42,11 @@ const FloatingButton = ({navigation}) => {
       color="#12d8c2"
       actions={actions}
       onPressItem={(name) => {
-        navigation.navigate('More');
+        if (name === 'Favorites') {
+          navigation.navigate(name);
+        } else {
+          navigation.navigate('More');
+        }
       }}
     />
   );
