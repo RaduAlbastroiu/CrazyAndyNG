@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getUniqueId} from 'react-native-device-info';
 import {GET_PRODUCTS} from '../types';
 
 export const getProducts = (filter) => async (dispatch) => {
@@ -6,7 +7,7 @@ export const getProducts = (filter) => async (dispatch) => {
     console.log(filter);
     const res = await axios.get('https://crazye.herokuapp.com/api/product/', {
       params: {
-        deviceId: 'someDeviceId',
+        deviceId: getUniqueId(),
         filter,
       },
     });

@@ -10,6 +10,7 @@ import {
 import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import scanBarcode from '../assets/scanBarcode.png';
+import {getUniqueId} from 'react-native-device-info';
 
 const BarcodeScanner = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
@@ -24,7 +25,7 @@ const BarcodeScanner = ({navigation}) => {
       didSearch = true;
       let res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
         params: {
-          deviceId: 'someDeviceId',
+          deviceId: getUniqueId(),
           filter: `{"barcode": "${e.type}--${e.data}"}`,
         },
       });

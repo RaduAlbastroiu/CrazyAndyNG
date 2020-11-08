@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getUniqueId} from 'react-native-device-info';
 import ProductCatalog from '../../components/ProductCatalog';
 import {
   UPDATE_CATEGORIES,
@@ -12,7 +13,7 @@ export const updateCategories = () => async (dispatch) => {
   try {
     const res = await axios.get('https://crazye.herokuapp.com/api/category', {
       params: {
-        deviceId: 'someDeviceId',
+        deviceId: getUniqueId(),
       },
     });
 
@@ -40,7 +41,7 @@ export const updateHashtags = (filter) => async (dispatch) => {
   try {
     const res = await axios.get('https://crazye.herokuapp.com/api/hashtag/', {
       params: {
-        deviceId: 'someDeviceId',
+        deviceId: getUniqueId(),
         filter,
       },
     });

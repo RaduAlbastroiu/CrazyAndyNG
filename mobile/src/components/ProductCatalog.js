@@ -15,6 +15,7 @@ import FloatingButton from './FloatingButton';
 import TopSearch from './TopSearch';
 import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
+import {getUniqueId} from 'react-native-device-info';
 
 const ProductCatalog = ({navigation, productsSource}) => {
   const windowWidth = useWindowDimensions().width;
@@ -42,7 +43,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
     };
 
     if (productsSource === 'favorites') {
-      dispatch(getFavorites('someDeviceId'));
+      dispatch(getFavorites(getUniqueId()));
     } else {
       dispatch(getProducts(filter));
     }

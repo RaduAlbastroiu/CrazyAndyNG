@@ -19,6 +19,7 @@ import CalculatorImage from '../assets/calculator.png';
 import EditImage from '../assets/edit.png';
 import CompareImage from '../assets/compare.png';
 import ShareImage from '../assets/share.png';
+import {getUniqueId} from 'react-native-device-info';
 
 // here just to see the data
 const productMockup = {
@@ -57,7 +58,7 @@ const ProductInfo = ({route, navigation}) => {
   if (product.images.length) {
     product.images.forEach((imgName) => {
       let productImage = {
-        uri: getImageUrl(product._id, imgName, 'someDeviceId'),
+        uri: getImageUrl(product._id, imgName, getUniqueId()),
       };
       productImages.push(productImage);
     });

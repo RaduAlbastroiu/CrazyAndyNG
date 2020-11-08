@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getUniqueId} from 'react-native-device-info';
 import {GET_FAVORITES} from '../types';
 
 export const getFavorites = (deviceId) => async (dispatch) => {
@@ -7,7 +8,7 @@ export const getFavorites = (deviceId) => async (dispatch) => {
       `https://crazye.herokuapp.com/api/favorites/${deviceId}`,
       {
         params: {
-          deviceId: 'someDeviceId',
+          deviceId: getUniqueId(),
         },
       },
     );
@@ -44,7 +45,7 @@ export const removeFromFavorites = (deviceId, productId) => async (
       `https://crazye.herokuapp.com/api/favorites/${deviceId}?deviceId=${deviceId}`,
       {
         params: {
-          deviceId: 'someDeviceId',
+          deviceId: getUniqueId(),
         },
         remove: productId,
       },

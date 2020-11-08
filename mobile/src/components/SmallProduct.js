@@ -17,12 +17,13 @@ import {
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
+import {getUniqueId} from 'react-native-device-info';
 
 const SmallProduct = ({size, product}) => {
   let productImage = Placeholder;
   if (product.images.length) {
     productImage = {
-      uri: getImageUrl(product._id, product.images[0], 'someDeviceId'),
+      uri: getImageUrl(product._id, product.images[0], getUniqueId()),
     };
   }
 
@@ -86,9 +87,9 @@ const SmallProduct = ({size, product}) => {
           style={{marginLeft: 20}}
           onPress={() => {
             if (isFavorite) {
-              dispatch(removeFromFavorites('someDeviceId', product._id));
+              dispatch(removeFromFavorites(getUniqueId(), product._id));
             } else {
-              dispatch(addToFavorites('someDeviceId', product._id));
+              dispatch(addToFavorites(getUniqueId(), product._id));
             }
           }}>
           <Image
