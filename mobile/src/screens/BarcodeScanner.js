@@ -87,10 +87,10 @@ const BarcodeScanner = ({navigation}) => {
           source={scanBarcode}
           style={{
             position: 'absolute',
-            height: (windowWidth / 8) * 9,
-            width: (windowWidth / 8) * 9,
+            height: (windowWidth / 8) * 7,
+            width: (windowWidth / 8) * 7,
             tintColor: 'white',
-            bottom: windowHeight / 2 - ((windowWidth / 8) * 7) / 2 - 70,
+            bottom: windowHeight / 2 - ((windowWidth / 8) * 7) / 2 - 30,
           }}
         />
       </RNCamera>

@@ -155,6 +155,7 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderHashtag = (hashtag, index) => {
+    console.log(hashtag);
     return (
       <View
         style={{
@@ -168,14 +169,14 @@ const ProductInfo = ({route, navigation}) => {
           borderRadius: 7,
         }}
         key={index}>
-        <Text>{hashtag}</Text>
+        <Text>{hashtag.name}</Text>
       </View>
     );
   };
 
   const renderHashtags = () => {
     return params.hashtags.map((hashtag, index) => {
-      return renderHashtag(hashtag.name, index);
+      return renderHashtag(hashtag, index);
     });
   };
 
