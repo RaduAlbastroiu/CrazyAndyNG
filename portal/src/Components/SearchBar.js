@@ -2,7 +2,6 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import Add from "@material-ui/icons/Add";
 import "../App.css";
 export default function SearchBar() {
   return (
@@ -25,7 +24,6 @@ export default function SearchBar() {
           />
         </div>
         <SearchIcon style={{ marginLeft: "0.5%", color: "gray" }} />
-        <Add style={{ marginLeft: "0.5%", color: "blue" }} />
       </Toolbar>
     </div>
   );
