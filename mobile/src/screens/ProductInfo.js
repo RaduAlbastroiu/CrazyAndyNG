@@ -10,41 +10,23 @@ import {
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../components/FloatingButton';
+import {useSelector, useDispatch} from 'react-redux';
 import StarsFeedback from '../components/StarsFeedback';
 import {getFeedback} from '../redux/actions/feedbackActions';
 import {getImageUrl} from '../helpers/apiRoutes';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../redux/actions/favoritesActions';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
 import EditImage from '../assets/edit.png';
 import CompareImage from '../assets/compare.png';
 import ShareImage from '../assets/share.png';
+import FavIconEmpty from '../assets/fav_icon_empty.png';
+import FavIconFill from '../assets/fav_icon_fill.png';
 import {getUniqueId} from 'react-native-device-info';
-
-// here just to see the data
-const productMockup = {
-  price: [1799.99, 1999.99],
-  hashtags: [
-    'cool',
-    'tv',
-    '4k',
-    'something',
-    'co2ol',
-    'tv',
-    '43k',
-    'somethin4g',
-  ],
-  images: [
-    'image7d2cbf00-8ed5-45c7-bab0-d87f702b9cf7.jpg',
-    'imagea16c6807-f7a8-446a-9821-8cc92c2f12d9.jpg',
-  ],
-  name: 'Televizor Sony, 108 cm',
-  brand: 'LG',
-  barcode: 'barcode234',
-  origin: 'US',
-  size: '44',
-  category: 'Tvs',
-};
 
 const ProductInfo = ({route, navigation}) => {
   const {params} = route;
@@ -53,6 +35,23 @@ const ProductInfo = ({route, navigation}) => {
 
   let [activeIndex, setActiveIndex] = useState(0);
   let [starsFeedback, setStarsFeedback] = useState(0);
+
+  const dispatch = useDispatch();
+
+  let isFavorite = false;
+  const favoritesProducts = useSelector(
+    (state) => state.favoritesReducer.products,
+  );
+
+  if (
+    favoritesProducts.some((prod) => {
+      return prod._id === product._id;
+    })
+  ) {
+    isFavorite = true;
+  }
+
+  const FavIcon = isFavorite ? FavIconFill : FavIconEmpty;
 
   let productImages = [];
   if (product.images.length) {
@@ -208,20 +207,18 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
-  const renderBottomButton = (image) => {
+  const renderBottomButton = (image, action) => {
     return (
       <TouchableOpacity
         style={{
           backgroundColor: 'white',
-          width: 30,
-          height: 30,
+          width: 40,
+          height: 40,
           justifyContent: 'center',
           alignItems: 'center',
           margin: 5,
         }}
-        onPress={() => {
-          console.log('pressed');
-        }}>
+        onPress={action}>
         <Image
           source={image}
           style={{height: 25, width: 25, tintColor: '#50AAE6'}}
@@ -277,9 +274,23 @@ const ProductInfo = ({route, navigation}) => {
                 flexDirection: 'row',
                 marginBottom: 20,
               }}>
-              {renderBottomButton(ShareImage)}
-              {renderBottomButton(EditImage)}
-              {renderBottomButton(CompareImage)}
+              {renderBottomButton(ShareImage, () => {
+                console.log('pressed');
+              })}
+              {renderBottomButton(EditImage, () => {
+                console.log('pressed');
+              })}
+              {renderBottomButton(CompareImage, () => {
+                console.log('pressed');
+              })}
+              {renderBottomButton(FavIcon, () => {
+                if (isFavorite) {
+                  dispatch(removeFromFavorites(getUniqueId(), product._id));
+                } else {
+                  dispatch(addToFavorites(getUniqueId(), product._id));
+                }
+                console.log('favIcon');
+              })}
             </View>
           </View>
         </View>
