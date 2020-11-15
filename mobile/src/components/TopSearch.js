@@ -65,6 +65,7 @@ const TopSearch = () => {
           value={searchText}
           onChangeText={(text) => {
             dispatch(updateSearchText(text));
+            dispatch(setShowBarcode(false));
           }}
           onFocus={() => {
             dispatch(setShowBarcode(false));
