@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   Image,
   useWindowDimensions,
+  Modal,
 } from 'react-native';
+import ImageViewer from 'react-native-image-zoom-viewer';
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../components/FloatingButton';
@@ -208,6 +210,8 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderBottomButton = (image, action) => {
+    let tintColor = image === FavIcon ? '#d65645' : '#50AAE6';
+
     return (
       <TouchableOpacity
         style={{
@@ -219,10 +223,7 @@ const ProductInfo = ({route, navigation}) => {
           margin: 5,
         }}
         onPress={action}>
-        <Image
-          source={image}
-          style={{height: 25, width: 25, tintColor: '#50AAE6'}}
-        />
+        <Image source={image} style={{height: 25, width: 25, tintColor}} />
       </TouchableOpacity>
     );
   };

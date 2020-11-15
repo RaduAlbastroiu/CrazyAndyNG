@@ -45,8 +45,14 @@ const SmallProduct = ({size, product}) => {
   renderInfo = () => {
     let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
 
-    if (product.size) {
-      textComp.push(<Text style={styles.textDetails}>{product.size}</Text>);
+    if (product.brand) {
+      textComp[0] = (
+        <Text
+          style={styles.textDetails}>{`${product.brand} ${product.name}`}</Text>
+      );
+    }
+    if (product.origin) {
+      textComp.push(<Text style={styles.textDetails}>{product.origin}</Text>);
     }
     if (product.price.length === 1) {
       textComp.push(
@@ -64,6 +70,20 @@ const SmallProduct = ({size, product}) => {
   };
 
   renderBottom = () => {
+    let selectButton = (
+      <TouchableOpacity
+        style={{
+          backgroundColor: '#e5f4f9',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 10,
+          borderRadius: 10,
+        }}>
+        <Text>Select</Text>
+      </TouchableOpacity>
+    );
+
     return (
       <View
         style={{
@@ -73,18 +93,7 @@ const SmallProduct = ({size, product}) => {
           marginTop: 10,
         }}>
         <TouchableOpacity
-          style={{
-            backgroundColor: '#e5f4f9',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 10,
-            borderRadius: 10,
-          }}>
-          <Text>Select</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{marginLeft: 20}}
+          style={{marginLeft: 0}}
           onPress={() => {
             if (isFavorite) {
               dispatch(removeFromFavorites(getUniqueId(), product._id));
