@@ -56,7 +56,6 @@ function MyStack() {
   let headerLeft = (
     <HeaderBackButton
       onPress={() => {
-        console.log('sd');
         dispatch(setShowBarcode(true));
       }}
     />

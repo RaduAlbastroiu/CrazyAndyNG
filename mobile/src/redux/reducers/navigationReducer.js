@@ -5,7 +5,6 @@ import {SHOW_PRODUCT_NOT_FOUND} from '../types';
 const initialState = {
   showBarcode: true,
   showProductLoading: false,
-  showProductNotFound: false,
 };
 
 const navigationReducer = (state = initialState, action) => {
@@ -19,11 +18,6 @@ const navigationReducer = (state = initialState, action) => {
       return {
         ...state,
         showProductLoading: action.payload,
-      };
-    case SHOW_PRODUCT_NOT_FOUND:
-      return {
-        ...state,
-        showProductNotFound: action.payload,
       };
     default:
       return state;

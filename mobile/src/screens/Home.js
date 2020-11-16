@@ -15,6 +15,12 @@ const Home = ({navigation}) => {
   const showBarcode = useSelector(
     (state) => state.navigationReducer.showBarcode,
   );
+  const showProductLoading = useSelector(
+    (state) => state.navigationReducer.showProductLoading,
+  );
+  const showProductNotFound = useSelector(
+    (state) => state.navigationReducer.showProductNotFound,
+  );
 
   useEffect(() => {
     isFirstOpen().then((res) => {
@@ -26,10 +32,13 @@ const Home = ({navigation}) => {
 
   renderMainHome = () => {
     if (showBarcode) {
-      return <ProductNotFound />;
-    } else {
-      return <ProductCatalog navigation={navigation} productsSource={'Home'} />;
+      return <BarcodeScanner navigation={navigation} />;
     }
+    if (showProductLoading || showProductNotFound) {
+      return <ProductNotFound navigation={navigation} />;
+    }
+
+    return <ProductCatalog navigation={navigation} productsSource={'Home'} />;
   };
 
   return (

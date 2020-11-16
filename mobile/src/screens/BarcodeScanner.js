@@ -11,29 +11,26 @@ import {RNCamera} from 'react-native-camera';
 import axios from 'axios';
 import scanBarcode from '../assets/scanBarcode.png';
 import {getUniqueId} from 'react-native-device-info';
+import {
+  setShowProductLoading,
+  setShowBarcode,
+} from '../redux/actions/navigationActions';
+import {getScannedProduct} from '../redux/actions/productsActions';
+import {useSelector, useDispatch} from 'react-redux';
 
 const BarcodeScanner = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
   const windowWidth = useWindowDimensions().width;
   let [topText, setTopText] = useState('Scanning for Barcode');
 
+  const dispatch = useDispatch();
+
   onBarCodeRead = async (e) => {
-    setTopText('Barcode detected');
+    dispatch(setShowProductLoading(true));
+    dispatch(setShowBarcode(false));
+    dispatch(getScannedProduct(e.data));
 
-    let res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
-      params: {
-        deviceId: getUniqueId(),
-        filter: `{"barcode": "${e.data}"}`,
-      },
-    });
-    didSearch = false;
-
-    console.log(`"${e.data}'"`);
-    setTopText('Scanning for Barcode');
-    if (res.data.found.length > 0) {
-      console.log(res.data.found[0]);
-      navigation.navigate('ProductInfo', res.data.found[0]);
-    }
+    console.log(`"${e.data}"`);
   };
 
   renderTopText = () => {

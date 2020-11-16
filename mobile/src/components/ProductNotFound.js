@@ -6,22 +6,40 @@ import {
   Platform,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
   useWindowDimensions,
   Modal,
 } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  setShowProductLoading,
+  setShowBarcode,
+} from '../redux/actions/navigationActions';
 import FloatingButton from '../components/FloatingButton';
 
 const ProductNotFound = ({navigation}) => {
-  return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View>
-        <View
-          style={{
-            backgroundColor: '#E5F4F9',
-            borderRadius: 40,
-            marginHorizontal: 15,
-            marginVertical: 25,
-          }}>
+  const scannedProduct = useSelector(
+    (state) => state.productsReducer.scannedProduct,
+  );
+  const showProductLoading = useSelector(
+    (state) => state.navigationReducer.showProductLoading,
+  );
+
+  const dispatch = useDispatch();
+
+  const renderMainComponent = () => {
+    console.log(scannedProduct);
+
+    if (scannedProduct !== null && scannedProduct !== 'not found') {
+      dispatch(setShowProductLoading(false));
+      dispatch(setShowBarcode(true));
+
+      navigation.navigate('ProductInfo', scannedProduct);
+    }
+
+    if (scannedProduct === 'not found') {
+      return (
+        <View>
           <View style={{alignItems: 'center'}}>
             <Text style={[styles.textDetails, {marginTop: 25, fontSize: 24}]}>
               Product Not Found
@@ -55,6 +73,27 @@ const ProductNotFound = ({navigation}) => {
               <Text>Go to Feedback</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      );
+    }
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  };
+
+  return (
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View>
+        <View
+          style={{
+            backgroundColor: '#E5F4F9',
+            borderRadius: 40,
+            marginHorizontal: 15,
+            marginVertical: 25,
+          }}>
+          {renderMainComponent()}
         </View>
       </View>
       <FloatingButton navigation={navigation} />
