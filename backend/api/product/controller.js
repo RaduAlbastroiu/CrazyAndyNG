@@ -38,7 +38,11 @@ async function converToQuery(filter) {
     }
   }
   if (filter.name) {
-    newFilter.name = { $regex: `.*${filter.name}.*`, $options: 'i' };
+    newFilter['$or'] = [
+      { name: { $regex: `.*${filter.name}.*`, $options: 'i' } },
+      { brand: { $regex: `.*${filter.name}.*`, $options: 'i' } },
+      { origin: { $regex: `.*${filter.name}.*`, $options: 'i' } },
+    ];
   }
   if (filter.categoryName) {
     const category = await categoryModel.findOne({ name: filter.categoryName });
