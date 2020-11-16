@@ -16,27 +16,23 @@ const BarcodeScanner = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
   const windowWidth = useWindowDimensions().width;
   let [topText, setTopText] = useState('Scanning for Barcode');
-  let didSearch = false;
 
   onBarCodeRead = async (e) => {
     setTopText('Barcode detected');
-    if (didSearch === false) {
-      console.log(e);
-      didSearch = true;
-      let res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
-        params: {
-          deviceId: getUniqueId(),
-          filter: `{"barcode": "${e.data}"}`,
-        },
-      });
-      didSearch = false;
 
-      console.log(`"${e.data}'"`);
-      setTopText('Scanning for Barcode');
-      if (res.data.found.length > 0) {
-        console.log(res.data.found[0]);
-        navigation.navigate('ProductInfo', res.data.found[0]);
-      }
+    let res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
+      params: {
+        deviceId: getUniqueId(),
+        filter: `{"barcode": "${e.data}"}`,
+      },
+    });
+    didSearch = false;
+
+    console.log(`"${e.data}'"`);
+    setTopText('Scanning for Barcode');
+    if (res.data.found.length > 0) {
+      console.log(res.data.found[0]);
+      navigation.navigate('ProductInfo', res.data.found[0]);
     }
   };
 

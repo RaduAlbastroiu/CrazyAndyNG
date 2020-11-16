@@ -7,6 +7,7 @@ import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductCatalog from '../components/ProductCatalog';
+import ProductNotFound from '../components/ProductNotFound';
 
 const Home = ({navigation}) => {
   const {t} = useTranslation();
@@ -25,7 +26,7 @@ const Home = ({navigation}) => {
 
   renderMainHome = () => {
     if (showBarcode) {
-      return <BarcodeScanner navigation={navigation} />;
+      return <ProductNotFound />;
     } else {
       return <ProductCatalog navigation={navigation} productsSource={'Home'} />;
     }
