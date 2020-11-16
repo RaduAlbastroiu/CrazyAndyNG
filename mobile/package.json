@@ -26,6 +26,7 @@
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-floating-action": "radualbastroiu/react-native-floating-action#feature/action_icons_tintcolor",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-image-picker": "^2.3.4",
     "react-native-image-zoom-viewer": "^3.0.1",
     "react-native-localize": "^1.4.1",
     "react-native-reanimated": "^1.13.0",

@@ -8,6 +8,7 @@ import BarcodeScanner from './BarcodeScanner';
 import {useSelector, useDispatch} from 'react-redux';
 import ProductCatalog from '../components/ProductCatalog';
 import ProductNotFound from '../components/ProductNotFound';
+import ImagePicker from 'react-native-image-picker';
 
 const Home = ({navigation}) => {
   const {t} = useTranslation();

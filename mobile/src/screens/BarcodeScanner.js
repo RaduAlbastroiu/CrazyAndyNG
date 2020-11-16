@@ -17,6 +17,7 @@ import {
 } from '../redux/actions/navigationActions';
 import {getScannedProduct} from '../redux/actions/productsActions';
 import {useSelector, useDispatch} from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 
 const BarcodeScanner = ({navigation}) => {
   const windowHeight = useWindowDimensions().height;
@@ -55,6 +56,31 @@ const BarcodeScanner = ({navigation}) => {
     );
   };
 
+  const openGallery = () => {
+    const options = {
+      title: 'Choose barcode image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = {uri: response.uri};
+
+        // User choose an image
+        onBarCodeRead('asd');
+      }
+    });
+  };
+
   return (
     <View
       style={{
@@ -87,6 +113,17 @@ const BarcodeScanner = ({navigation}) => {
             bottom: windowHeight / 2 - ((windowWidth / 8) * 7) / 2 - 30,
           }}
         />
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            backgroundColor: 'white',
+            bottom: 50,
+            padding: 15,
+            borderRadius: 10,
+          }}
+          onPress={openGallery}>
+          <Text>Open Gallery</Text>
+        </TouchableOpacity>
       </RNCamera>
     </View>
   );
