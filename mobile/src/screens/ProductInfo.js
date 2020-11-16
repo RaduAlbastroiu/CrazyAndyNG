@@ -36,6 +36,7 @@ const ProductInfo = ({route, navigation}) => {
   const windowWidth = useWindowDimensions().width;
 
   let [activeIndex, setActiveIndex] = useState(0);
+  let [showModal, setShowModal] = useState(false);
   let [starsFeedback, setStarsFeedback] = useState(0);
 
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const ProductInfo = ({route, navigation}) => {
     product.images.forEach((imgName) => {
       let productImage = {
         uri: getImageUrl(product._id, imgName, getUniqueId()),
+        url: getImageUrl(product._id, imgName, getUniqueId()),
       };
       productImages.push(productImage);
     });
@@ -134,10 +136,17 @@ const ProductInfo = ({route, navigation}) => {
 
   const renderCarouselItem = ({item, index}) => {
     return (
-      <Image
-        source={item}
-        style={{height: (windowWidth / 3) * 2, width: (windowWidth / 3) * 2}}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          console.log('pressed');
+          console.log(index);
+          setShowModal(true);
+        }}>
+        <Image
+          source={item}
+          style={{height: (windowWidth / 3) * 2, width: (windowWidth / 3) * 2}}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -228,6 +237,22 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
+  const renderImageModal = () => {
+    if (showModal)
+      return (
+        <Modal visible={true} transparent={true}>
+          <ImageViewer
+            imageUrls={productImages}
+            enableSwipeDown={true}
+            onSwipeDown={() => {
+              console.log('modal false');
+              setShowModal(false);
+            }}
+          />
+        </Modal>
+      );
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View>
@@ -297,6 +322,7 @@ const ProductInfo = ({route, navigation}) => {
         </View>
       </View>
       <FloatingButton navigation={navigation} />
+      {renderImageModal()}
     </View>
   );
 };
