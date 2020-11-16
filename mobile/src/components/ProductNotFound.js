@@ -27,6 +27,11 @@ const ProductNotFound = ({navigation}) => {
 
   const dispatch = useDispatch();
 
+  const navigateToBarcodeScanner = () => {
+    dispatch(setShowProductLoading(false));
+    dispatch(setShowBarcode(true));
+  };
+
   const renderMainComponent = () => {
     console.log(scannedProduct);
 
@@ -65,7 +70,8 @@ const ProductNotFound = ({navigation}) => {
                 backgroundColor: 'white',
                 marginRight: 25,
                 borderRadius: 10,
-              }}>
+              }}
+              onPress={navigateToBarcodeScanner}>
               <Text>Go to Scanning</Text>
             </TouchableOpacity>
             <TouchableOpacity

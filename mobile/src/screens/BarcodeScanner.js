@@ -66,12 +66,12 @@ const BarcodeScanner = ({navigation}) => {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+      //console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePicker Error');
       } else {
         const source = {uri: response.uri};
 
