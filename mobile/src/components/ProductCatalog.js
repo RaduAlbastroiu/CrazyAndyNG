@@ -34,6 +34,8 @@ const ProductCatalog = ({navigation, productsSource}) => {
   );
   const searchText = useSelector((state) => state.filtersReducer.searchText);
 
+  console.log(selectedCategory);
+
   const dispatch = useDispatch();
   useEffect(() => {
     let filter = {

@@ -23,7 +23,7 @@ export const updateCategories = () => async (dispatch) => {
 
     dispatch({
       type: UPDATE_CATEGORIES,
-      payload: {categories, selectedCategories: ''},
+      payload: {categories, selectedCategory: categories[0]},
     });
   } catch (err) {
     console.log(err);

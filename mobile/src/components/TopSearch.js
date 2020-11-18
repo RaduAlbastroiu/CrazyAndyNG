@@ -29,7 +29,7 @@ const TopSearch = () => {
     return (
       <DropDownPicker
         items={dropDownCategories}
-        defaultValue={'Masks'}
+        defaultValue={selectedCategory}
         containerStyle={{
           marginLeft: 5,
           height: 40,
