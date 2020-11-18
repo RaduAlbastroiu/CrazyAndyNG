@@ -9,6 +9,7 @@ import {
   Modal,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import {getUniqueId} from 'react-native-device-info';
 import React, {useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../components/FloatingButton';
@@ -28,7 +29,7 @@ import CompareImage from '../assets/compare.png';
 import ShareImage from '../assets/share.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
-import {getUniqueId} from 'react-native-device-info';
+import CloseImage from '../assets/close.png';
 
 const ProductInfo = ({route, navigation}) => {
   const {params} = route;
@@ -134,6 +135,22 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
+  const renderCarouselItemWide = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          console.log('pressed');
+          console.log(index);
+          setShowModal(true);
+        }}>
+        <Image
+          source={item}
+          style={{height: windowWidth, width: windowWidth}}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   const renderCarouselItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -150,17 +167,20 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
-  const renderImagesCarousel = () => {
+  const renderImagesCarousel = (type) => {
     return (
       <Carousel
         ref={(c) => {
           this._carousel = c;
         }}
         data={productImages}
-        renderItem={renderCarouselItem}
-        sliderWidth={(windowWidth / 3) * 2}
-        itemWidth={(windowWidth / 3) * 2}
+        renderItem={
+          type === 'wide' ? renderCarouselItemWide : renderCarouselItem
+        }
+        sliderWidth={type === 'wide' ? windowWidth : (windowWidth / 3) * 2}
+        itemWidth={type === 'wide' ? windowWidth : (windowWidth / 3) * 2}
         onSnapToItem={(index) => setActiveIndex((activeIndex = index))}
+        firstItem={activeIndex}
       />
     );
   };
@@ -240,15 +260,31 @@ const ProductInfo = ({route, navigation}) => {
   const renderImageModal = () => {
     if (showModal)
       return (
-        <Modal visible={true} transparent={true}>
-          <ImageViewer
-            imageUrls={productImages}
-            enableSwipeDown={true}
-            onSwipeDown={() => {
-              console.log('modal false');
-              setShowModal(false);
-            }}
-          />
+        <Modal visible={true} transparent={false}>
+          <View
+            style={{
+              backgroundColor: 'black',
+              display: 'flex',
+              flexGrow: 1,
+              justifyContent: 'center',
+            }}>
+            <TouchableOpacity
+              style={{
+                alignSelf: 'flex-end',
+                position: 'absolute',
+                top: 50,
+                right: 30,
+              }}
+              onPress={() => {
+                setShowModal(false);
+              }}>
+              <Image
+                source={CloseImage}
+                style={{tintColor: 'white', width: 40, height: 40}}
+              />
+            </TouchableOpacity>
+            <View style={{}}>{renderImagesCarousel('wide')}</View>
+          </View>
         </Modal>
       );
   };
@@ -271,7 +307,7 @@ const ProductInfo = ({route, navigation}) => {
                 width: 300,
                 alignItems: 'center',
               }}>
-              {renderImagesCarousel()}
+              {renderImagesCarousel('narrow')}
               {renderCarouselPagination()}
             </View>
             <View
