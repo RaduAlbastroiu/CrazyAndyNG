@@ -50,6 +50,7 @@ class HashtagController {
       oldHashtag.name = hashtag.name || oldHashtag.name;
       oldHashtag.isHighlighted =
         hashtag.isHighlighted || oldHashtag.isHighlighted;
+      oldHashtag.description = hashtag.description || oldHashtag.description;
       const newHashtag = await oldHashtag.save();
       return newHashtag;
     }

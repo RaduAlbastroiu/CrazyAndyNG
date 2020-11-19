@@ -186,7 +186,6 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderHashtag = (hashtag, index) => {
-    console.log(hashtag);
     return (
       <View
         style={{
@@ -258,7 +257,7 @@ const ProductInfo = ({route, navigation}) => {
   };
 
   const renderImageModal = () => {
-    if (showModal)
+    if (showModal && product.images.length > 0)
       return (
         <Modal visible={true} transparent={false}>
           <View

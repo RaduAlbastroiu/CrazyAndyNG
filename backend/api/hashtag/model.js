@@ -8,6 +8,9 @@ const hashtagSchema = mongoose.Schema({
   isHighlighted: {
     type: Boolean,
   },
+  description: {
+    type: String,
+  },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'category',
