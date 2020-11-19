@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,10 @@ import {
   setShowProductLoading,
   setShowBarcode,
 } from '../redux/actions/navigationActions';
-import {getScannedProduct} from '../redux/actions/productsActions';
+import {
+  getScannedProduct,
+  resetScannedProduct,
+} from '../redux/actions/productsActions';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 
@@ -25,6 +28,10 @@ const BarcodeScanner = ({navigation}) => {
   let [topText, setTopText] = useState('Scanning for Barcode');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetScannedProduct());
+  }, []);
 
   onBarCodeRead = async (e) => {
     dispatch(setShowProductLoading(true));

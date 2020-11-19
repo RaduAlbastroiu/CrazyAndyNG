@@ -33,6 +33,7 @@ const ProductNotFound = ({navigation}) => {
   };
 
   const renderMainComponent = () => {
+    console.log('scanned product');
     console.log(scannedProduct);
 
     if (scannedProduct !== null && scannedProduct !== 'not found') {
@@ -82,6 +83,7 @@ const ProductNotFound = ({navigation}) => {
         </View>
       );
     }
+
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" color="#0000ff" />

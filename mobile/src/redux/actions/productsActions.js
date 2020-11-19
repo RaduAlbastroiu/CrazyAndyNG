@@ -46,3 +46,14 @@ export const getScannedProduct = (barcode) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const resetScannedProduct = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_SCANNED_PRODUCT,
+      payload: null,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
