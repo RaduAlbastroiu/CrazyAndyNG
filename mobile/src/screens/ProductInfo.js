@@ -265,7 +265,7 @@ const ProductInfo = ({route, navigation}) => {
               backgroundColor: 'black',
               display: 'flex',
               flexGrow: 1,
-              justifyContent: 'ce',
+              justifyContent: 'center',
             }}>
             <TouchableOpacity
               style={{
