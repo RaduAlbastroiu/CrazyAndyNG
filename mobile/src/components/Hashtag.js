@@ -6,7 +6,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {updateSelectedHashtags} from '../redux/actions/filtersActions';
 
 const Hashtag = ({hashtag}) => {
-  let [isSelected, setSelected] = useState(false);
+  const selectedHashtags = useSelector(
+    (state) => state.filtersReducer.selectedHashtags,
+  );
 
   const dispatch = useDispatch();
 
@@ -19,10 +21,11 @@ const Hashtag = ({hashtag}) => {
         paddingHorizontal: 15,
         margin: 3,
         borderRadius: 7,
-        backgroundColor: isSelected ? '#D3D3D3' : '#EBEBEB',
+        backgroundColor: selectedHashtags.includes(hashtag)
+          ? '#D3D3D3'
+          : '#EBEBEB',
       }}
       onPress={() => {
-        isSelected = setSelected(!isSelected);
         dispatch(updateSelectedHashtags(hashtag));
       }}>
       <Text>{hashtag}</Text>

@@ -21,6 +21,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from '../redux/actions/favoritesActions';
+import {updateSelectedHashtags} from '../redux/actions/filtersActions';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -39,6 +40,8 @@ const ProductInfo = ({route, navigation}) => {
   let [activeIndex, setActiveIndex] = useState(0);
   let [showModal, setShowModal] = useState(false);
   let [starsFeedback, setStarsFeedback] = useState(0);
+  let [showHashtagModal, setShowHashtagModel] = useState(false);
+  let [selectedHashtag, setSelectedHashtag] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -185,9 +188,80 @@ const ProductInfo = ({route, navigation}) => {
     );
   };
 
+  const renderHashtagModal = () => {
+    if (showHashtagModal) {
+      return (
+        <Modal visible={true} transparent={true}>
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexGrow: 1,
+            }}>
+            <View
+              style={{
+                width: '90%',
+                borderWidth: 1,
+                borderColor: 'grey',
+                backgroundColor: 'white',
+                borderRadius: 40,
+              }}>
+              <TouchableOpacity
+                style={{
+                  alignSelf: 'flex-end',
+                  position: 'absolute',
+                  top: 20,
+                  right: 20,
+                  zIndex: 200,
+                }}
+                onPress={() => {
+                  console.log('close hashtag modal');
+                  setShowHashtagModel(false);
+                }}>
+                <Image
+                  source={CloseImage}
+                  style={{tintColor: 'black', width: 30, height: 30}}
+                />
+              </TouchableOpacity>
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: 20,
+                  zIndex: 100,
+                }}>
+                <Text style={{fontSize: 24}}>{selectedHashtag.name}</Text>
+                <Text style={{marginTop: 20, alignSelf: 'flex-start'}}>
+                  {selectedHashtag.description}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    padding: 20,
+                    borderRadius: 20,
+                    backgroundColor: '#e3f5fa',
+                    marginTop: 30,
+                  }}
+                  onPress={() => {
+                    setShowHashtagModel(false);
+                    setSelectedHashtag(null);
+                    navigation.pop();
+                    dispatch(updateSelectedHashtags(selectedHashtag.name));
+                  }}>
+                  <Text>Related Products</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      );
+    }
+  };
+
   const renderHashtag = (hashtag, index) => {
     return (
-      <View
+      <TouchableOpacity
         style={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -198,14 +272,19 @@ const ProductInfo = ({route, navigation}) => {
           marginRight: 10,
           borderRadius: 7,
         }}
-        key={index}>
+        key={index}
+        onPress={() => {
+          setShowHashtagModel(true);
+          setSelectedHashtag(hashtag);
+        }}>
         <Text>{hashtag.name}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   const renderHashtags = () => {
     return params.hashtags.map((hashtag, index) => {
+      console.log(hashtag);
       return renderHashtag(hashtag, index);
     });
   };
@@ -358,6 +437,7 @@ const ProductInfo = ({route, navigation}) => {
       </View>
       <FloatingButton navigation={navigation} />
       {renderImageModal()}
+      {renderHashtagModal()}
     </View>
   );
 };
