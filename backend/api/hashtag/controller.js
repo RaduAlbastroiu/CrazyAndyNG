@@ -7,6 +7,11 @@ async function converToQuery(filter) {
   if (filter._id) {
     newFilter._id = filter._id;
   }
+  if (filter.name) {
+    newFilter['$or'] = [
+      { name: { $regex: `.*${filter.name}.*`, $options: 'i' } },
+    ];
+  }
   if (filter.category) {
     newFilter.category = filter.category;
   }
