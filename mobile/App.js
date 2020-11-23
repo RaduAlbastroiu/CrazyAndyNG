@@ -16,6 +16,7 @@ import HtmlScreen from './src/screens/HtmlScreen';
 import Favorites from './src/screens/Favorites';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProductInfo from './src/screens/ProductInfo';
+import Feedback from './src/screens/Feedback';
 import BarcodeScanner from './src/screens/BarcodeScanner';
 import ProductCatalog from './src/components/ProductCatalog';
 import CategoryChooser from './src/screens/CategorySelector';
@@ -108,6 +109,11 @@ function MyStack() {
         name="ProductCatalog"
         component={ProductCatalog}
         options={{title: 'Products'}}
+      />
+      <Stack.Screen
+        name="Feedback"
+        component={Feedback}
+        options={{title: 'Product Feedback'}}
       />
     </Stack.Navigator>
   );

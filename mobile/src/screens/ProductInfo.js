@@ -418,7 +418,8 @@ const ProductInfo = ({route, navigation}) => {
                 console.log('pressed');
               })}
               {renderBottomButton(EditImage, () => {
-                console.log('pressed');
+                navigation.navigate('Feedback', product);
+                console.log('feedback');
               })}
               {renderBottomButton(CompareImage, () => {
                 console.log('pressed');
