@@ -14,10 +14,10 @@ import {getHashtagsForFilter} from '../redux/actions/hashtagActions';
 
 const Home = ({navigation, route}) => {
   const {params} = route;
-  const product = params.product;
+  const product = params !== undefined ? params.product : {};
 
   let [hashtags, setHashtags] = useState(
-    product !== undefined
+    product.hashtags !== undefined
       ? product.hashtags.map((h) => {
           return h.name;
         })
@@ -28,10 +28,10 @@ const Home = ({navigation, route}) => {
   let [brandName, setBrandName] = useState(product.brand || '');
   let [productName, setProductName] = useState(product.name || '');
   let [minPrice, setMinPrice] = useState(
-    product !== undefined ? product.price[0].toString(10) : '0',
+    product.price !== undefined ? product.price[0].toString(10) : '0',
   );
   let [maxPrice, setMaxPrice] = useState(
-    product !== undefined
+    product.price !== undefined
       ? product.price.length === 1
         ? product.price[0].toString(10)
         : product.price[1].toString(10)
@@ -42,7 +42,8 @@ const Home = ({navigation, route}) => {
   let [size, setSize] = useState(product.size || '');
 
   const categories = useSelector((state) => state.filtersReducer.categories);
-  const selectedCategory = product.category.name || categories[0];
+  const selectedCategory =
+    product.category !== undefined ? product.category.name : categories[0];
   const dropDownCategories = categories.map((cat) => {
     return {label: cat, value: cat};
   });

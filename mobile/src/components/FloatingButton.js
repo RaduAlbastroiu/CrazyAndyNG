@@ -53,7 +53,11 @@ const FloatingButton = ({navigation}) => {
             dispatch(setShowBarcode(true));
             navigation.navigate('Home');
           } else {
-            navigation.navigate('More');
+            if (name === 'Feedback') {
+              navigation.navigate('Feedback');
+            } else {
+              navigation.navigate('More');
+            }
           }
         }
       }}
