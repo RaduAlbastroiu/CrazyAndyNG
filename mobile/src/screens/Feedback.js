@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {TextInput} from 'react-native-gesture-handler';
@@ -42,9 +49,27 @@ const Home = ({navigation, route}) => {
 
   useEffect(() => {
     console.log('show feedback');
-  }, []);
 
-  renderCategorySelector = () => {
+    // need to fix this
+    getFoundHashtags();
+  });
+
+  const getFoundHashtags = async () => {
+    let foundHashtags = await getHashtagsForFilter({
+      categoryName: selectedCategory,
+      name: searchHashtag,
+    });
+
+    if (foundHashtags !== undefined) {
+      setFoundHashtags(
+        foundHashtags
+          .map((h) => h.name)
+          .filter((h) => hashtags.includes(h) === false),
+      );
+    }
+  };
+
+  const renderCategorySelector = () => {
     return (
       <DropDownPicker
         items={dropDownCategories}
@@ -66,7 +91,7 @@ const Home = ({navigation, route}) => {
     );
   };
 
-  renderTextInput = (label, item, modifier) => {
+  const renderTextInput = (label, item, modifier) => {
     return (
       <View style={{margin: 5}}>
         <Text>{label}</Text>
@@ -87,7 +112,7 @@ const Home = ({navigation, route}) => {
     );
   };
 
-  renderPrice = () => {
+  const renderPrice = () => {
     return (
       <View style={{margin: 5}}>
         <Text>Price</Text>
@@ -158,17 +183,15 @@ const Home = ({navigation, route}) => {
           borderRadius: 7,
         }}
         key={index}
-        onPress={onPress}>
+        onPress={() => onPress(hashtag)}>
         <Text>{hashtag}</Text>
       </TouchableOpacity>
     );
   };
 
-  const renderHashtags = (hashtags) => {
+  const renderHashtags = (hashtags, onPress) => {
     return hashtags.map((hashtag, index) => {
-      return renderHashtag(hashtag, index, (hashtag) => {
-        console.log('pressed');
-      });
+      return renderHashtag(hashtag, index, onPress);
     });
   };
 
@@ -184,7 +207,12 @@ const Home = ({navigation, route}) => {
               flexGrow: 1,
               marginTop: 5,
             }}>
-            {renderHashtags(hashtags)}
+            {renderHashtags(hashtags, (hashtag) => {
+              let index = hashtags.indexOf(hashtag);
+              if (index !== -1) {
+                hashtags.splice(index, 1);
+              }
+            })}
           </View>
         </View>
       );
@@ -206,7 +234,10 @@ const Home = ({navigation, route}) => {
               flexGrow: 1,
               marginTop: 5,
             }}>
-            {renderHashtags(foundHashtags)}
+            {renderHashtags(foundHashtags, (h) => {
+              hashtags.push(h);
+              setHashtags(hashtags);
+            })}
           </View>
         </View>
       );
@@ -229,15 +260,7 @@ const Home = ({navigation, route}) => {
           placeholder={'Search for hashtag'}
           onChangeText={async (text) => {
             setSearchHashtag(text);
-
-            let hashtags = await getHashtagsForFilter({
-              categoryName: selectedCategory,
-              name: text,
-            });
-
-            if (hashtags !== undefined) {
-              setFoundHashtags(hashtags.map((h) => h.name));
-            }
+            getFoundHashtags();
           }}
         />
       </View>
@@ -245,9 +268,11 @@ const Home = ({navigation, route}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Text>Product Category</Text>
-      {renderCategorySelector()}
+    <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{margin: 10}}>
+        <Text style={{marginBottom: 5}}>Product Category</Text>
+        {renderCategorySelector()}
+      </View>
       {renderTextInput('Brand', brandName, setBrandName)}
       {renderTextInput('Product Name', productName, setProductName)}
       {renderPrice()}
@@ -260,7 +285,19 @@ const Home = ({navigation, route}) => {
       <Text>Photo</Text>
       <Text>Remarks</Text>
       <Text>Rating</Text>
-    </View>
+      <TouchableOpacity
+        style={{
+          padding: 20,
+          paddingHorizontal: 30,
+          borderRadius: 20,
+          backgroundColor: '#e3f5fa',
+          marginTop: 30,
+          marginBottom: 40,
+          alignSelf: 'center',
+        }}>
+        <Text>Send</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
