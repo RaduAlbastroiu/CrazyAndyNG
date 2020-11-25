@@ -280,7 +280,13 @@ const Feedback = ({navigation, route}) => {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        padding: 10,
+        paddingRight: 15,
+      }}>
       <View style={{margin: 10}}>
         <Text style={{marginBottom: 5}}>Product Category</Text>
         {renderCategorySelector()}
@@ -303,7 +309,7 @@ const Feedback = ({navigation, route}) => {
           borderRadius: 20,
           backgroundColor: '#e3f5fa',
           marginTop: 30,
-          marginBottom: 40,
+          marginBottom: 60,
           alignSelf: 'center',
         }}>
         <Text>Send</Text>
