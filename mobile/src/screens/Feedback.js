@@ -63,13 +63,13 @@ const Feedback = ({navigation, route}) => {
     console.log(product.images);
 
     // need to fix this
-    getFoundHashtags();
-  }, []);
+    getFoundHashtags(searchHashtag);
+  }, [hashtags]);
 
-  const getFoundHashtags = async () => {
+  const getFoundHashtags = async (text) => {
     let foundHashtags = await getHashtagsForFilter({
       categoryName: selectedCategory,
-      name: searchHashtag,
+      name: text,
     });
 
     if (foundHashtags !== undefined) {
@@ -220,10 +220,7 @@ const Feedback = ({navigation, route}) => {
               marginTop: 5,
             }}>
             {renderHashtags(hashtags, (hashtag) => {
-              let index = hashtags.indexOf(hashtag);
-              if (index !== -1) {
-                hashtags.splice(index, 1);
-              }
+              setHashtags(hashtags.filter((ele) => ele !== hashtag));
             })}
           </View>
         </View>
@@ -247,8 +244,7 @@ const Feedback = ({navigation, route}) => {
               marginTop: 5,
             }}>
             {renderHashtags(foundHashtags, (h) => {
-              hashtags.push(h);
-              setHashtags(hashtags);
+              setHashtags([...hashtags, h]);
             })}
           </View>
         </View>
@@ -272,7 +268,7 @@ const Feedback = ({navigation, route}) => {
           placeholder={'Search for hashtag'}
           onChangeText={async (text) => {
             setSearchHashtag(text);
-            getFoundHashtags();
+            getFoundHashtags(text);
           }}
         />
       </View>
