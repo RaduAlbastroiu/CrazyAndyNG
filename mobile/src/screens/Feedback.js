@@ -5,14 +5,19 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
+import HorizontalPhotosList from '../components/HorizontalPhotosList';
 import {TextInput} from 'react-native-gesture-handler';
 import {getHashtagsForFilter} from '../redux/actions/hashtagActions';
+import {getImageUrl} from '../helpers/apiRoutes';
+import {getUniqueId} from 'react-native-device-info';
+import addIcon from '../../src/assets/add.png';
 
-const Home = ({navigation, route}) => {
+const Feedback = ({navigation, route}) => {
   const {params} = route;
   const product = params !== undefined ? params.product : {};
 
@@ -51,9 +56,14 @@ const Home = ({navigation, route}) => {
   useEffect(() => {
     console.log('show feedback');
 
+    product.images.forEach((image) =>
+      console.log(getImageUrl(product._id, image, getUniqueId())),
+    );
+    console.log(product.images);
+
     // need to fix this
     getFoundHashtags();
-  });
+  }, []);
 
   const getFoundHashtags = async () => {
     let foundHashtags = await getHashtagsForFilter({
@@ -283,7 +293,7 @@ const Home = ({navigation, route}) => {
       {renderAddHashtag()}
       {renderAddHashtags()}
       {renderCurrentHashtags()}
-      <Text>Photo</Text>
+      <HorizontalPhotosList product={product} />
       <Text>Remarks</Text>
       <Text>Rating</Text>
       <TouchableOpacity
@@ -302,4 +312,16 @@ const Home = ({navigation, route}) => {
   );
 };
 
-export default Home;
+export default Feedback;
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 120,
+    width: 200,
+    marginRight: 5,
+    backgroundColor: 'lightgrey',
+  },
+});
