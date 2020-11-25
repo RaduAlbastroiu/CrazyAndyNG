@@ -11,6 +11,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
 import HorizontalPhotosList from '../components/HorizontalPhotosList';
+import SimpleFeedback from '../components/SimpleFeedback';
 import {TextInput} from 'react-native-gesture-handler';
 import {getHashtagsForFilter} from '../redux/actions/hashtagActions';
 import {getImageUrl} from '../helpers/apiRoutes';
@@ -294,8 +295,7 @@ const Feedback = ({navigation, route}) => {
       {renderAddHashtags()}
       {renderCurrentHashtags()}
       <HorizontalPhotosList product={product} />
-      <Text>Remarks</Text>
-      <Text>Rating</Text>
+      <SimpleFeedback />
       <TouchableOpacity
         style={{
           padding: 20,
