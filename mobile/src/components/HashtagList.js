@@ -1,5 +1,5 @@
-import {View, TouchableOpacity, Image, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
+import {View, TouchableOpacity, Image, Text, TextInput} from 'react-native';
 
 const HashtagsList = (product) => {
   let [hashtags, setHashtags] = useState(
@@ -123,7 +123,9 @@ const HashtagsList = (product) => {
 
   return (
     <View>
-      <Text>Hashtags</Text>
+      {renderAddHashtag()}
+      {renderAddHashtags()}
+      {renderCurrentHashtags()}
     </View>
   );
 };
