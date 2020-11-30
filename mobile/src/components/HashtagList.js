@@ -124,7 +124,7 @@ const HashtagsList = (product) => {
   return (
     <View>
       {renderAddHashtag()}
-      {renderAddHashtags()}
+
       {renderCurrentHashtags()}
     </View>
   );
