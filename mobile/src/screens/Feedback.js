@@ -176,7 +176,7 @@ const Feedback = ({navigation, route}) => {
       {renderTextInput('Origin', origin, setOrigin)}
       {renderTextInput('Color', color, setColor)}
       {renderTextInput('Size', size, setSize)}
-      <HashtagsList product={product} />
+      <HashtagsList product={product} selectedCategory={selectedCategory} />
       <HorizontalPhotosList product={product} />
       <SimpleFeedback />
       <TouchableOpacity

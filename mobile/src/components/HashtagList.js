@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Image, Text, TextInput} from 'react-native';
+import {getHashtagsForFilter} from '../redux/actions/hashtagActions';
 
 const renderHashtag = (hashtag, index, onPress) => {
   return (
@@ -27,7 +28,7 @@ const renderHashtags = (hashtags, onPress) => {
   });
 };
 
-const HashtagsList = ({product}) => {
+const HashtagsList = ({product, selectedCategory}) => {
   let [hashtags, setHashtags] = useState(
     product.hashtags !== undefined
       ? product.hashtags.map((h) => {
@@ -37,6 +38,11 @@ const HashtagsList = ({product}) => {
   );
   let [filterHashtag, setFilterHashtag] = useState('');
   let [foundHashtags, setFoundHashtags] = useState([]);
+
+  useEffect(() => {
+    console.log('h list');
+    getFoundHashtags('');
+  }, []);
 
   const getFoundHashtags = async (text) => {
     let foundHashtags = await getHashtagsForFilter({
@@ -75,7 +81,7 @@ const HashtagsList = ({product}) => {
     );
   };
 
-  const renderAddHashtags = () => {
+  const renderAllHashtags = () => {
     console.log('found');
     console.log(foundHashtags);
 
@@ -91,7 +97,8 @@ const HashtagsList = ({product}) => {
               marginTop: 5,
             }}>
             {renderHashtags(foundHashtags, (h) => {
-              setHashtags([...hashtags, h]);
+              console.log(h);
+              //setHashtags([...hashtags, h]);
             })}
           </View>
         </View>
@@ -123,6 +130,7 @@ const HashtagsList = ({product}) => {
   return (
     <View>
       {renderAddHashtag()}
+      {renderAllHashtags()}
       {renderCurrentHashtags()}
     </View>
   );
