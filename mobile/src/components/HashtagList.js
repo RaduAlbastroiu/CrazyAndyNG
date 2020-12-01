@@ -1,7 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Image, Text, TextInput} from 'react-native';
 
-const HashtagsList = (product) => {
+const renderHashtag = (hashtag, index, onPress) => {
+  return (
+    <TouchableOpacity
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 30,
+        paddingHorizontal: 15,
+        backgroundColor: hashtag.isHighlighted ? '#F8CBAD' : '#D3D3D3',
+        marginTop: 5,
+        marginRight: 10,
+        borderRadius: 7,
+      }}
+      key={index}
+      onPress={() => onPress(hashtag)}>
+      <Text>{hashtag}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const renderHashtags = (hashtags, onPress) => {
+  return hashtags.map((hashtag, index) => {
+    return renderHashtag(hashtag, index, onPress);
+  });
+};
+
+const HashtagsList = ({product}) => {
   let [hashtags, setHashtags] = useState(
     product.hashtags !== undefined
       ? product.hashtags.map((h) => {
@@ -9,7 +35,7 @@ const HashtagsList = (product) => {
         })
       : [],
   );
-  let [searchHashtag, setSearchHashtag] = useState('');
+  let [filterHashtag, setFilterHashtag] = useState('');
   let [foundHashtags, setFoundHashtags] = useState([]);
 
   const getFoundHashtags = async (text) => {
@@ -39,11 +65,10 @@ const HashtagsList = (product) => {
             marginTop: 5,
             padding: 5,
           }}
-          value={searchHashtag}
+          value={filterHashtag}
           placeholder={'Search for hashtag'}
           onChangeText={async (text) => {
-            setSearchHashtag(text);
-            getFoundHashtags(text);
+            setFilterHashtag(text);
           }}
         />
       </View>
@@ -87,7 +112,7 @@ const HashtagsList = (product) => {
               marginTop: 5,
             }}>
             {renderHashtags(hashtags, (hashtag) => {
-              setHashtags(hashtags.filter((ele) => ele !== hashtag));
+              console.log(hashtag);
             })}
           </View>
         </View>
@@ -95,36 +120,9 @@ const HashtagsList = (product) => {
     }
   };
 
-  const renderHashtag = (hashtag, index, onPress) => {
-    return (
-      <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 30,
-          paddingHorizontal: 15,
-          backgroundColor: hashtag.isHighlighted ? '#F8CBAD' : '#D3D3D3',
-          marginTop: 5,
-          marginRight: 10,
-          borderRadius: 7,
-        }}
-        key={index}
-        onPress={() => onPress(hashtag)}>
-        <Text>{hashtag}</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  const renderHashtags = (hashtags, onPress) => {
-    return hashtags.map((hashtag, index) => {
-      return renderHashtag(hashtag, index, onPress);
-    });
-  };
-
   return (
     <View>
       {renderAddHashtag()}
-
       {renderCurrentHashtags()}
     </View>
   );
