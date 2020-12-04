@@ -17,7 +17,7 @@ const renderHashtag = (hashtag, index, onPress) => {
       }}
       key={index}
       onPress={() => onPress(hashtag)}>
-      <Text>{hashtag}</Text>
+      <Text>{hashtag.name}</Text>
     </TouchableOpacity>
   );
 };
@@ -29,33 +29,33 @@ const renderHashtags = (hashtags, onPress) => {
 };
 
 const HashtagsList = ({product, selectedCategory}) => {
-  let [hashtags, setHashtags] = useState(
-    product.hashtags !== undefined
-      ? product.hashtags.map((h) => {
-          return h.name;
-        })
-      : [],
-  );
-  let [filterHashtag, setFilterHashtag] = useState('');
-  let [foundHashtags, setFoundHashtags] = useState([]);
+  let [hashtags, setHashtags] = useState([]);
+  let [filterHashtags, setFilterHashtags] = useState('');
 
   useEffect(() => {
     console.log('h list');
-    getFoundHashtags('');
+    getHashtags('');
   }, []);
 
-  const getFoundHashtags = async (text) => {
+  const getHashtags = async (text) => {
     let foundHashtags = await getHashtagsForFilter({
       categoryName: selectedCategory,
       name: text,
     });
 
     if (foundHashtags !== undefined) {
-      setFoundHashtags(
-        foundHashtags
-          .map((h) => h.name)
-          .filter((h) => hashtags.includes(h) === false),
-      );
+      let hashtags = foundHashtags.map((h) => {
+        let isSelected = false;
+        if (
+          product.hashtags &&
+          product.hashtags.map((tag) => tag.name).includes(h.name)
+        ) {
+          isSelected = true;
+        }
+        return {name: h.name, isSelected: isSelected};
+      });
+
+      setHashtags(hashtags);
     }
   };
 
@@ -71,46 +71,27 @@ const HashtagsList = ({product, selectedCategory}) => {
             marginTop: 5,
             padding: 5,
           }}
-          value={filterHashtag}
+          value={filterHashtags}
           placeholder={'Search for hashtag'}
           onChangeText={async (text) => {
-            setFilterHashtag(text);
+            setFilterHashtags(text);
           }}
         />
       </View>
     );
   };
 
-  const renderAllHashtags = () => {
-    console.log('found');
-    console.log(foundHashtags);
-
-    if (foundHashtags.length > 0) {
-      return (
-        <View style={{margin: 5}}>
-          <Text>Found Hashtags</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              flexGrow: 1,
-              marginTop: 5,
-            }}>
-            {renderHashtags(foundHashtags, (h) => {
-              console.log(h);
-              //setHashtags([...hashtags, h]);
-            })}
-          </View>
-        </View>
+  const renderHashtagsContainer = (title, isSelected, filter) => {
+    let displayHashtags = hashtags.filter((h) => h.isSelected === isSelected);
+    if (filter) {
+      displayHashtags = displayHashtags.filter((h) =>
+        h.name.toLowerCase().includes(filter.toLowerCase()),
       );
     }
-  };
-
-  const renderCurrentHashtags = () => {
-    if (hashtags.length > 0) {
+    if (displayHashtags.length > 0) {
       return (
         <View style={{margin: 5}}>
-          <Text>Current Hashtags</Text>
+          <Text>{title}</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -118,8 +99,12 @@ const HashtagsList = ({product, selectedCategory}) => {
               flexGrow: 1,
               marginTop: 5,
             }}>
-            {renderHashtags(hashtags, (hashtag) => {
-              console.log(hashtag);
+            {renderHashtags(displayHashtags, (hashtag) => {
+              let index = hashtags.indexOf(hashtag);
+              if (index > -1) {
+                hashtags[index].isSelected = !hashtags[index].isSelected;
+                setHashtags([...hashtags]);
+              }
             })}
           </View>
         </View>
@@ -130,8 +115,8 @@ const HashtagsList = ({product, selectedCategory}) => {
   return (
     <View>
       {renderAddHashtag()}
-      {renderAllHashtags()}
-      {renderCurrentHashtags()}
+      {renderHashtagsContainer('Found Hashtags', false, filterHashtags)}
+      {renderHashtagsContainer('Current Hashtags', true)}
     </View>
   );
 };
