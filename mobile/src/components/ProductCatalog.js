@@ -76,7 +76,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
   };
 
   renderHashtags = () => {
-    if (productsSource != 'favorites') {
+    if (productsSource !== 'favorites' && productsSource !== 'comparison') {
       return <Hashtags category={selectedCategory} />;
     }
   };
@@ -88,7 +88,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
         <View
           style={{
             height:
-              productsSource != 'favorites'
+              productsSource !== 'favorites' && productsSource !== 'comparison'
                 ? windowHeight - 203
                 : windowHeight - 93,
           }}>
