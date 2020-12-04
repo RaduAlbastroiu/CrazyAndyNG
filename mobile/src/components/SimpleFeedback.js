@@ -10,23 +10,26 @@ import {
   Linking,
 } from 'react-native';
 import starEmpty from '../assets/star-empty.png';
+import starFull from '../assets/star-full.png';
 
 const SimpleFeedback = () => {
   let [remarks, setRemarks] = useState('');
+  let [activeStars, setActiveStars] = useState(0);
 
   const renderStars = () => {
-    let stars = [];
-
-    for (let i = 0; i < 5; i++) {
-      stars.push(
+    let stars = [1, 2, 3, 4, 5];
+    return stars.map((star) => (
+      <TouchableOpacity
+        onPress={() => {
+          setActiveStars(star);
+          console.log('pressed', star);
+        }}>
         <Image
-          source={starEmpty}
+          source={activeStars >= star ? starFull : starEmpty}
           style={{width: 40, height: 40, marginRight: 10}}
-        />,
-      );
-    }
-
-    return stars;
+        />
+      </TouchableOpacity>
+    ));
   };
 
   return (

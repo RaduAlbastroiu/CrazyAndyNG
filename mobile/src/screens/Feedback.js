@@ -188,6 +188,9 @@ const Feedback = ({navigation, route}) => {
           marginTop: 30,
           marginBottom: 60,
           alignSelf: 'center',
+        }}
+        onPress={() => {
+          navigation.pop();
         }}>
         <Text>Send</Text>
       </TouchableOpacity>
