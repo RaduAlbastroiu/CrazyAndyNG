@@ -422,7 +422,8 @@ const ProductInfo = ({route, navigation}) => {
                 console.log('feedback');
               })}
               {renderBottomButton(CompareImage, () => {
-                console.log('pressed');
+                navigation.navigate('Comparison', {product});
+                console.log('comparison');
               })}
               {renderBottomButton(FavIcon, () => {
                 if (isFavorite) {
