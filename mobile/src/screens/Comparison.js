@@ -10,7 +10,7 @@ const Comparison = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <ProductCatalog navigation={navigation} productsSource={'favorites'} />
+      <ProductCatalog navigation={navigation} productsSource={'comparison'} />
       <FloatingButton navigation={navigation} />
     </View>
   );

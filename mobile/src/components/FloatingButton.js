@@ -22,12 +22,20 @@ const FloatingButton = ({navigation}) => {
       position: 2,
     },
     {
+      text: 'Comparison',
+      icon: require('../assets/compare.png'),
+      name: 'Comparison',
+      color: 'white',
+      tintColor: 'black',
+      position: 3,
+    },
+    {
       text: 'Feedback',
       icon: require('../assets/plus.png'),
       name: 'Feedback',
       color: 'white',
       tintColor: 'black',
-      position: 3,
+      position: 4,
     },
     {
       text: 'More',
@@ -35,7 +43,7 @@ const FloatingButton = ({navigation}) => {
       name: 'More',
       color: 'white',
       tintColor: 'black',
-      position: 4,
+      position: 5,
     },
   ];
 
@@ -56,7 +64,11 @@ const FloatingButton = ({navigation}) => {
             if (name === 'Feedback') {
               navigation.navigate('Feedback');
             } else {
-              navigation.navigate('More');
+              if (name === 'Comparison') {
+                navigation.navigate('Comparison');
+              } else {
+                navigation.navigate('More');
+              }
             }
           }
         }

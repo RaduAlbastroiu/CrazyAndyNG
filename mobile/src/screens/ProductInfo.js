@@ -22,6 +22,7 @@ import {
   removeFromFavorites,
 } from '../redux/actions/favoritesActions';
 import {updateSelectedHashtags} from '../redux/actions/filtersActions';
+import {updateComparison} from '../redux/actions/comparisonActions';
 
 import Placeholder from '../assets/placeholder.png';
 import CalculatorImage from '../assets/calculator.png';
@@ -48,6 +49,9 @@ const ProductInfo = ({route, navigation}) => {
   let isFavorite = false;
   const favoritesProducts = useSelector(
     (state) => state.favoritesReducer.products,
+  );
+  const comparisonProducts = useSelector(
+    (state) => state.comparisonReducer.products,
   );
 
   if (
@@ -423,7 +427,10 @@ const ProductInfo = ({route, navigation}) => {
               })}
               {renderBottomButton(CompareImage, () => {
                 navigation.navigate('Comparison', {product});
-                console.log('comparison');
+                console.log(comparisonProducts);
+                if (comparisonProducts.includes(product) === false) {
+                  dispatch(updateComparison([...comparisonProducts, product]));
+                }
               })}
               {renderBottomButton(FavIcon, () => {
                 if (isFavorite) {
