@@ -22,7 +22,7 @@ const SimpleFeedback = () => {
       <TouchableOpacity
         onPress={() => {
           setActiveStars(star);
-          console.log('pressed', star);
+          console.log('more pressed', star);
         }}>
         <Image
           source={activeStars >= star ? starFull : starEmpty}
