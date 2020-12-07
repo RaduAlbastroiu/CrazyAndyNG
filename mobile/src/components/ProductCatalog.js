@@ -57,12 +57,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
   }, [selectedHashtags, selectedCategory, searchText]);
 
   /*
-   <SmallProduct
-            size={{
-              width: (windowWidth / 7) * 3,
-            }}
-            product={product}
-          />
+   
           */
 
   renderProducts = () => {
@@ -74,12 +69,21 @@ const ProductCatalog = ({navigation, productsSource}) => {
           onPress={() => {
             navigation.navigate('ProductInfo', product);
           }}>
-          <ComparisonItem
-            size={{
-              width: (windowWidth / 7) * 6,
-            }}
-            product={product}
-          />
+          {productsSource === 'comparison' ? (
+            <ComparisonItem
+              size={{
+                width: (windowWidth / 7) * 6,
+              }}
+              product={product}
+            />
+          ) : (
+            <SmallProduct
+              size={{
+                width: (windowWidth / 7) * 3,
+              }}
+              product={product}
+            />
+          )}
         </TouchableOpacity>
       );
     });

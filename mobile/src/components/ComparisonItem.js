@@ -77,8 +77,6 @@ const ComparisonItem = ({size, product}) => {
       <View
         style={{
           width: size.width / 2 + 20,
-          borderWidth: 2,
-          borderColor: 'red',
         }}>
         <Text style={styles.textDetails}>{product.brand}</Text>
         <Text style={styles.textDetails}>{product.name}</Text>
