@@ -42,7 +42,7 @@ const SmallProduct = ({size, product}) => {
 
   const dispatch = useDispatch();
 
-  renderInfo = () => {
+  const renderInfo = () => {
     let textComp = [<Text style={styles.textDetails}>{product.name}</Text>];
 
     if (product.brand) {

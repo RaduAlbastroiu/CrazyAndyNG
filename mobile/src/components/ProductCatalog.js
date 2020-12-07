@@ -16,6 +16,7 @@ import TopSearch from './TopSearch';
 import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
 import {getUniqueId} from 'react-native-device-info';
+import ComparisonItem from './ComparisonItem';
 
 const ProductCatalog = ({navigation, productsSource}) => {
   const windowWidth = useWindowDimensions().width;
@@ -55,6 +56,15 @@ const ProductCatalog = ({navigation, productsSource}) => {
     }
   }, [selectedHashtags, selectedCategory, searchText]);
 
+  /*
+   <SmallProduct
+            size={{
+              width: (windowWidth / 7) * 3,
+            }}
+            product={product}
+          />
+          */
+
   renderProducts = () => {
     return products.map((product, index) => {
       return (
@@ -64,9 +74,9 @@ const ProductCatalog = ({navigation, productsSource}) => {
           onPress={() => {
             navigation.navigate('ProductInfo', product);
           }}>
-          <SmallProduct
+          <ComparisonItem
             size={{
-              width: (windowWidth / 7) * 3,
+              width: (windowWidth / 7) * 6,
             }}
             product={product}
           />

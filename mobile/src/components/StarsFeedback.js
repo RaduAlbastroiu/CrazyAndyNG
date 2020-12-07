@@ -65,7 +65,6 @@ const StarsFeedback = ({stars, noReviews}) => {
           flexDirection: 'row',
         }}>
         {renderStars()}
-        {renderTextStars()}
       </View>
     </View>
   );
