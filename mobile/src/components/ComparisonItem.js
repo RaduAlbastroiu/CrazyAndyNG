@@ -13,17 +13,16 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from '../redux/actions/favoritesActions';
+import {getFeedback} from '../redux/actions/feedbackActions';
 
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
 import StarsFeedback from '../components/StarsFeedback';
 import {getUniqueId} from 'react-native-device-info';
+import ProductCatalog from './ProductCatalog';
 
 const ComparisonItem = ({size, product}) => {
-  console.log('-----');
-  console.log(product);
-
   let [starsFeedback, setStarsFeedback] = useState(0);
 
   useEffect(() => {
@@ -47,8 +46,6 @@ const ComparisonItem = ({size, product}) => {
       <View
         style={{
           padding: 5,
-          borderWidth: 2,
-          borderColor: 'red',
           display: 'flex',
         }}>
         <Image
@@ -69,12 +66,32 @@ const ComparisonItem = ({size, product}) => {
     );
   };
 
-  const renderRightSide = () => {
+  const renderInfo = () => {
+    let productPrice = product.price[0];
+
+    if (product.price.length === 2) {
+      productPrice = `${productPrice[0]}-${productPrice[1]}`;
+    }
+
     return (
-      <View>
-        <Text>Hello</Text>
+      <View
+        style={{
+          width: size.width / 2 + 20,
+          borderWidth: 2,
+          borderColor: 'red',
+        }}>
+        <Text style={styles.textDetails}>{product.brand}</Text>
+        <Text style={styles.textDetails}>{product.name}</Text>
+        <Text style={styles.textDetails}>{product.origin}</Text>
+        <Text style={styles.textDetails}>{product.price[0]}</Text>
       </View>
     );
+  };
+
+  const renderHashtags = () => {};
+
+  const renderRightSide = () => {
+    return <View>{renderInfo()}</View>;
   };
 
   return (
