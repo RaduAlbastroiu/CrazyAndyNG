@@ -22,6 +22,7 @@ import ProductCatalog from './src/components/ProductCatalog';
 import CategoryChooser from './src/screens/CategorySelector';
 import store from './src/redux/store';
 import Comparison from './src/screens/Comparison';
+import SelectProducts from './src/screens/SelectProducts';
 
 const Stack = createStackNavigator();
 
@@ -99,6 +100,7 @@ function MyStack() {
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="Favorites" component={Favorites} />
       <Stack.Screen name="Comparison" component={Comparison} />
+      <Stack.Screen name="SelectProducts" component={SelectProducts} />
       <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen

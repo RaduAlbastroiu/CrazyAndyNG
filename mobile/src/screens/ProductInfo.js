@@ -426,7 +426,7 @@ const ProductInfo = ({route, navigation}) => {
                 console.log('feedback');
               })}
               {renderBottomButton(CompareImage, () => {
-                navigation.navigate('Comparison', {product});
+                navigation.navigate('SelectProducts', {product});
                 console.log(comparisonProducts);
                 if (comparisonProducts.includes(product) === false) {
                   dispatch(updateComparison([...comparisonProducts, product]));
