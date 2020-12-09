@@ -77,6 +77,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
           }}
           product={product}
           isSelectable={true}
+          isSelected={false}
           onSelect={() => {
             console.log('selected');
           }}

@@ -20,9 +20,7 @@ import FavIconEmpty from '../assets/fav_icon_empty.png';
 import SelectIcon from '../assets/select.png';
 import {getUniqueId} from 'react-native-device-info';
 
-const SmallProduct = ({size, product, isSelectable, onSelect}) => {
-  let [isSelected, setIsSelected] = useState(false);
-
+const SmallProduct = ({size, product, isSelectable, isSelected, onSelect}) => {
   let productImage = Placeholder;
   if (product.images.length) {
     productImage = {
@@ -83,10 +81,7 @@ const SmallProduct = ({size, product, isSelectable, onSelect}) => {
           padding: 10,
           borderRadius: 10,
         }}
-        onPress={() => {
-          setIsSelected(!isSelected);
-          onSelect();
-        }}>
+        onPress={onSelect}>
         {isSelected === true ? (
           <Image style={{height: 15, width: 25}} source={SelectIcon}></Image>
         ) : (
