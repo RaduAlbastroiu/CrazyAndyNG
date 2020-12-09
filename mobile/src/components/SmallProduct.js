@@ -17,9 +17,12 @@ import {
 import Placeholder from '../assets/placeholder.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
+import SelectIcon from '../assets/select.png';
 import {getUniqueId} from 'react-native-device-info';
 
 const SmallProduct = ({size, product, isSelectable, onSelect}) => {
+  let [isSelected, setIsSelected] = useState(false);
+
   let productImage = Placeholder;
   if (product.images.length) {
     productImage = {
@@ -80,8 +83,15 @@ const SmallProduct = ({size, product, isSelectable, onSelect}) => {
           padding: 10,
           borderRadius: 10,
         }}
-        onPress={onSelect}>
-        <Text>Select</Text>
+        onPress={() => {
+          setIsSelected(!isSelected);
+          onSelect();
+        }}>
+        {isSelected === true ? (
+          <Image style={{height: 15, width: 25}} source={SelectIcon}></Image>
+        ) : (
+          <Text>Select</Text>
+        )}
       </TouchableOpacity>
     );
 
@@ -110,7 +120,7 @@ const SmallProduct = ({size, product, isSelectable, onSelect}) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        {isSelectable ? selectButton : favButton}
+        {isSelectable === true ? selectButton : favButton}
       </View>
     );
   };
