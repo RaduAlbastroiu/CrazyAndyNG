@@ -25,6 +25,13 @@ import ProductCatalog from './ProductCatalog';
 const ComparisonItem = ({size, product}) => {
   let [starsFeedback, setStarsFeedback] = useState(0);
 
+  let productImage = Placeholder;
+  if (product.images.length) {
+    productImage = {
+      uri: getImageUrl(product._id, product.images[0], getUniqueId()),
+    };
+  }
+
   useEffect(() => {
     let filter = {product: product._id};
 
@@ -57,7 +64,7 @@ const ComparisonItem = ({size, product}) => {
             borderWidth: 2,
             borderRadius: 5,
           }}
-          source={Placeholder}
+          source={productImage}
         />
         <View style={{marginTop: 5}}>
           <StarsFeedback stars={starsFeedback}></StarsFeedback>
@@ -86,17 +93,56 @@ const ComparisonItem = ({size, product}) => {
     );
   };
 
-  const renderHashtags = () => {};
+  const renderHashtag = (hashtag, index) => {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 20,
+          paddingHorizontal: 10,
+          backgroundColor: hashtag.isHighlighted ? '#F8CBAD' : '#D3D3D3',
+          margin: 5,
+          marginRight: 5,
+          borderRadius: 7,
+        }}
+        key={index}>
+        <Text>{hashtag.name}</Text>
+      </View>
+    );
+  };
+
+  const renderHashtags = () => {
+    let hashtags = product.hashtags.map((h) => {
+      return {name: h.name, isHighlighted: h.isHighlighted};
+    });
+    return (
+      <View
+        style={{
+          height: 50,
+          width: 200,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+        }}>
+        {hashtags.map((h, index) => renderHashtag(h, index))}
+      </View>
+    );
+  };
 
   const renderRightSide = () => {
-    return <View>{renderInfo()}</View>;
+    return (
+      <View>
+        {renderInfo()}
+        {renderHashtags()}
+      </View>
+    );
   };
 
   return (
     <View
       style={{
         width: size.width,
-        height: size.height,
+        //height: size.height,
         borderColor: '#EBEBEB',
         borderWidth: 2,
         borderRadius: 15,
