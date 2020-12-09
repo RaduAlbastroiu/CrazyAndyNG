@@ -59,24 +59,62 @@ const HashtagsList = ({product, selectedCategory}) => {
     }
   };
 
+  const addNewHashtag = (hashtagName) => {
+    let newHashtag = {name: hashtagName, isSelected: true};
+    setFilterHashtags('');
+    setHashtags([...hashtags, newHashtag]);
+  };
+
   const renderAddHashtag = () => {
+    let addButton = <View></View>;
+    if (filterHashtags.length) {
+      addButton = (
+        <TouchableOpacity
+          style={{
+            marginTop: 5,
+            marginLeft: 5,
+            backgroundColor: '#e5f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 8,
+            paddingHorizontal: 15,
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            addNewHashtag(filterHashtags);
+          }}>
+          <Text>Add</Text>
+        </TouchableOpacity>
+      );
+    }
+
     return (
       <View style={{margin: 5}}>
         <Text>#hashtag</Text>
-        <TextInput
+        <View
           style={{
-            borderRadius: 5,
-            borderWidth: 1,
-            borderColor: 'gray',
-            marginTop: 5,
-            padding: 5,
-          }}
-          value={filterHashtags}
-          placeholder={'Search for hashtag'}
-          onChangeText={async (text) => {
-            setFilterHashtags(text);
-          }}
-        />
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <TextInput
+            style={{
+              borderRadius: 5,
+              borderWidth: 1,
+              borderColor: 'gray',
+              marginTop: 5,
+              padding: 5,
+              flex: 1,
+            }}
+            value={filterHashtags}
+            placeholder={'Search for hashtag'}
+            onChangeText={async (text) => {
+              setFilterHashtags(text);
+            }}
+          />
+          {addButton}
+        </View>
       </View>
     );
   };

@@ -31,7 +31,7 @@ const FloatingButton = ({navigation}) => {
     },
     {
       text: 'Feedback',
-      icon: require('../assets/plus.png'),
+      icon: require('../assets/feedback.png'),
       name: 'Feedback',
       color: 'white',
       tintColor: 'black',
