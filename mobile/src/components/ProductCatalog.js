@@ -19,6 +19,8 @@ import {getUniqueId} from 'react-native-device-info';
 import ComparisonItem from './ComparisonItem';
 
 const ProductCatalog = ({navigation, productsSource}) => {
+  let [selectedProducts, setSelectedProducts] = useState([]);
+
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
@@ -56,9 +58,41 @@ const ProductCatalog = ({navigation, productsSource}) => {
     }
   }, [selectedHashtags, selectedCategory, searchText]);
 
-  /*
-   
-          */
+  const renderElement = (product) => {
+    if (productsSource === 'comparison') {
+      return (
+        <ComparisonItem
+          size={{
+            width: (windowWidth / 7) * 6,
+          }}
+          product={product}
+        />
+      );
+    }
+    if (productsSource === 'select') {
+      return (
+        <SmallProduct
+          size={{
+            width: (windowWidth / 7) * 3,
+          }}
+          product={product}
+          isSelectable={true}
+          onSelect={() => {
+            console.log('selected');
+          }}
+        />
+      );
+    }
+
+    return (
+      <SmallProduct
+        size={{
+          width: (windowWidth / 7) * 3,
+        }}
+        product={product}
+      />
+    );
+  };
 
   renderProducts = () => {
     return products.map((product, index) => {
@@ -69,21 +103,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
           onPress={() => {
             navigation.navigate('ProductInfo', product);
           }}>
-          {productsSource === 'comparison' ? (
-            <ComparisonItem
-              size={{
-                width: (windowWidth / 7) * 6,
-              }}
-              product={product}
-            />
-          ) : (
-            <SmallProduct
-              size={{
-                width: (windowWidth / 7) * 3,
-              }}
-              product={product}
-            />
-          )}
+          {renderElement(product)}
         </TouchableOpacity>
       );
     });

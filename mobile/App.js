@@ -100,7 +100,11 @@ function MyStack() {
       <Stack.Screen name="Tutorial" component={Tutorial} />
       <Stack.Screen name="Favorites" component={Favorites} />
       <Stack.Screen name="Comparison" component={Comparison} />
-      <Stack.Screen name="SelectProducts" component={SelectProducts} />
+      <Stack.Screen
+        name="SelectProducts"
+        component={SelectProducts}
+        options={{title: 'Select'}}
+      />
       <Stack.Screen name="CategoryChooser" component={CategoryChooser} />
       <Stack.Screen name="More" component={More} />
       <Stack.Screen
