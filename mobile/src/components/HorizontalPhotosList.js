@@ -19,7 +19,8 @@ const HorizontalPhotosList = ({product}) => {
   const renderPhotos = () => {
     console.log('alt plm');
     console.log(product.images.length);
-    let photos = product.images.map((image) => {
+
+    let photos = product.images.map((image, index) => {
       return (
         <TouchableOpacity
           style={styles.imageContainer}
@@ -27,8 +28,10 @@ const HorizontalPhotosList = ({product}) => {
             console.log(getImageUrl(product._id, image, getUniqueId()))
           }>
           <Image
-            source={getImageUrl(product._id, image, getUniqueId())}
-            style={{}}
+            source={{
+              uri: getImageUrl(product._id, image, getUniqueId()),
+            }}
+            style={{width: 200, height: 120}}
           />
         </TouchableOpacity>
       );
@@ -69,6 +72,6 @@ const styles = StyleSheet.create({
     width: 200,
     marginRight: 5,
     borderRadius: 5,
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#e5f4f9',
   },
 });
