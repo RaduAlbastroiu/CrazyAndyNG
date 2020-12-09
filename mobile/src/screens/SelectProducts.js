@@ -16,6 +16,7 @@ const SelectProducts = ({navigation}) => {
         isSelectable={true}
         onDone={() => {
           console.log('done selecting');
+          navigation.navigate('Comparison');
         }}
       />
       <ProductCatalog navigation={navigation} productsSource={'select'} />
