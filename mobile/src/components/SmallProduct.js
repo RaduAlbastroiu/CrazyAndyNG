@@ -19,7 +19,7 @@ import FavIconFill from '../assets/fav_icon_fill.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
 import {getUniqueId} from 'react-native-device-info';
 
-const SmallProduct = ({size, product}) => {
+const SmallProduct = ({size, product, isSelectable, onSelect}) => {
   let productImage = Placeholder;
   if (product.images.length) {
     productImage = {
@@ -79,8 +79,26 @@ const SmallProduct = ({size, product}) => {
           justifyContent: 'center',
           padding: 10,
           borderRadius: 10,
-        }}>
+        }}
+        onPress={onSelect}>
         <Text>Select</Text>
+      </TouchableOpacity>
+    );
+
+    let favButton = (
+      <TouchableOpacity
+        style={{marginLeft: 0}}
+        onPress={() => {
+          if (isFavorite) {
+            dispatch(removeFromFavorites(getUniqueId(), product._id));
+          } else {
+            dispatch(addToFavorites(getUniqueId(), product._id));
+          }
+        }}>
+        <Image
+          style={{height: 25, width: 25}}
+          source={isFavorite ? FavIconFill : FavIconEmpty}
+        />
       </TouchableOpacity>
     );
 
@@ -92,20 +110,7 @@ const SmallProduct = ({size, product}) => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <TouchableOpacity
-          style={{marginLeft: 0}}
-          onPress={() => {
-            if (isFavorite) {
-              dispatch(removeFromFavorites(getUniqueId(), product._id));
-            } else {
-              dispatch(addToFavorites(getUniqueId(), product._id));
-            }
-          }}>
-          <Image
-            style={{height: 25, width: 25}}
-            source={isFavorite ? FavIconFill : FavIconEmpty}
-          />
-        </TouchableOpacity>
+        {isSelectable ? selectButton : favButton}
       </View>
     );
   };
