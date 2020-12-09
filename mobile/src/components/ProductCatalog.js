@@ -17,14 +17,16 @@ import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
 import {getUniqueId} from 'react-native-device-info';
 import ComparisonItem from './ComparisonItem';
+import {updateComparison} from '../redux/actions/comparisonActions';
 
 const ProductCatalog = ({navigation, productsSource}) => {
-  let [selectedProducts, setSelectedProducts] = useState([]);
-
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
-  let products = useSelector((state) => state.productsReducer.products);
+  const selectedProducts = useSelector(
+    (state) => state.comparisonReducer.products,
+  );
+  const products = useSelector((state) => state.productsReducer.products);
   if (productsSource === 'favorites') {
     products = useSelector((state) => state.favoritesReducer.products);
   } else {
@@ -41,8 +43,6 @@ const ProductCatalog = ({navigation, productsSource}) => {
   );
   const searchText = useSelector((state) => state.filtersReducer.searchText);
 
-  console.log(selectedCategory);
-
   const dispatch = useDispatch();
   useEffect(() => {
     let filter = {
@@ -56,9 +56,16 @@ const ProductCatalog = ({navigation, productsSource}) => {
     } else {
       dispatch(getProducts(filter));
     }
-  }, [selectedHashtags, selectedCategory, searchText]);
+  }, [selectedHashtags, selectedCategory, searchText, selectedProducts]);
 
   const renderElement = (product) => {
+    let isSelected = false;
+    selectedProducts.forEach((ele) => {
+      if (ele._id === product._id) {
+        isSelected = true;
+      }
+    });
+
     if (productsSource === 'comparison') {
       return (
         <ComparisonItem
@@ -77,9 +84,20 @@ const ProductCatalog = ({navigation, productsSource}) => {
           }}
           product={product}
           isSelectable={true}
-          isSelected={false}
+          isSelected={isSelected}
           onSelect={() => {
-            console.log('selected');
+            if (isSelected === false) {
+              console.log('add');
+              dispatch(updateComparison([...selectedProducts, product]));
+            } else {
+              let index = selectedProducts.findIndex((ele) => {
+                return ele._id === product._id;
+              });
+              if (index >= 0) {
+                selectedProducts.splice(index, 1);
+                dispatch(updateComparison([...selectedProducts]));
+              }
+            }
           }}
         />
       );
