@@ -9,7 +9,7 @@ import React, {useState, useEffect} from 'react';
 import {updateSearchText} from '../redux/actions/filtersActions';
 import {setShowBarcode} from '../redux/actions/navigationActions';
 
-const TopSearch = () => {
+const TopSearch = ({isSelectable, onDone}) => {
   const searchText = useSelector((state) => state.filtersReducer.searchText);
   const categories = useSelector((state) => state.filtersReducer.categories);
   const selectedCategory = useSelector(
@@ -21,9 +21,6 @@ const TopSearch = () => {
   });
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(updateCategories());
-  }, []);
 
   renderCategorySelector = () => {
     return (
@@ -90,6 +87,26 @@ const TopSearch = () => {
     }
   };
 
+  renderDoneButton = () => {
+    if (isSelectable === true) {
+      return (
+        <TouchableOpacity
+          style={{
+            marginRight: 10,
+            backgroundColor: '#e5f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10,
+            borderRadius: 10,
+          }}
+          onPress={onDone}>
+          <Text>Done</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
+
   return (
     <View
       style={{
@@ -103,6 +120,7 @@ const TopSearch = () => {
       }}>
       {renderCategorySelector()}
       {renderSearch()}
+      {renderDoneButton()}
       {renderCancelButton()}
     </View>
   );

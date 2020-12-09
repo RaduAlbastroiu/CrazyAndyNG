@@ -6,6 +6,10 @@ import {isFirstOpen} from '../helpers/isFirstOpen';
 import TopSearch from '../components/TopSearch';
 import BarcodeScanner from './BarcodeScanner';
 import {useSelector, useDispatch} from 'react-redux';
+import {
+  updateCategories,
+  updateCategory,
+} from '../redux/actions/filtersActions';
 import ProductCatalog from '../components/ProductCatalog';
 import ProductNotFound from '../components/ProductNotFound';
 import ImagePicker from 'react-native-image-picker';
@@ -23,7 +27,10 @@ const Home = ({navigation}) => {
     (state) => state.navigationReducer.showProductNotFound,
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(updateCategories());
     isFirstOpen().then((res) => {
       if (res) {
         navigation.navigate('Tutorial');
