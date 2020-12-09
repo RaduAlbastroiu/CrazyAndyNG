@@ -427,8 +427,11 @@ const ProductInfo = ({route, navigation}) => {
               })}
               {renderBottomButton(CompareImage, () => {
                 navigation.navigate('SelectProducts', {product});
-                console.log(comparisonProducts);
-                if (comparisonProducts.includes(product) === false) {
+                if (
+                  comparisonProducts.findIndex((ele) => {
+                    return ele._id === product._id;
+                  }) < 0
+                ) {
                   dispatch(updateComparison([...comparisonProducts, product]));
                 }
               })}

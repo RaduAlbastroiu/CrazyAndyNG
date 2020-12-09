@@ -26,7 +26,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
   const selectedProducts = useSelector(
     (state) => state.comparisonReducer.products,
   );
-  const products = useSelector((state) => state.productsReducer.products);
+  let products = useSelector((state) => state.productsReducer.products);
   if (productsSource === 'favorites') {
     products = useSelector((state) => state.favoritesReducer.products);
   } else {
