@@ -21,9 +21,9 @@ const HorizontalPhotosList = ({product}) => {
 
   useEffect(() => {
     let productPhotos = product.images.map((imgLink) => {
-      return {uri: imgLink};
+      return {uri: getImageUrl(product._id, imgLink, getUniqueId())};
     });
-    console.log(productPhotos);
+    setPhotos(productPhotos);
   }, []);
 
   const openGallery = () => {
@@ -46,7 +46,7 @@ const HorizontalPhotosList = ({product}) => {
         const source = {uri: response.uri};
 
         // User choose an image
-        onBarCodeRead('asd');
+        setPhotos([...photos, source]);
       }
     });
   };
