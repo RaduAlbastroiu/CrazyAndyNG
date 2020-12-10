@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -14,10 +14,17 @@ import {getUniqueId} from 'react-native-device-info';
 import addIcon from '../../src/assets/add.png';
 
 const HorizontalPhotosList = ({product}) => {
-  console.log('plm');
   console.log(product);
 
   // make photos state object
+  let [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    let productPhotos = product.images.map((imgLink) => {
+      return {uri: imgLink};
+    });
+    console.log(productPhotos);
+  }, []);
 
   const openGallery = () => {
     const options = {
@@ -45,27 +52,23 @@ const HorizontalPhotosList = ({product}) => {
   };
 
   const renderPhotos = () => {
-    console.log('alt plm');
-    console.log(product.images.length);
-
-    let photos = product.images.map((image, index) => {
+    console.log('--------------------------');
+    console.log(photos);
+    let sliderPhotos = photos.map((image, index) => {
+      console.log(index);
+      console.log(image);
       return (
         <TouchableOpacity
           style={styles.imageContainer}
           onPress={() =>
             console.log(getImageUrl(product._id, image, getUniqueId()))
           }>
-          <Image
-            source={{
-              uri: getImageUrl(product._id, image, getUniqueId()),
-            }}
-            style={{width: 200, height: 120}}
-          />
+          <Image source={image} style={{width: 200, height: 120}} />
         </TouchableOpacity>
       );
     });
 
-    photos.push(
+    sliderPhotos.push(
       <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
         <Image source={addIcon} style={{height: 60, width: 60}} />
       </TouchableOpacity>,
@@ -78,7 +81,7 @@ const HorizontalPhotosList = ({product}) => {
           style={{marginTop: 5}}
           horizontal={true}
           showsHorizontalScrollIndicator={false}>
-          {photos}
+          {sliderPhotos}
         </ScrollView>
       </View>
     );
