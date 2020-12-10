@@ -22,7 +22,7 @@ const TopSearch = ({isSelectable, onDone}) => {
 
   const dispatch = useDispatch();
 
-  renderCategorySelector = () => {
+  const renderCategorySelector = () => {
     return (
       <DropDownPicker
         items={dropDownCategories}

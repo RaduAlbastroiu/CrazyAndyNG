@@ -7,10 +7,11 @@ import {
   Image,
   useWindowDimensions,
   Modal,
+  Animated,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import {getUniqueId} from 'react-native-device-info';
-import React, {useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import FloatingButton from '../components/FloatingButton';
 import {useSelector, useDispatch} from 'react-redux';
@@ -32,14 +33,18 @@ import ShareImage from '../assets/share.png';
 import FavIconEmpty from '../assets/fav_icon_empty.png';
 import FavIconFill from '../assets/fav_icon_fill.png';
 import CloseImage from '../assets/close.png';
+import SelectImage from '../assets/select.png';
 
 const ProductInfo = ({route, navigation}) => {
   const {params} = route;
   const product = params;
   const windowWidth = useWindowDimensions().width;
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
   let [activeIndex, setActiveIndex] = useState(0);
   let [showModal, setShowModal] = useState(false);
+  let [showFeedbackModal, setShowFeedbackModal] = useState(false);
   let [starsFeedback, setStarsFeedback] = useState(0);
   let [showHashtagModal, setShowHashtagModel] = useState(false);
   let [selectedHashtag, setSelectedHashtag] = useState(null);
@@ -78,6 +83,29 @@ const ProductInfo = ({route, navigation}) => {
   }
 
   useEffect(() => {
+    console.log('use effect simple');
+
+    if (showFeedbackModal) {
+      Animated.delay(800),
+        Animated.sequence([
+          Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+          }),
+          Animated.delay(1000),
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 800,
+          }),
+        ]).start(() => {
+          console.log('finished feedback animation');
+          setShowFeedbackModal(false);
+        });
+    }
+  });
+
+  useEffect(() => {
+    console.log('use effect simple filter');
     let filter = {product: params._id};
 
     getFeedback(filter).then((res) => {
@@ -371,6 +399,54 @@ const ProductInfo = ({route, navigation}) => {
       );
   };
 
+  const renderFeedbackModal = () => {
+    if (showFeedbackModal) {
+      return (
+        <Modal visible={true} transparent={true}>
+          <TouchableOpacity
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              setShowFeedbackModal(false);
+            }}>
+            <Animated.View
+              style={{
+                opacity: fadeAnim,
+                marginTop: 120,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#3ac66b',
+                width: 220,
+                height: 80,
+                borderRadius: 20,
+              }}>
+              <Image
+                source={SelectImage}
+                style={{
+                  width: 20,
+                  height: 11,
+                  marginRight: 10,
+                  tintColor: 'white',
+                }}></Image>
+              <Text style={{color: 'white', fontSize: 16}}>
+                Feedback sent !
+              </Text>
+            </Animated.View>
+          </TouchableOpacity>
+        </Modal>
+      );
+    }
+  };
+
+  const onFeedbackSend = () => {
+    console.log('called this bby');
+    setShowFeedbackModal(true);
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View>
@@ -422,7 +498,7 @@ const ProductInfo = ({route, navigation}) => {
                 console.log('pressed');
               })}
               {renderBottomButton(EditImage, () => {
-                navigation.navigate('Feedback', {product});
+                navigation.navigate('Feedback', {product, onFeedbackSend});
                 console.log('feedback');
               })}
               {renderBottomButton(CompareImage, () => {
@@ -450,6 +526,7 @@ const ProductInfo = ({route, navigation}) => {
       <FloatingButton navigation={navigation} />
       {renderImageModal()}
       {renderHashtagModal()}
+      {renderFeedbackModal()}
     </View>
   );
 };

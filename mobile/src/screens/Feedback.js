@@ -22,6 +22,7 @@ import addIcon from '../../src/assets/add.png';
 const Feedback = ({navigation, route}) => {
   const {params} = route;
   const product = params !== undefined ? params.product : {};
+  const onFeedbackSend = params.onFeedbackSend;
 
   let [brandName, setBrandName] = useState(product.brand || '');
   let [productName, setProductName] = useState(product.name || '');
@@ -53,9 +54,6 @@ const Feedback = ({navigation, route}) => {
       console.log(getImageUrl(product._id, image, getUniqueId())),
     );
     console.log(product.images);
-
-    // need to fix this
-    //getFoundHashtags(searchHashtag);
   }, []);
 
   const renderCategorySelector = () => {
@@ -191,6 +189,7 @@ const Feedback = ({navigation, route}) => {
         }}
         onPress={() => {
           navigation.pop();
+          onFeedbackSend();
         }}>
         <Text>Send</Text>
       </TouchableOpacity>
