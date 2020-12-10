@@ -8,6 +8,7 @@ import {
   Text,
   Linking,
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 import {getImageUrl} from '../helpers/apiRoutes';
 import {getUniqueId} from 'react-native-device-info';
 import addIcon from '../../src/assets/add.png';
@@ -15,6 +16,33 @@ import addIcon from '../../src/assets/add.png';
 const HorizontalPhotosList = ({product}) => {
   console.log('plm');
   console.log(product);
+
+  // make photos state object
+
+  const openGallery = () => {
+    const options = {
+      title: 'Choose barcode image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      //console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error');
+      } else {
+        const source = {uri: response.uri};
+
+        // User choose an image
+        onBarCodeRead('asd');
+      }
+    });
+  };
 
   const renderPhotos = () => {
     console.log('alt plm');
@@ -38,9 +66,7 @@ const HorizontalPhotosList = ({product}) => {
     });
 
     photos.push(
-      <TouchableOpacity
-        style={styles.imageContainer}
-        onPress={() => console.log('add')}>
+      <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
         <Image source={addIcon} style={{height: 60, width: 60}} />
       </TouchableOpacity>,
     );
