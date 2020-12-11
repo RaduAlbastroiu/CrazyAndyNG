@@ -12,16 +12,18 @@ import ImagePicker from 'react-native-image-picker';
 import {getImageUrl} from '../helpers/apiRoutes';
 import {getUniqueId} from 'react-native-device-info';
 import addIcon from '../../src/assets/add.png';
+import minusIcon from '../../src/assets/minus.png';
 
 const HorizontalPhotosList = ({product}) => {
-  console.log(product);
-
-  // make photos state object
   let [photos, setPhotos] = useState([]);
 
   useEffect(() => {
+    console.log('once');
     let productPhotos = product.images.map((imgLink) => {
-      return {uri: getImageUrl(product._id, imgLink, getUniqueId())};
+      return {
+        uri: getImageUrl(product._id, imgLink, getUniqueId()),
+        delete: false,
+      };
     });
     setPhotos(productPhotos);
   }, []);
@@ -51,18 +53,65 @@ const HorizontalPhotosList = ({product}) => {
     });
   };
 
-  const renderPhotos = () => {
-    console.log('--------------------------');
+  const onPhotoPress = (index) => {
+    console.log('pressed');
     console.log(photos);
+    //console.log(photos[index]);
+
+    let newPhotos = [...photos];
+    let photo = {...newPhotos[index]};
+    photo.delete = !photo.delete;
+    newPhotos[index] = photo;
+    setPhotos(newPhotos);
+  };
+
+  const onPhotoRemove = (index) => {
+    let newPhotos = [...photos];
+    newPhotos.splice(index, 1);
+    setPhotos(newPhotos);
+  };
+
+  const renderPhotos = () => {
+    console.log('rerender');
+    console.log(photos);
+
     let sliderPhotos = photos.map((image, index) => {
-      console.log(index);
-      console.log(image);
+      if (image.delete === true) {
+        return (
+          <TouchableOpacity
+            style={styles.imageContainer}
+            onPress={() => {
+              onPhotoPress(index);
+            }}>
+            <Image
+              source={image}
+              style={{width: 200, height: 120, opacity: 0.2}}
+            />
+            <TouchableOpacity
+              style={{
+                width: 60,
+                height: 60,
+                position: 'absolute',
+                top: 30,
+              }}
+              onPress={() => {
+                console.log('pressed');
+                onPhotoRemove(index);
+              }}>
+              <Image
+                source={minusIcon}
+                style={{width: 60, height: 60, tintColor: 'red'}}
+              />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        );
+      }
       return (
         <TouchableOpacity
           style={styles.imageContainer}
-          onPress={() =>
-            console.log(getImageUrl(product._id, image, getUniqueId()))
-          }>
+          onPress={() => {
+            onPhotoPress(index);
+          }}>
           <Image source={image} style={{width: 200, height: 120}} />
         </TouchableOpacity>
       );
