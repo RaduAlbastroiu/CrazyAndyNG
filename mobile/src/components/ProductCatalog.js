@@ -18,6 +18,10 @@ import Hashtags from './Hashtags';
 import {getUniqueId} from 'react-native-device-info';
 import ComparisonItem from './ComparisonItem';
 import {updateComparison} from '../redux/actions/comparisonActions';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import {SwipeItem, SwipeButtonsContainer} from 'react-native-swipe-item';
+
+import AddIcon from '../assets/add.png';
 
 const ProductCatalog = ({navigation, productsSource}) => {
   const windowWidth = useWindowDimensions().width;
@@ -113,9 +117,46 @@ const ProductCatalog = ({navigation, productsSource}) => {
     );
   };
 
+  const rightButton = (index) => {
+    return (
+      <SwipeButtonsContainer
+        style={{
+          alignSelf: 'center',
+          aspectRatio: 1,
+          flexDirection: 'column',
+          padding: 10,
+        }}>
+        <TouchableOpacity
+          style={{
+            width: 50,
+            height: 80,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            console.log('left button clicked', index);
+            let newProducts = [...products];
+            newProducts.splice(index, 1);
+            dispatch(updateComparison([...newProducts]));
+          }}>
+          <Image
+            source={AddIcon}
+            style={{
+              width: 50,
+              height: 50,
+              transform: [{rotate: '45deg'}],
+              tintColor: 'red',
+            }}
+          />
+        </TouchableOpacity>
+      </SwipeButtonsContainer>
+    );
+  };
+
   renderProducts = () => {
     return products.map((product, index) => {
-      return (
+      let renderProduct = (
         <TouchableOpacity
           key={index}
           style={{marginBottom: 5}}
@@ -125,6 +166,23 @@ const ProductCatalog = ({navigation, productsSource}) => {
           {renderElement(product)}
         </TouchableOpacity>
       );
+      if (productsSource === 'comparison') {
+        return (
+          <SwipeItem
+            style={{
+              width: (windowWidth / 7) * 6,
+              flex: 1,
+              marginVertical: -10,
+              alignSelf: 'center',
+            }}
+            swipeContainerStyle={styles.swipeContentContainerStyle}
+            rightButtons={rightButton(index)}>
+            {renderProduct}
+          </SwipeItem>
+        );
+      }
+
+      return renderProduct;
     });
   };
 
@@ -162,3 +220,10 @@ const ProductCatalog = ({navigation, productsSource}) => {
 };
 
 export default ProductCatalog;
+
+const styles = StyleSheet.create({
+  swipeContentContainerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

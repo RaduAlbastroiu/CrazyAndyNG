@@ -21,6 +21,7 @@ import FavIconEmpty from '../assets/fav_icon_empty.png';
 import StarsFeedback from '../components/StarsFeedback';
 import {getUniqueId} from 'react-native-device-info';
 import ProductCatalog from './ProductCatalog';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 const ComparisonItem = ({size, product}) => {
   let [starsFeedback, setStarsFeedback] = useState(0);
@@ -139,23 +140,28 @@ const ComparisonItem = ({size, product}) => {
   };
 
   return (
-    <View
-      style={{
-        width: size.width,
-        //height: size.height,
-        borderColor: '#EBEBEB',
-        borderWidth: 2,
-        borderRadius: 15,
-        margin: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: 'white',
+    <GestureRecognizer
+      onSwipe={(direction, state) => {
+        console.log('swiped');
       }}>
-      {renderLeftSide()}
-      {renderRightSide()}
-    </View>
+      <View
+        style={{
+          width: size.width,
+          //height: size.height,
+          borderColor: '#EBEBEB',
+          borderWidth: 2,
+          borderRadius: 15,
+          margin: 10,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 10,
+          backgroundColor: 'white',
+        }}>
+        {renderLeftSide()}
+        {renderRightSide()}
+      </View>
+    </GestureRecognizer>
   );
 };
 
