@@ -21,12 +21,15 @@ export const getProducts = (filter) => async (dispatch) => {
   }
 };
 
-export const getScannedProduct = (barcode) => async (dispatch) => {
+export const getScannedProduct = (barcode, categoryName) => async (
+  dispatch,
+) => {
   try {
+    let filter = {barcode, categoryName};
     const res = await axios.get(`https://crazye.herokuapp.com/api/product/`, {
       params: {
         deviceId: getUniqueId(),
-        filter: `{"barcode": "${barcode}"}`,
+        filter,
       },
     });
 

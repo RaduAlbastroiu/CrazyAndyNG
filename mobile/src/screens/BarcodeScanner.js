@@ -27,6 +27,10 @@ const BarcodeScanner = ({navigation}) => {
   const windowWidth = useWindowDimensions().width;
   let [topText, setTopText] = useState('Scanning for Barcode');
 
+  const selectedCategory = useSelector(
+    (state) => state.filtersReducer.selectedCategory,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +40,7 @@ const BarcodeScanner = ({navigation}) => {
   onBarCodeRead = async (e) => {
     dispatch(setShowProductLoading(true));
     dispatch(setShowBarcode(false));
-    dispatch(getScannedProduct(e.data));
+    dispatch(getScannedProduct(e.data, selectedCategory));
 
     console.log(`"${e.data}"`);
   };
