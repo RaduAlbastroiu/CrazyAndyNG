@@ -57,25 +57,7 @@ const Feedback = ({navigation, route}) => {
   }, []);
 
   const renderCategorySelector = () => {
-    return (
-      <DropDownPicker
-        items={dropDownCategories}
-        defaultValue={selectedCategory}
-        containerStyle={{
-          marginLeft: 5,
-          height: 40,
-          width: 100,
-          borderRadius: 10,
-        }}
-        style={{backgroundColor: '#fafafa'}}
-        itemStyle={{
-          justifyContent: 'flex-start',
-        }}
-        onChangeItem={(item) => {
-          dispatch(updateCategory(item.value));
-        }}
-      />
-    );
+    return <Text style={{fontSize: 18}}>{selectedCategory}</Text>;
   };
 
   const renderTextInput = (label, item, modifier) => {
@@ -164,8 +146,8 @@ const Feedback = ({navigation, route}) => {
         padding: 10,
         paddingRight: 15,
       }}>
-      <View style={{margin: 10}}>
-        <Text style={{marginBottom: 5}}>Product Category</Text>
+      <View style={{margin: 5, marginBottom: 15}}>
+        <Text style={{marginBottom: 10}}>Product Category</Text>
         {renderCategorySelector()}
       </View>
       {renderTextInput('Brand', brandName, setBrandName)}
