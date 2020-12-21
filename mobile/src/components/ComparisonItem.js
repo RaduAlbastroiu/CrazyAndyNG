@@ -23,7 +23,7 @@ import {getUniqueId} from 'react-native-device-info';
 import ProductCatalog from './ProductCatalog';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
-const ComparisonItem = ({size, product}) => {
+const ComparisonItem = ({size, product, onProductNavigation}) => {
   let [starsFeedback, setStarsFeedback] = useState(0);
 
   let productImage = Placeholder;
@@ -56,17 +56,19 @@ const ComparisonItem = ({size, product}) => {
           padding: 5,
           display: 'flex',
         }}>
-        <Image
-          style={{
-            width: size.width / 3,
-            height: undefined,
-            aspectRatio: 1,
-            borderColor: '#D3D3D3',
-            borderWidth: 2,
-            borderRadius: 5,
-          }}
-          source={productImage}
-        />
+        <TouchableOpacity onPress={onProductNavigation}>
+          <Image
+            style={{
+              width: size.width / 3,
+              height: undefined,
+              aspectRatio: 1,
+              borderColor: '#D3D3D3',
+              borderWidth: 2,
+              borderRadius: 5,
+            }}
+            source={productImage}
+          />
+        </TouchableOpacity>
         <View style={{marginTop: 5}}>
           <StarsFeedback stars={starsFeedback}></StarsFeedback>
         </View>

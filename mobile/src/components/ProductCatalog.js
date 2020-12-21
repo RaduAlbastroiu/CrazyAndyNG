@@ -76,6 +76,9 @@ const ProductCatalog = ({navigation, productsSource}) => {
           size={{
             width: (windowWidth / 7) * 6,
           }}
+          onProductNavigation={() => {
+            navigation.navigate('ProductInfo', product);
+          }}
           product={product}
         />
       );
@@ -154,7 +157,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
     );
   };
 
-  renderProducts = () => {
+  const renderProducts = () => {
     return products.map((product, index) => {
       let renderProduct = (
         <TouchableOpacity
@@ -177,7 +180,9 @@ const ProductCatalog = ({navigation, productsSource}) => {
             }}
             swipeContainerStyle={styles.swipeContentContainerStyle}
             rightButtons={rightButton(index)}>
-            {renderProduct}
+            <View key={index} style={{marginBottom: 5}}>
+              {renderElement(product)}
+            </View>
           </SwipeItem>
         );
       }
@@ -186,7 +191,7 @@ const ProductCatalog = ({navigation, productsSource}) => {
     });
   };
 
-  renderHashtags = () => {
+  const renderHashtags = () => {
     if (productsSource !== 'favorites' && productsSource !== 'comparison') {
       return <Hashtags category={selectedCategory} />;
     }
