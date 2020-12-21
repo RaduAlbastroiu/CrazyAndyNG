@@ -26,7 +26,7 @@ const SimpleFeedback = () => {
         }}>
         <Image
           source={activeStars >= star ? starFull : starEmpty}
-          style={{width: 40, height: 40, marginRight: 10}}
+          style={{width: 32, height: 32, marginRight: 10}}
         />
       </TouchableOpacity>
     ));
@@ -42,12 +42,13 @@ const SimpleFeedback = () => {
           onChangeText={(text) => setRemarks(text)}
           style={{
             marginTop: 5,
-            borderWidth: 1,
-            borderColor: 'lightgrey',
             height: 80,
+            borderRadius: 5,
+            borderWidth: 1,
+            borderColor: 'gray',
           }}></TextInput>
       </View>
-      <View style={{marginTop: 10}}>
+      <View style={{marginTop: 15}}>
         <Text>Rating</Text>
         <View style={{flexDirection: 'row', marginTop: 10}}>
           {renderStars()}
