@@ -88,8 +88,10 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
         style={{
           width: size.width / 2 + 20,
         }}>
-        <Text style={styles.textDetails}>{product.brand}</Text>
-        <Text style={styles.textDetails}>{product.name}</Text>
+        <Text
+          style={
+            styles.textDetails
+          }>{`${product.brand}, ${product.name}`}</Text>
         <Text style={styles.textDetails}>{product.origin}</Text>
         <Text style={styles.textDetails}>{product.price[0]}</Text>
       </View>
