@@ -81,7 +81,7 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
     let productPrice = product.price[0];
 
     if (product.price.length === 2) {
-      productPrice = `${productPrice[0]}-${productPrice[1]}`;
+      productPrice = `${product.price[0]}-${product.price[1]}`;
     }
 
     return (
@@ -94,7 +94,7 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
             styles.textDetails
           }>{`${product.brand}, ${product.name}`}</Text>
         <Text style={styles.textDetails}>{product.origin}</Text>
-        <Text style={styles.textDetails}>{product.price[0]}</Text>
+        <Text style={styles.textDetails}>{`${productPrice} $`}</Text>
       </View>
     );
   };
