@@ -55,11 +55,12 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
         style={{
           padding: 5,
           display: 'flex',
+          alignItems: 'flex-start',
         }}>
         <TouchableOpacity onPress={onProductNavigation}>
           <Image
             style={{
-              width: size.width / 3,
+              width: 120,
               height: undefined,
               aspectRatio: 1,
               borderColor: '#D3D3D3',
@@ -69,7 +70,7 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
             source={productImage}
           />
         </TouchableOpacity>
-        <View style={{marginTop: 5}}>
+        <View style={{marginTop: 5, marginLeft: 1}}>
           <StarsFeedback stars={starsFeedback}></StarsFeedback>
         </View>
       </View>
