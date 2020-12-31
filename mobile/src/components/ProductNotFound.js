@@ -76,7 +76,8 @@ const ProductNotFound = ({navigation}) => {
               <Text>Go to Scanning</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{padding: 15, backgroundColor: 'white', borderRadius: 10}}>
+              style={{padding: 15, backgroundColor: 'white', borderRadius: 10}}
+              onPress={() => navigation.navigate('Feedback')}>
               <Text>Go to Feedback</Text>
             </TouchableOpacity>
           </View>

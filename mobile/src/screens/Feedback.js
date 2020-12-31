@@ -22,7 +22,8 @@ import addIcon from '../../src/assets/add.png';
 const Feedback = ({navigation, route}) => {
   const {params} = route;
   const product = params !== undefined ? params.product : {};
-  const onFeedbackSend = params.onFeedbackSend;
+  const onFeedbackSend =
+    params !== undefined ? params.onFeedbackSend : () => {};
 
   let [brandName, setBrandName] = useState(product.brand || '');
   let [productName, setProductName] = useState(product.name || '');
@@ -50,10 +51,12 @@ const Feedback = ({navigation, route}) => {
   useEffect(() => {
     console.log('show feedback');
 
-    product.images.forEach((image) =>
-      console.log(getImageUrl(product._id, image, getUniqueId())),
-    );
-    console.log(product.images);
+    if (product.images != undefined) {
+      product.images.forEach((image) =>
+        console.log(getImageUrl(product._id, image, getUniqueId())),
+      );
+      console.log(product.images);
+    }
   }, []);
 
   const renderCategorySelector = () => {

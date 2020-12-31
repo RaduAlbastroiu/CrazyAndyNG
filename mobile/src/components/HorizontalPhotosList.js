@@ -19,13 +19,15 @@ const HorizontalPhotosList = ({product}) => {
 
   useEffect(() => {
     console.log('once');
-    let productPhotos = product.images.map((imgLink) => {
-      return {
-        uri: getImageUrl(product._id, imgLink, getUniqueId()),
-        delete: false,
-      };
-    });
-    setPhotos(productPhotos);
+    if (product.images != undefined) {
+      let productPhotos = product.images.map((imgLink) => {
+        return {
+          uri: getImageUrl(product._id, imgLink, getUniqueId()),
+          delete: false,
+        };
+      });
+      setPhotos(productPhotos);
+    }
   }, []);
 
   const openGallery = () => {
