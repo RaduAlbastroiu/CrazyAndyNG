@@ -63,7 +63,7 @@ const Feedback = ({navigation, route}) => {
     return <Text style={{fontSize: 18}}>{selectedCategory}</Text>;
   };
 
-  const renderTextInput = (label, item, modifier) => {
+  const renderTextInput = (label, placeholder, item, modifier) => {
     return (
       <View style={{margin: 5}}>
         <Text>{label}</Text>
@@ -75,7 +75,8 @@ const Feedback = ({navigation, route}) => {
             padding: 5,
           }}
           value={item}
-          placeholder={item}
+          placeholder={placeholder}
+          placeholderTextColor={'gray'}
           onChangeText={(text) => {
             modifier(text);
           }}
@@ -153,12 +154,37 @@ const Feedback = ({navigation, route}) => {
         <Text style={{marginBottom: 10}}>Product Category</Text>
         {renderCategorySelector()}
       </View>
-      {renderTextInput('Brand', brandName, setBrandName)}
-      {renderTextInput('Product Name', productName, setProductName)}
+      {renderTextInput(
+        'Brand',
+        `Whole company name, input "NA" if info cannot be found`,
+        brandName,
+        setBrandName,
+      )}
+      {renderTextInput(
+        'Product Name',
+        `Whole name, input "NA" if info cannot be found`,
+        productName,
+        setProductName,
+      )}
       {renderPrice()}
-      {renderTextInput('Origin', origin, setOrigin)}
-      {renderTextInput('Color', color, setColor)}
-      {renderTextInput('Size', size, setSize)}
+      {renderTextInput(
+        'Origin',
+        `input "NA" if info cannot be found`,
+        origin,
+        setOrigin,
+      )}
+      {renderTextInput(
+        'Color',
+        `Highly recommended to share related image with us under 'photos'`,
+        color,
+        setColor,
+      )}
+      {renderTextInput(
+        'Size',
+        `Eg L, M, S, 175mm x 95mm, 14.5X9.5cm`,
+        size,
+        setSize,
+      )}
       <HashtagsList product={product} selectedCategory={selectedCategory} />
       <HorizontalPhotosList product={product} />
       <SimpleFeedback />

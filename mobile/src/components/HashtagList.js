@@ -108,7 +108,7 @@ const HashtagsList = ({product, selectedCategory}) => {
               flex: 1,
             }}
             value={filterHashtags}
-            placeholder={'Search for hashtag'}
+            placeholder={`Type and 'add' features which do not include under 'Found Hashtags' and 'Current Hashtags'`}
             onChangeText={async (text) => {
               setFilterHashtags(text);
             }}

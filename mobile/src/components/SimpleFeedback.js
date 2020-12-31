@@ -38,15 +38,18 @@ const SimpleFeedback = () => {
         <Text>Remarks</Text>
         <TextInput
           multiline={true}
-          numberOfLines={3}
+          numberOfLines={5}
           onChangeText={(text) => setRemarks(text)}
+          placeholder={`The more fruitful and accurate the information are, the more the others may appreciate YOU to make their life easier. Other information that is important for this product/brand eg official website or any comment/recommendation would like to share with other users`}
+          placeholderTextColor={'gray'}
           style={{
             marginTop: 5,
-            height: 80,
+            height: 120,
             borderRadius: 5,
             borderWidth: 1,
             borderColor: 'gray',
-          }}></TextInput>
+          }}
+        />
       </View>
       <View style={{marginTop: 15}}>
         <Text>Rating</Text>
