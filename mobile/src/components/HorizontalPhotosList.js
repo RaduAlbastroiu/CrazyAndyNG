@@ -122,6 +122,35 @@ const HorizontalPhotosList = ({product}) => {
     sliderPhotos.push(
       <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
         <Image source={addIcon} style={{height: 60, width: 60}} />
+        <Text>{'Full'}</Text>
+      </TouchableOpacity>,
+    );
+
+    sliderPhotos.push(
+      <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
+        <Image source={addIcon} style={{height: 60, width: 60}} />
+        <Text>{'Front'}</Text>
+      </TouchableOpacity>,
+    );
+
+    sliderPhotos.push(
+      <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
+        <Image source={addIcon} style={{height: 60, width: 60}} />
+        <Text>{'Feature'}</Text>
+      </TouchableOpacity>,
+    );
+
+    sliderPhotos.push(
+      <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
+        <Image source={addIcon} style={{height: 60, width: 60}} />
+        <Text>{'Barcode'}</Text>
+      </TouchableOpacity>,
+    );
+
+    sliderPhotos.push(
+      <TouchableOpacity style={styles.imageContainer} onPress={openGallery}>
+        <Image source={addIcon} style={{height: 60, width: 60}} />
+        <Text>{'Misc'}</Text>
       </TouchableOpacity>,
     );
 
