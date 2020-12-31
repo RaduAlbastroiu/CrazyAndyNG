@@ -7,6 +7,7 @@ import {
   Platform,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -201,8 +202,22 @@ const Feedback = ({navigation, route}) => {
           alignSelf: 'center',
         }}
         onPress={() => {
-          navigation.pop();
-          onFeedbackSend();
+          Alert.alert('Feedback', 'Are you sure you want to submit feedback?', [
+            {
+              text: 'Cancel',
+              onPress: () => {
+                console.log('cancel');
+              },
+              style: 'cancel',
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                navigation.pop();
+                onFeedbackSend();
+              },
+            },
+          ]);
         }}>
         <Text>Send</Text>
       </TouchableOpacity>
