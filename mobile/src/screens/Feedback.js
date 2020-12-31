@@ -66,7 +66,7 @@ const Feedback = ({navigation, route}) => {
   const renderTextInput = (label, placeholder, item, modifier) => {
     return (
       <View style={{margin: 5}}>
-        <Text>{label}</Text>
+        <Text style={{fontWeight: 'bold'}}>{label}</Text>
         <TextInput
           style={{
             borderRadius: 5,
@@ -88,7 +88,7 @@ const Feedback = ({navigation, route}) => {
   const renderPrice = () => {
     return (
       <View style={{margin: 5}}>
-        <Text>Price</Text>
+        <Text style={{fontWeight: 'bold'}}>Price</Text>
         <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
           <View
             style={{
@@ -151,7 +151,9 @@ const Feedback = ({navigation, route}) => {
         paddingRight: 15,
       }}>
       <View style={{margin: 5, marginBottom: 15}}>
-        <Text style={{marginBottom: 10}}>Product Category</Text>
+        <Text style={{marginBottom: 10, fontWeight: 'bold'}}>
+          Product Category
+        </Text>
         {renderCategorySelector()}
       </View>
       {renderTextInput(

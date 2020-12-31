@@ -91,7 +91,7 @@ const HashtagsList = ({product, selectedCategory}) => {
 
     return (
       <View style={{margin: 5}}>
-        <Text>#hashtag</Text>
+        <Text style={{fontWeight: 'bold'}}>#hashtag</Text>
         <View
           style={{
             display: 'flex',
@@ -129,7 +129,7 @@ const HashtagsList = ({product, selectedCategory}) => {
     if (displayHashtags.length > 0) {
       return (
         <View style={{margin: 5}}>
-          <Text>{title}</Text>
+          <Text style={{fontWeight: 'bold'}}>{title}</Text>
           <View
             style={{
               flexDirection: 'row',

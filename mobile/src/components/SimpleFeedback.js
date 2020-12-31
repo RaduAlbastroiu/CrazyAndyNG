@@ -35,7 +35,7 @@ const SimpleFeedback = () => {
   return (
     <View style={{margin: 5}}>
       <View style={{}}>
-        <Text>Remarks</Text>
+        <Text style={{fontWeight: 'bold'}}>Remarks</Text>
         <TextInput
           multiline={true}
           numberOfLines={5}
@@ -52,7 +52,7 @@ const SimpleFeedback = () => {
         />
       </View>
       <View style={{marginTop: 15}}>
-        <Text>Rating</Text>
+        <Text style={{fontWeight: 'bold'}}>Rating</Text>
         <View style={{flexDirection: 'row', marginTop: 10}}>
           {renderStars()}
         </View>

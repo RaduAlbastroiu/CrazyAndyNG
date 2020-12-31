@@ -156,7 +156,7 @@ const HorizontalPhotosList = ({product}) => {
 
     return (
       <View style={{margin: 5, marginTop: 10}}>
-        <Text>Photos</Text>
+        <Text style={{fontWeight: 'bold'}}>Photos</Text>
         <ScrollView
           style={{marginTop: 5}}
           horizontal={true}
