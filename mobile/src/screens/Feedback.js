@@ -88,7 +88,7 @@ const Feedback = ({navigation, route}) => {
   const renderPrice = () => {
     return (
       <View style={{margin: 5}}>
-        <Text style={{fontWeight: 'bold'}}>Price</Text>
+        <Text style={{fontWeight: 'bold'}}>Price*</Text>
         <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
           <View
             style={{
@@ -157,13 +157,13 @@ const Feedback = ({navigation, route}) => {
         {renderCategorySelector()}
       </View>
       {renderTextInput(
-        'Brand',
+        'Brand*',
         `Whole company name, input "NA" if info cannot be found`,
         brandName,
         setBrandName,
       )}
       {renderTextInput(
-        'Product Name',
+        'Product Name*',
         `Whole name, input "NA" if info cannot be found`,
         productName,
         setProductName,
