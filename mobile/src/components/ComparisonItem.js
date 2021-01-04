@@ -125,7 +125,7 @@ const ComparisonItem = ({size, product, onProductNavigation}) => {
     return (
       <View
         style={{
-          height: 50,
+          //height: 50,
           width: 200,
           flexDirection: 'row',
           flexWrap: 'wrap',
