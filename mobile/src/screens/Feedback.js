@@ -27,7 +27,9 @@ const Feedback = ({navigation, route}) => {
     params !== undefined ? params.onFeedbackSend : () => {};
 
   let [brandName, setBrandName] = useState(product.brand || '');
+  let [brandNameColor, setBrandNameColor] = useState('gray');
   let [productName, setProductName] = useState(product.name || '');
+  let [productNameColor, setProductNameColor] = useState('gray');
   let [minPrice, setMinPrice] = useState(
     product.price !== undefined ? product.price[0].toString(10) : '0',
   );
@@ -39,6 +41,7 @@ const Feedback = ({navigation, route}) => {
       : '0',
   );
   let [origin, setOrigin] = useState(product.origin || '');
+  let [originColor, setOriginColor] = useState('gray');
   let [color, setColor] = useState(product.colour || '');
   let [size, setSize] = useState(product.size || '');
 
@@ -64,7 +67,7 @@ const Feedback = ({navigation, route}) => {
     return <Text style={{fontSize: 18}}>{selectedCategory}</Text>;
   };
 
-  const renderTextInput = (label, placeholder, item, modifier) => {
+  const renderTextInput = (label, placeholder, item, modifier, borderColor) => {
     return (
       <View style={{margin: 5}}>
         <Text style={{fontWeight: 'bold'}}>{label}</Text>
@@ -72,7 +75,7 @@ const Feedback = ({navigation, route}) => {
           style={{
             borderRadius: 5,
             borderWidth: 1,
-            borderColor: 'gray',
+            borderColor: borderColor,
             padding: 5,
           }}
           value={item}
@@ -143,6 +146,51 @@ const Feedback = ({navigation, route}) => {
     );
   };
 
+  const fieldValidation = () => {
+    if (origin === '') {
+      setOriginColor('red');
+      return false;
+    } else {
+      setOriginColor('gray');
+    }
+    if (productName === '') {
+      setProductNameColor('red');
+      return false;
+    } else {
+      setProductNameColor('gray');
+    }
+    if (brandName === '') {
+      setBrandNameColor('red');
+      return false;
+    } else {
+      setBrandNameColor('gray');
+    }
+    return true;
+  };
+
+  const sendFeedback = () => {
+    const valid = fieldValidation();
+
+    if (valid) {
+      Alert.alert('Feedback', 'Are you sure you want to submit feedback?', [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            console.log('cancel');
+          },
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.pop();
+            onFeedbackSend();
+          },
+        },
+      ]);
+    }
+  };
+
   return (
     <ScrollView
       style={{
@@ -162,31 +210,36 @@ const Feedback = ({navigation, route}) => {
         `Whole company name, input "NA" if info cannot be found`,
         brandName,
         setBrandName,
+        brandNameColor,
       )}
       {renderTextInput(
         'Product Name*',
         `Whole name, input "NA" if info cannot be found`,
         productName,
         setProductName,
+        productNameColor,
       )}
       {renderPrice()}
       {renderTextInput(
-        'Origin',
+        'Origin*',
         `input "NA" if info cannot be found`,
         origin,
         setOrigin,
+        originColor,
       )}
       {renderTextInput(
         'Color',
         `Highly recommended to share related image with us under 'photos'`,
         color,
         setColor,
+        'gray',
       )}
       {renderTextInput(
         'Size',
         `Eg L, M, S, 175mm x 95mm, 14.5X9.5cm`,
         size,
         setSize,
+        'gray',
       )}
       <HashtagsList product={product} selectedCategory={selectedCategory} />
       <HorizontalPhotosList product={product} />
@@ -201,24 +254,7 @@ const Feedback = ({navigation, route}) => {
           marginBottom: 60,
           alignSelf: 'center',
         }}
-        onPress={() => {
-          Alert.alert('Feedback', 'Are you sure you want to submit feedback?', [
-            {
-              text: 'Cancel',
-              onPress: () => {
-                console.log('cancel');
-              },
-              style: 'cancel',
-            },
-            {
-              text: 'OK',
-              onPress: () => {
-                navigation.pop();
-                onFeedbackSend();
-              },
-            },
-          ]);
-        }}>
+        onPress={sendFeedback}>
         <Text>Send</Text>
       </TouchableOpacity>
     </ScrollView>
