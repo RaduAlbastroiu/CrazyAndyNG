@@ -11,14 +11,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 import {getProducts} from '../redux/actions/productsActions';
 import {getFavorites} from '../redux/actions/favoritesActions';
-import FloatingButton from './FloatingButton';
-import TopSearch from './TopSearch';
 import SmallProduct from './SmallProduct';
 import Hashtags from './Hashtags';
 import {getUniqueId} from 'react-native-device-info';
 import ComparisonItem from './ComparisonItem';
 import {updateComparison} from '../redux/actions/comparisonActions';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {SwipeItem, SwipeButtonsContainer} from 'react-native-swipe-item';
 
 import AddIcon from '../assets/add.png';
