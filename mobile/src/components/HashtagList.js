@@ -129,7 +129,9 @@ const HashtagsList = ({product, selectedCategory}) => {
     if (displayHashtags.length > 0) {
       return (
         <View style={{margin: 5}}>
-          <Text style={{fontWeight: 'bold'}}>{title}</Text>
+          {title.length != 0 && (
+            <Text style={{fontWeight: 'bold'}}>{title}</Text>
+          )}
           <View
             style={{
               flexDirection: 'row',
@@ -153,7 +155,7 @@ const HashtagsList = ({product, selectedCategory}) => {
   return (
     <View>
       {renderAddHashtag()}
-      {renderHashtagsContainer('Found Hashtags', false, filterHashtags)}
+      {renderHashtagsContainer('', false, filterHashtags)}
       {renderHashtagsContainer('Current Hashtags', true)}
     </View>
   );
