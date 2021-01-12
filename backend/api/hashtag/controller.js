@@ -34,7 +34,7 @@ class HashtagController {
     const query = await converToQuery(args.filter);
 
     // ignore pagination
-    let foundHashtags = await this.model.find(query);
+    let foundHashtags = await this.model.find(query).limit(8);
 
     return foundHashtags;
   }
