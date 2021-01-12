@@ -1,6 +1,7 @@
 const hashtagRouter = require('./router');
 
 const CategoryModel = require('../category/model');
+const { filter } = require('compression');
 
 async function converToQuery(filter) {
   const newFilter = {};
@@ -33,8 +34,12 @@ class HashtagController {
     const skip = (args.page - 1) * args.size;
     const query = await converToQuery(args.filter);
 
+    let limit = 8;
+    if (!filter.name) {
+      limit = 100;
+    }
     // ignore pagination
-    let foundHashtags = await this.model.find(query).limit(8);
+    let foundHashtags = await this.model.find(query).limit(limit);
 
     return foundHashtags;
   }
